@@ -1,0 +1,39 @@
+
+/*每块背景和偏移样式*/
+body{
+  background-color: #000A38;
+  background-image:url('../../static/img/main_img.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.chart_main{
+  margin-top: 7vh;
+}
+.h1{height: 4vh}
+.h2{height: 8vh}
+.h2_5{height: 12vh}
+.h3{height: 12vh}
+.h3_5{height: 14vh}
+.h4{height: 16vh}
+.h5{height: 20vh}
+.h6{height: 24vh}
+.h7{height: 28vh}
+.h8{height: 32vh}
+.h9{height: 36vh}
+.h10{height: 40vh}
+.h11{height: 44vh}
+.h12{height: 48vh}
+.h13{height: 52vh}
+.h14{height: 56vh}
+.h15{height: 60vh}
+.h16{height: 64vh}
+.h17{height: 68vh}
+.h18{height: 72vh}
+.h19{height: 76vh}
+.h20{height: 80vh}
+.h21{height: 84vh}
+.h22{height: 88vh}
+.h23{height: 92vh}
+.h24{height: 96vh}
+
+
