@@ -845,7 +845,7 @@
               align: 'left',
               right: '5%',
               top: '10%',
-              itemWidth:'40%',
+              itemWidth:10,
               itemHeight: 7,
               textStyle: {
                 color: '#fff',
