@@ -121,6 +121,11 @@ export default {
         width: 10%;
         line-height: 7vh;
       }
+      .ind_title:hover{
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-image:url('../../../static/img/active.png');
+      }
       .ind_title_active{
         background-repeat: no-repeat;
         background-size: 100% 100%;
