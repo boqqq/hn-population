@@ -36,7 +36,7 @@
       </el-col>
       <el-col :span="16">
         <el-col :span="24">
-          <div class="fix-small">
+          <div class="fix-small fix-margin-right">
             <div style="height: 4vh; line-height: 4vh;">
               <span class="trend-title">各行业从业人员数量变化趋势</span>
             </div>
@@ -56,7 +56,7 @@
           </div>
         </el-col>
         <el-col :span="12">
-          <div class="fix-mini">
+          <div class="fix-mini fix-margin-right">
             <div style="height: 4vh; line-height: 4vh;">
               <span class="trend-title">按登记注册类型从业人员结构变化趋势</span>
             </div>
@@ -730,12 +730,19 @@
       margin-top: 1vh;
       margin-left: 1vh;
       background-image:url('../../static/img/ind_right.png');
+      background-repeat: no-repeat;
+      background-size: 100% 29.6vh;
     }
     .fix-small{
       height: 60.3vh;
       margin-top: 1vh;
       margin-left: 1vh;
       background-image:url('../../static/img/ind_right.png');
+      background-repeat: no-repeat;
+      background-size: 100% 60.3vh;
+    }
+    .fix-margin-right{
+      margin-right: 1vh;
     }
     .bar-comtent{
        height: 23vh;
