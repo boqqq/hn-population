@@ -36,4 +36,26 @@ body{
 .h23{height: 92vh}
 .h24{height: 96vh}
 
-
+._tit h4::before{
+  width: 10px;
+  content:"|";
+  border-radius: 2px;
+  color: red;
+  margin-right: 5px;
+  background-color: red;
+  margin-top: 0px;
+}
+._tit h4{
+  width: 100%;
+  height: 4vh;
+  text-align: left;
+  font-weight: bold;
+  color: #0391F3;
+  font-size: 2vh;
+  margin-left: 2vh;
+  line-height: 5vh;
+}
+.chart{
+  height: 100%;
+  width: 100%;
+}

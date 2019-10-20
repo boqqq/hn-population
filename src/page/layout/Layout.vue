@@ -131,14 +131,14 @@ export default {
         width: 16%;
       }
       h4{
-        font-size: 2vh;
+        font-size: 2.5vh;
         font-weight: bold;
         font-family: 'ºÚÌå',Verdana, Arial, Helvetica, AppleGothic, sans-serif;
         color: #9CA5D3;
         text-align: center;
       }
-      h4:nth-child(5){
-        font-size: 3vh;
+      div:nth-child(5) h4{
+        font-size: 3.5vh;
         color: #fff;
       }
     }
