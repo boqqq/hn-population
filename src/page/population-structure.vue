@@ -11,7 +11,6 @@
                   <div  style="height:3vh;">
                     <el-row>
                       <el-col :span="2">
-                        <img src="../../static/img/longPeople.png" style="width: 50%;height:50%;">
                       </el-col>
                       <el-col :span="22">
                         <p class="_tit">常住人口年龄结构5年变迁</p>
@@ -846,7 +845,7 @@
               align: 'left',
               right: '5%',
               top: '10%',
-              itemWidth: 7,
+              itemWidth:'40%',
               itemHeight: 7,
               textStyle: {
                 color: '#fff',
