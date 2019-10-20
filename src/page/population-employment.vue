@@ -1,6 +1,6 @@
 <template>
   <div class="employment">
-    <el-row style="margin-top: 7vh" :gutter="10">
+    <el-row style="margin-top: 7vh">
       <el-col :span="8">
         <el-col :span="24">
           <div class="fix-mini">
@@ -36,7 +36,7 @@
       </el-col>
       <el-col :span="16">
         <el-col :span="24">
-          <div class="fix-small">
+          <div class="fix-small fix-margin-right">
             <div style="height: 4vh; line-height: 4vh;">
               <span class="trend-title">各行业从业人员数量变化趋势</span>
             </div>
@@ -56,7 +56,7 @@
           </div>
         </el-col>
         <el-col :span="12">
-          <div class="fix-mini">
+          <div class="fix-mini fix-margin-right">
             <div style="height: 4vh; line-height: 4vh;">
               <span class="trend-title">按登记注册类型从业人员结构变化趋势</span>
             </div>
@@ -225,7 +225,7 @@
           grid:{
             top:'5%',
             left: '2%',
-            right: '2%',
+            right: '5%',
             bottom: '5%',
             containLabel: true
           },
@@ -436,10 +436,10 @@
             }
           },
           grid: {
-            top:'15%',
+            top:'10%',
             left: '5%',
-            right: '10%',
-            bottom: '2%',
+            right: '5%',
+            bottom: '5%',
             containLabel: true
           },
           xAxis: {
@@ -447,7 +447,6 @@
             data: hours,
             boundaryGap: false,
             axisLabel: {
-              rotate:45,
               textStyle:config().textStyle
             },
             axisLine: {
@@ -651,7 +650,7 @@
             left: '4%',
             right: '4%',
             bottom: '20%',
-            top:'20%',
+            top:'25%',
             containLabel: false
           },
           legend: {
@@ -727,10 +726,23 @@
 <style lang="scss">
   .employment{
     .fix-mini{
-      height: 29vh; margin: 1.5vh 1vh 0 1vh
+      height: 29.6vh;
+      margin-top: 1vh;
+      margin-left: 1vh;
+      background-image:url('../../static/img/ind_right.png');
+      background-repeat: no-repeat;
+      background-size: 100% 29.6vh;
     }
     .fix-small{
-      height: 59.5vh; margin: 1.5vh 1vh 0 1vh
+      height: 60.3vh;
+      margin-top: 1vh;
+      margin-left: 1vh;
+      background-image:url('../../static/img/ind_right.png');
+      background-repeat: no-repeat;
+      background-size: 100% 60.3vh;
+    }
+    .fix-margin-right{
+      margin-right: 1vh;
     }
     .bar-comtent{
        height: 23vh;
@@ -741,7 +753,9 @@
       margin-top: 2vh;
     }
     .trend-title{
-      font-size: 0.8vw;
+      font-size: 2vh;
+      margin-left: 2vh;
+      line-height: 5vh;
       font-weight: bold;
       color: #fff;
 
