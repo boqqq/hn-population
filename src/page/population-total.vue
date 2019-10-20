@@ -2,51 +2,58 @@
   <div id="total">
     <div class = "chart_main">
       <el-row>
-        <el-col :span="7">
+        <el-col :span="8">
           <el-row>
             <el-col :span="24">
               <div class = "ind_left">
                 <div class="chart_title">户籍人口与常驻外来人口总量变化趋势</div>
-                <div id="chart1" style="height: 100%;"></div>
+                <div id="chart1" class="left_chart"></div>
               </div>
             </el-col>
             <el-col :span="24">
               <div class = "ind_left">
                 <div class="chart_title">户籍人口与常驻外来人口总量变化趋势</div>
-                <div id="chart2" style="height: 100%;"></div>
+                <div id="chart2"  class="left_chart"></div>
 
               </div>
             </el-col>
             <el-col :span="24">
               <div class = "ind_left">
                 <div class="chart_title">劳动力人口增长率变化趋势</div>
-                <div id="chart3" style="height: 100%"></div>
+                <div id="chart3"  class="left_chart"></div>
               </div>
             </el-col>
-
           </el-row>
         </el-col>
-        <el-col :span="10">
-          <div class = "ind_center">
-            <div class = "chart_title"><h4>各地区户籍与常住外来人口增量分布</h4></div>
-            <div id = "chart6" style="height: 90%"></div>
-          </div>
-        </el-col>
-        <el-col :span="7">
-          <el-col :span="24">
-            <div class = "ind_right">
-              <div class="chart_title">各地区户籍人口增量变化</div>
-              <div id="chart4" style="height: 100%"></div>
-            </div>
-          </el-col>
-          <el-col :span="24">
-            <div class = "ind_right">
-              <div class="chart_title">各地区常住外来人口增量变化</div>
-              <div id="chart5" style="height: 100%"></div>
-            </div>
-          </el-col>
+        <el-col :span="16">
+          <el-row>
+            <el-col :span="24">
+              <div class = "top_right">
+                <div class = "chart_title"><h4>各地区户籍与常住外来人口增量分布</h4></div>
+                <div id = "chart6" style="height: 90%"></div>
+              </div>
+            </el-col>
+            <el-col :span="24">
+              <el-row>
+                <el-col :span="12">
 
+                  <div class = "ind_right2">
+                    <div class="chart_title">各地区户籍人口增量变化</div>
+                    <div id="chart4" style="height: 97%"></div>
+                  </div>
+                </el-col>
+                <el-col :span="12">
+                  <div class = "ind_right2 " style="margin-right: 1vh">
+                    <div class="chart_title">各地区常住外来人口增量变化</div>
+                    <div id="chart5" style="height: 98%;"></div>
+                  </div>
+                </el-col>
+
+              </el-row>
+            </el-col>
+          </el-row>
         </el-col>
+
       </el-row>
     </div>
   </div>
@@ -420,7 +427,7 @@
                         left: '3%',
                         right: '4%',
                         bottom: '10%',
-                        width:'95%',
+                        width:'93%',
                         height:'75%',
                         containLabel: true
                     },
@@ -566,36 +573,41 @@
   #total{
     .chart_title{
       color: white;
-      padding: 1%;
+      padding: 1vh;
       height: 1vh;
       font-size: 1.5em;
     }
-  .ind_left{
-    width: 98%;
-    height: 29.6vh;
-    margin-top: 1vh;
-    margin-left: 2%;
-    background-image:url('../../static/img/ind_left.png');
-    background-repeat: repeat;
-    background-position:center;
-    background-size: 100% 14.3vh;
-  }
-  .ind_center{
-    height: 91vh;
-    width: 100%;
-    //background-image:url('../../static/img/main_BG.png');
-    background-repeat: no-repeat;
-    background-size: 100% 91vh;
-    margin-top: 1vh;
-  }
-  .ind_right{
-    width: 98%;
-    height: 45vh;
-    margin-top: 1vh;
-    margin-right: 2%;
-    background-image:url('../../static/img/ind_right.png');
-    background-repeat:repeat;
-    background-size: 100% 29.6vh;
-  }
+    .ind_left{
+      height: 29.6vh;
+      margin-top: 1vh;
+      margin-left: 1vh;
+      background-image:url('../../static/img/ind_right.png');
+      background-repeat: no-repeat;
+      background-size: 100% 29.6vh;
+      .left_chart{
+        width: 100%;
+        height: 25.6vh;
+      }
+    }
+
+
+    .ind_right2{
+      height: 29.6vh;
+      margin-top: 1vh;
+      margin-left: 1vh;
+      background-image:url('../../static/img/ind_right.png');
+      background-repeat: no-repeat;
+      background-size: 100% 29.6vh;
+    }
+    .top_right{
+      //width: 98%;
+      height: 60.3vh;
+      margin-top: 1vh;
+      margin-left: 1vh;
+      margin-right: 1vh;
+      background-image:url('../../static/img/ind_right.png');
+      background-repeat: no-repeat;
+      background-size: 100% 60.3vh;
+    }
   }
 </style>
