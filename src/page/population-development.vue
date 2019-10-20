@@ -5,22 +5,112 @@
         <el-col :span="7">
           <el-row>
             <el-col :span="24">
-              <div class = "dev_left"></div>
+              <div class = "dev_left">
+                <div class="pop_type_item">
+                  <div class="pop_type_icon fa_bg_1"><i class="fa fa-user fa-fw"></i></div>
+                  <h3 class="pop_type_title">常住人口</h3>
+                  <el-row>
+                    <el-col :span="10">
+                      <p class="pop_type_val">835.258<span class="pop_type_unit">万人</span></p>
+                    </el-col>
+                    <el-col :span="14">
+                      <span class="pop_type_last">同比上周</span>
+                      <span class="pop_type_prop up"><i class="arr_icon icon-upArr"></i>10%</span>
+                    </el-col>
+                  </el-row>
+                  <div class="pop_type_frIcon icon-dec-line"></div>
+                </div>
+              </div>
             </el-col>
             <el-col :span="24">
-              <div class = "dev_left"></div>
+              <div class = "dev_left">
+                <div class="pop_type_item">
+                  <div class="pop_type_icon fa_bg_2"><i class="fa fa-user fa-fw"></i></div>
+                  <h3 class="pop_type_title">户籍人口</h3>
+                  <el-row>
+                    <el-col :span="10">
+                      <p class="pop_type_val">835.258<span class="pop_type_unit">万人</span></p>
+                    </el-col>
+                    <el-col :span="14">
+                      <span class="pop_type_last">同比上周</span>
+                      <span class="pop_type_prop dn"><i class="arr_icon icon-dnArr"></i>10%</span>
+                    </el-col>
+                  </el-row>
+                  <div class="pop_type_frIcon icon-dec-line"></div>
+                </div>
+              </div>
             </el-col>
             <el-col :span="24">
-              <div class = "dev_left"></div>
+              <div class = "dev_left">
+                <div class="pop_type_item">
+                  <div class="pop_type_icon fa_bg_3"><i class="fa fa-user fa-fw"></i></div>
+                  <h3 class="pop_type_title">流动人口</h3>
+                  <el-row>
+                    <el-col :span="10">
+                      <p class="pop_type_val">835.258<span class="pop_type_unit">万人</span></p>
+                    </el-col>
+                    <el-col :span="14">
+                      <span class="pop_type_last">同比上周</span>
+                      <span class="pop_type_prop up"><i class="arr_icon icon-upArr"></i>10%</span>
+                    </el-col>
+                  </el-row>
+                  <div class="pop_type_frIcon icon-dec-line"></div>
+                </div>
+              </div>
             </el-col>
             <el-col :span="24">
-              <div class = "dev_left"></div>
+              <div class = "dev_left">
+                <div class="pop_type_item">
+                  <div class="pop_type_icon fa_bg_4"><i class="fa fa-user fa-fw"></i></div>
+                  <h3 class="pop_type_title">劳动力人口比例</h3>
+                  <el-row>
+                    <el-col :span="10">
+                      <p class="pop_type_val">58<span class="pop_type_unit">%</span></p>
+                    </el-col>
+                    <el-col :span="14">
+                      <span class="pop_type_last">同比上周</span>
+                      <span class="pop_type_prop up"><i class="arr_icon icon-upArr"></i>10%</span>
+                    </el-col>
+                  </el-row>
+                  <div class="pop_type_frIcon icon-dec-line"></div>
+                </div>
+              </div>
             </el-col>
             <el-col :span="24">
-              <div class = "dev_left"></div>
+              <div class = "dev_left">
+                <div class="pop_type_item">
+                  <div class="pop_type_icon fa_bg_5"><i class="fa fa-user fa-fw"></i></div>
+                  <h3 class="pop_type_title">老龄人口比</h3>
+                  <el-row>
+                    <el-col :span="10">
+                      <p class="pop_type_val">83<span class="pop_type_unit">%</span></p>
+                    </el-col>
+                    <el-col :span="14">
+                      <span class="pop_type_last">同比上周</span>
+                      <span class="pop_type_prop up"><i class="arr_icon icon-upArr"></i>10%</span>
+                    </el-col>
+                  </el-row>
+                  <div class="pop_type_frIcon icon-dec-line"></div>
+                </div>
+              </div>
             </el-col>
             <el-col :span="24">
-              <div class = "dev_left"></div>
+              <div class = "dev_left">
+                <div class="pop_type_item">
+                  <div class="pop_type_icon fa_bg_6"><i class="fa fa-user fa-fw"></i></div>
+                  <h3 class="pop_type_title">常住人口年龄中位数</h3>
+                  <el-row>
+                    <el-col :span="10">
+                      <p class="pop_type_val">55<span class="pop_type_unit">%</span></p>
+                    </el-col>
+                    <el-col :span="14">
+                      <span class="pop_type_last">同比上周</span>
+                      <span class="pop_type_prop up"><i class="arr_icon icon-upArr"></i>10%</span>
+                    </el-col>
+                  </el-row>
+                  <div class="pop_type_frIcon icon-dec-line"></div>
+                </div>
+              </div>
             </el-col>
           </el-row>
         </el-col>
@@ -30,13 +120,19 @@
               <el-row>
                 <el-col :span="16">
                   <div class = "dev_top">
-                    <div class = "_tit"><h4>人均受教育年限与人均GDP关系演变</h4></div>
+                    <div class="pop_col_tit">
+                      <i class="tit_icon icon-tit-line"></i>
+                      <h3>人均受教育年限与人均GDP关系演变</h3>
+                    </div>
                     <div id = "top_chart1" class = "top_chart"></div>
                   </div>
                 </el-col>
                 <el-col :span="8">
                   <div class = "dev_top" style="margin-right: 1vh;">
-                    <div class = "_tit"><h4>空气质量排名（2019年9月）</h4></div>
+                    <div class="pop_col_tit">
+                      <i class="tit_icon icon-tit-line"></i>
+                      <h3>空气质量排名（2019年9月）</h3>
+                    </div>
                     <div class = "top_chart">
                       <div class="tltleBox" style="z-index: 9999;margin-top: 1vh;"><span>地区</span><span>空气质量优良率</span><span>排名</span></div>
                       <div  style="height: 51vh;overflow: hidden; position:relative">
@@ -53,7 +149,10 @@
               <el-row>
                 <el-col :span="8">
                   <div class = "dev_bottom">
-                    <div class = "_tit"><h4>城乡发展差异</h4></div>
+                    <div class="pop_col_tit">
+                      <i class="tit_icon icon-tit-line"></i>
+                      <h3>城乡发展差异</h3>
+                    </div>
                     <div class = "bottom_chart">
                       <div class = "dev_diff">
                         <div class = "diff1"></div>
@@ -80,7 +179,10 @@
                 </el-col>
                 <el-col :span="8">
                   <div class = "dev_bottom">
-                    <div class = "_tit"><h4>城乡发展差异</h4></div>
+                    <div class="pop_col_tit">
+                      <i class="tit_icon icon-tit-line"></i>
+                      <h3>人与资源环境</h3>
+                    </div>
                     <el-row>
                       <el-col :span="5">
                         <div class = "dev_pe">
@@ -111,7 +213,10 @@
                 </el-col>
                 <el-col :span="8">
                   <div class = "dev_bottom" style="margin-right: 1vh;">
-                    <div class = "_tit"><h4>人与社会保障</h4></div>
+                    <div class="pop_col_tit">
+                      <i class="tit_icon icon-tit-line"></i>
+                      <h3>人与社会保障</h3>
+                    </div>
                     <dev>
                       <div class = "dev_gua" v-for="(item,index) in tableData4" :key="index">
                         <p><span>{{item.name}}</span></p>
@@ -179,12 +284,22 @@
             {name:'人均卫生总费用',value:5000,unit:'元/人'},
             {name:'人均受教育年限',value:16.9,unit:'年'}
           ],
+          pop_month: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+          pop_hou_bar:[190,118,172,176,223,84,111,90,94,241,100,110],
+          pop_hou_line:[164,218,72,76,180,184,86,190,94,222,100,110],
+          pop_fix_bar:[190,118,172,176,223,84,111,90,94,241,100,110],
+          pop_fix_line:[164,218,72,76,180,184,86,190,94,222,100,110],
+          pop_flow_bar:[190,118,172,176,223,84,111,90,94,241,100,110],
+          pop_flow_line:[164,218,72,76,180,184,86,190,94,222,100,110],
+          nameB: ['户籍人口','常住人口','流动人口'],
+          nameL: '同比增长率'
         }
       },
       components: {
       },
 
       mounted () {
+
         this.top_chart1()
       },
       methods: {
@@ -402,10 +517,10 @@
       background-image:url('../../static/img/ind_right.png');
       background-repeat: no-repeat;
       background-size: 100% 60.3vh;
-    }
-    .top_chart{
-      width: 100%;
-      height: 56.3vh;
+      .top_chart{
+        width: 100%;
+        height: 55.3vh;
+      }
     }
     .tltleBox{
       top: 0;
@@ -445,14 +560,14 @@
       background-image:url('../../static/img/ind_right.png');
       background-repeat: no-repeat;
       background-size: 100% 29.6vh;
-    }
-    .bottom_chart{
-      width: 100%;
-      height: 25.6vh;
+      .bottom_chart{
+        width: 100%;
+        height: 24.6vh;
+      }
     }
     .dev_diff{
       width: 100%;
-      height: 7vh;
+      height: 6.5vh;
       text-align: center;
       color: #fff;
       font-size: 1.5vh;
@@ -460,7 +575,7 @@
         width: 32%;
         height: 100%;
         float: left;
-        line-height: 7vh;
+        line-height: 6.5vh;
       }
       .diff1,.diff2{
         border-right: 1px #fff solid;
@@ -541,5 +656,77 @@
     .dev_gua:nth-child(1){
       margin-top: 1.5vh;
     }
+
+    .pop_type_item {
+      padding: 4vh 20vh 0 13vh;
+      position: relative;
+      height: 10vh;
+      .pop_type_icon {
+        position: absolute;
+        z-index: 1;
+        top:4.7vh;
+        left: 4.7vh;
+        width: 4.7vh;
+        height: 4.7vh;
+        border-radius: 4.7vh;
+        line-height: 4.7vh;
+        text-align: center;
+        .fa { color: #fff;}
+      }
+      .fa_bg_1 { background: linear-gradient(#8343ff, #7f26ff)}
+      .fa_bg_2 { background: linear-gradient(#facb17, #de8b13)}
+      .fa_bg_3 { background: linear-gradient(#25fa91, #08d28c)}
+      .fa_bg_4 { background: linear-gradient(#dd5246, #cf281c)}
+      .fa_bg_5 { background: linear-gradient(#4accfd, #02aeee)}
+      .fa_bg_6 { background: linear-gradient(#842af0, #9350e9)}
+
+      .pop_type_title {
+        font-size: 1.4vh;
+        color: #a1bcfd;
+        margin:.5vh 0;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .pop_type_val {
+        font-size: 2.8vh;
+        color: #fff;
+        white-space: nowrap;
+        overflow: hidden;
+        .pop_type_unit {
+          font-size: 1.8vh;
+          color: #fff;
+        }
+      }
+      .pop_type_last {
+        font-size: 1.4vh;
+        color: #a1bcfd;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .pop_type_prop {
+        font-size: 1.4vh;
+        white-space: nowrap;
+        overflow: hidden;
+        .arr_icon {
+          width: 3.6vh;
+          height: 3.6vh;
+          display: inline-block;
+          vertical-align: middle;
+        }
+      }
+      .pop_type_frIcon {
+        position: absolute;
+        top:4.7vh;
+        right: 5vh;
+        width: 14vh;
+        height: 5vh;
+      }
+      .up {color: #0ff1a4;}
+      .dn {color: #ff584b;}
+    }
+    .pop_chart_fr { height: 22vh}
+    .icon-dnArr { background: url("../../static/img/icon-dnArr.svg") no-repeat 100%;}
+    .icon-upArr { background: url("../../static/img/icon-upArr.svg") no-repeat 100%;}
+    .icon-dec-line { background: url("../../static/img/icon-dec-line.svg") no-repeat; background-size: 100%;}
   }
 </style>

@@ -6,19 +6,28 @@
           <el-row>
             <el-col :span="24">
               <div class = "left_age">
-                <div class = "_tit"><h4>老龄人口结构与趋势</h4></div>
+                <div class="pop_col_tit">
+                  <i class="tit_icon icon-tit-line"></i>
+                  <h3>老龄人口结构与趋势</h3>
+                </div>
                 <div id = "left_chart1" class = "left_chart"></div>
               </div>
             </el-col>
             <el-col :span="24">
               <div class = "left_age">
-                <div class = "_tit"><h4>人口出生率与死亡率趋势</h4></div>
+                <div class="pop_col_tit">
+                  <i class="tit_icon icon-tit-line"></i>
+                  <h3>人口出生率与死亡率趋势</h3>
+                </div>
                 <div id = "left_chart2" class = "left_chart"></div>
               </div>
             </el-col>
             <el-col :span="24">
               <div class = "left_age">
-                <div class = "_tit"><h4>年龄随迁徙变化特征</h4></div>
+                <div class="pop_col_tit">
+                  <i class="tit_icon icon-tit-line"></i>
+                  <h3>年龄随迁徙变化特征</h3>
+                </div>
                 <div id = "left_chart3" class = "left_chart"></div>
               </div>
             </el-col>
@@ -30,7 +39,10 @@
               <div class = "top_age">
                 <el-row>
                   <el-col :span="17">
-                    <div class = "_tit"><h4>人口中位数变化率</h4></div>
+                    <div class="pop_col_tit">
+                      <i class="tit_icon icon-tit-line"></i>
+                      <h3>人口中位数变化率</h3>
+                    </div>
                     <div id = "top_chart" class = "top_chart"></div>
                   </el-col>
                   <el-col :span="7">
@@ -50,13 +62,19 @@
               <el-row>
                 <el-col :span="12">
                   <div class = "bottom_age">
-                    <div class = "_tit"><h4>人口中位数变化率</h4></div>
+                    <div class="pop_col_tit">
+                      <i class="tit_icon icon-tit-line"></i>
+                      <h3>人口中位数变化率</h3>
+                    </div>
                     <div id = "bottom_chart1" class = "bottom_chart"></div>
                   </div>
                 </el-col>
                 <el-col :span="12">
                   <div class = "bottom_age" style="margin-right: 1vh">
-                    <div class = "_tit"><h4>老年抚养比变化特征</h4></div>
+                    <div class="pop_col_tit">
+                      <i class="tit_icon icon-tit-line"></i>
+                      <h3>老年抚养比变化特征</h3>
+                    </div>
                     <div id = "bottom_chart2" class = "bottom_chart"></div>
                   </div>
                 </el-col>
@@ -1020,7 +1038,7 @@
       background-size: 100% 29.6vh;
       .left_chart{
         width: 100%;
-        height: 25.6vh;
+        height: 24.6vh;
       }
     }
     .top_age{
@@ -1034,7 +1052,7 @@
       background-size: 100% 60.3vh;
       .top_chart{
         width: 100%;
-        height: 56.3vh;
+        height: 55.3vh;
       }
     }
     .tltleBox{
@@ -1075,7 +1093,7 @@
       background-size: 100% 29.6vh;
       .bottom_chart{
         width: 100%;
-        height: 25.6vh;
+        height: 24.6vh;
       }
     }
   }

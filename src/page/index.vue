@@ -508,29 +508,8 @@
     .up {color: #0ff1a4;}
     .dn {color: #ff584b;}
   }
-  .pop_col_tit {
-    padding:2vh 5vh;
-    position: relative;
-    height: 3.6vh;
-    h3 {
-      font-size: 1.6vh;
-      color: #a9b2d4;
-      font-weight: 400;
-      line-height: 3.6vh;
-    }
-    .tit_icon {
-      width: 3.6vh;
-      height: 3.6vh;
-      display: inline-block;
-      position: absolute;
-      top:2vh;
-      left: 1vh;
-      z-index: 1;
-    }
-  }
   .pop_chart_fr { height: 22vh}
   .icon-dnArr { background: url("../../static/img/icon-dnArr.svg") no-repeat 100%;}
   .icon-upArr { background: url("../../static/img/icon-upArr.svg") no-repeat 100%;}
   .icon-dec-line { background: url("../../static/img/icon-dec-line.svg") no-repeat; background-size: 100%;}
-  .icon-tit-line { background: url("../../static/img/icon-tit-line.svg") no-repeat 100%;}
 </style>
