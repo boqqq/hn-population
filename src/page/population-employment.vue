@@ -1,6 +1,6 @@
 <template>
   <div class="employment">
-    <el-row style="margin-top: 7vh" :gutter="10">
+    <el-row style="margin-top: 7vh">
       <el-col :span="8">
         <el-col :span="24">
           <div class="fix-mini">
@@ -225,7 +225,7 @@
           grid:{
             top:'5%',
             left: '2%',
-            right: '2%',
+            right: '5%',
             bottom: '5%',
             containLabel: true
           },
@@ -436,10 +436,10 @@
             }
           },
           grid: {
-            top:'15%',
+            top:'10%',
             left: '5%',
-            right: '10%',
-            bottom: '2%',
+            right: '5%',
+            bottom: '5%',
             containLabel: true
           },
           xAxis: {
@@ -447,7 +447,6 @@
             data: hours,
             boundaryGap: false,
             axisLabel: {
-              rotate:45,
               textStyle:config().textStyle
             },
             axisLine: {
@@ -651,7 +650,7 @@
             left: '4%',
             right: '4%',
             bottom: '20%',
-            top:'20%',
+            top:'25%',
             containLabel: false
           },
           legend: {
@@ -727,10 +726,16 @@
 <style lang="scss">
   .employment{
     .fix-mini{
-      height: 29vh; margin: 1.5vh 1vh 0 1vh
+      height: 29.6vh;
+      margin-top: 1vh;
+      margin-left: 1vh;
+      background-image:url('../../static/img/ind_right.png');
     }
     .fix-small{
-      height: 59.5vh; margin: 1.5vh 1vh 0 1vh
+      height: 60.3vh;
+      margin-top: 1vh;
+      margin-left: 1vh;
+      background-image:url('../../static/img/ind_right.png');
     }
     .bar-comtent{
        height: 23vh;
@@ -741,7 +746,9 @@
       margin-top: 2vh;
     }
     .trend-title{
-      font-size: 0.8vw;
+      font-size: 2vh;
+      margin-left: 2vh;
+      line-height: 5vh;
       font-weight: bold;
       color: #fff;
 
