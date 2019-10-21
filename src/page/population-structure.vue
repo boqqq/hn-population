@@ -94,7 +94,6 @@
   var echarts = require('echarts');
   import '../../static/js/map/china.js';
   import '../../static/js/map/hainan.js';
-  import hainan from '../../static/js/json/460000.json';
   import {config} from '../../static/js/config/chartConfig.js';
   export default {
     name: "population-structure",
