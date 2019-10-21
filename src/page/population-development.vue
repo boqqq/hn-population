@@ -8,14 +8,14 @@
               <div class = "dev_left">
                 <div class="pop_type_item">
                   <div class="pop_type_icon fa_bg_1"><i class="fa fa-user fa-fw"></i></div>
-                  <h3 class="pop_type_title">常住人口</h3>
+                  <h3 class="pop_type_title">人均地区GDP</h3>
                   <el-row>
                     <el-col :span="10">
-                      <p class="pop_type_val">835.258<span class="pop_type_unit">万人</span></p>
+                      <p class="pop_type_val">65000<span class="pop_type_unit">元</span></p>
                     </el-col>
                     <el-col :span="14">
-                      <span class="pop_type_last">同比上周</span>
-                      <span class="pop_type_prop up"><i class="arr_icon icon-upArr"></i>10%</span>
+                      <span class="pop_type_last">同比</span>
+                      <span class="pop_type_prop up"><i class="arr_icon icon-upArr"></i>5.05%</span>
                     </el-col>
                   </el-row>
                   <div class="pop_type_frIcon icon-dec-line"></div>
@@ -26,14 +26,14 @@
               <div class = "dev_left">
                 <div class="pop_type_item">
                   <div class="pop_type_icon fa_bg_2"><i class="fa fa-user fa-fw"></i></div>
-                  <h3 class="pop_type_title">户籍人口</h3>
+                  <h3 class="pop_type_title">恩格尔系数</h3>
                   <el-row>
                     <el-col :span="10">
-                      <p class="pop_type_val">835.258<span class="pop_type_unit">万人</span></p>
+                      <p class="pop_type_val">4.5<span class="pop_type_unit"></span></p>
                     </el-col>
                     <el-col :span="14">
-                      <span class="pop_type_last">同比上周</span>
-                      <span class="pop_type_prop dn"><i class="arr_icon icon-dnArr"></i>10%</span>
+                      <span class="pop_type_last">同比</span>
+                      <span class="pop_type_prop up"><i class="arr_icon icon-upArr"></i>5.05%</span>
                     </el-col>
                   </el-row>
                   <div class="pop_type_frIcon icon-dec-line"></div>
@@ -44,14 +44,14 @@
               <div class = "dev_left">
                 <div class="pop_type_item">
                   <div class="pop_type_icon fa_bg_3"><i class="fa fa-user fa-fw"></i></div>
-                  <h3 class="pop_type_title">流动人口</h3>
+                  <h3 class="pop_type_title">人口自然增长率</h3>
                   <el-row>
                     <el-col :span="10">
-                      <p class="pop_type_val">835.258<span class="pop_type_unit">万人</span></p>
+                      <p class="pop_type_val">3<span class="pop_type_unit">%</span></p>
                     </el-col>
                     <el-col :span="14">
-                      <span class="pop_type_last">同比上周</span>
-                      <span class="pop_type_prop up"><i class="arr_icon icon-upArr"></i>10%</span>
+                      <span class="pop_type_last">同比</span>
+                      <span class="pop_type_prop dn"><i class="arr_icon icon-dnArr"></i>0.35%</span>
                     </el-col>
                   </el-row>
                   <div class="pop_type_frIcon icon-dec-line"></div>
@@ -62,14 +62,14 @@
               <div class = "dev_left">
                 <div class="pop_type_item">
                   <div class="pop_type_icon fa_bg_4"><i class="fa fa-user fa-fw"></i></div>
-                  <h3 class="pop_type_title">劳动力人口比例</h3>
+                  <h3 class="pop_type_title">老年系数</h3>
                   <el-row>
                     <el-col :span="10">
-                      <p class="pop_type_val">58<span class="pop_type_unit">%</span></p>
+                      <p class="pop_type_val">17<span class="pop_type_unit">%</span></p>
                     </el-col>
                     <el-col :span="14">
-                      <span class="pop_type_last">同比上周</span>
-                      <span class="pop_type_prop up"><i class="arr_icon icon-upArr"></i>10%</span>
+                      <span class="pop_type_last">同比</span>
+                      <span class="pop_type_prop up"><i class="arr_icon icon-upArr"></i>0.55%</span>
                     </el-col>
                   </el-row>
                   <div class="pop_type_frIcon icon-dec-line"></div>
@@ -80,14 +80,14 @@
               <div class = "dev_left">
                 <div class="pop_type_item">
                   <div class="pop_type_icon fa_bg_5"><i class="fa fa-user fa-fw"></i></div>
-                  <h3 class="pop_type_title">老龄人口比</h3>
+                  <h3 class="pop_type_title">老少比</h3>
                   <el-row>
                     <el-col :span="10">
-                      <p class="pop_type_val">83<span class="pop_type_unit">%</span></p>
+                      <p class="pop_type_val">77<span class="pop_type_unit">%</span></p>
                     </el-col>
                     <el-col :span="14">
-                      <span class="pop_type_last">同比上周</span>
-                      <span class="pop_type_prop up"><i class="arr_icon icon-upArr"></i>10%</span>
+                      <span class="pop_type_last">同比</span>
+                      <span class="pop_type_prop dn"><i class="arr_icon icon-dnArr"></i>0.15%</span>
                     </el-col>
                   </el-row>
                   <div class="pop_type_frIcon icon-dec-line"></div>
@@ -98,14 +98,14 @@
               <div class = "dev_left">
                 <div class="pop_type_item">
                   <div class="pop_type_icon fa_bg_6"><i class="fa fa-user fa-fw"></i></div>
-                  <h3 class="pop_type_title">常住人口年龄中位数</h3>
+                  <h3 class="pop_type_title">总抚养比</h3>
                   <el-row>
                     <el-col :span="10">
-                      <p class="pop_type_val">55<span class="pop_type_unit">%</span></p>
+                      <p class="pop_type_val">27<span class="pop_type_unit">%</span></p>
                     </el-col>
                     <el-col :span="14">
-                      <span class="pop_type_last">同比上周</span>
-                      <span class="pop_type_prop up"><i class="arr_icon icon-upArr"></i>10%</span>
+                      <span class="pop_type_last">同比</span>
+                      <span class="pop_type_prop up"><i class="arr_icon icon-upArr"></i>0.15%</span>
                     </el-col>
                   </el-row>
                   <div class="pop_type_frIcon icon-dec-line"></div>
@@ -658,7 +658,7 @@
     }
 
     .pop_type_item {
-      padding: 4vh 20vh 0 13vh;
+      padding: 3.5vh 20vh 0 13vh;
       position: relative;
       height: 10vh;
       .pop_type_icon {
@@ -689,6 +689,7 @@
       }
       .pop_type_val {
         font-size: 2.8vh;
+        line-height: 5.5vh;
         color: #fff;
         white-space: nowrap;
         overflow: hidden;
