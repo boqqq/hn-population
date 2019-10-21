@@ -4,19 +4,22 @@
       <el-col :span="8">
         <el-col :span="24">
           <div class="fix-mini">
-            <div style="height: 4vh; line-height: 4vh;">
-              <span class="trend-title">从业人员数量及劳动力人口比例趋势</span>
+            <div class="pop_col_tit">
+              <i class="tit_icon icon-tit-line"></i>
+              <h3>从业人员数量及劳动力人口比例趋势</h3>
             </div>
             <div id="labor_trend" class="bar-comtent">
-
             </div>
           </div>
 
         </el-col>
         <el-col :span="24">
           <div class="fix-mini">
-            <div style="height: 4vh; line-height: 4vh;">
-              <span class="trend-title">从业人扣增长率趋势</span>
+            <div class="fix-title">
+              <div class="pop_col_tit">
+                <i class="tit_icon icon-tit-line"></i>
+                <h3>从业人员增长率趋势</h3>
+              </div>
             </div>
             <div id="growth_trend" class="bar-comtent">
 
@@ -25,8 +28,11 @@
         </el-col>
         <el-col :span="24">
           <div class="fix-mini">
-            <div style="height: 4vh; line-height: 4vh;">
-              <span class="trend-title">三次产业从业人员结构变化趋势</span>
+            <div class="fix-title">
+              <div class="pop_col_tit">
+                <i class="tit_icon icon-tit-line"></i>
+                <h3>三次产业从业人员结构变化趋势</h3>
+              </div>
             </div>
             <div id="industrial_structure" class="bar-comtent">l
 
@@ -37,8 +43,11 @@
       <el-col :span="16">
         <el-col :span="24">
           <div class="fix-small fix-margin-right">
-            <div style="height: 4vh; line-height: 4vh;">
-              <span class="trend-title">各行业从业人员数量变化趋势</span>
+            <div class="fix-title">
+              <div class="pop_col_tit">
+                <i class="tit_icon icon-tit-line"></i>
+                <h3>各行业从业人员数量变化趋势</h3>
+              </div>
             </div>
             <div id="various_industries" class="bar-comtent2">
 
@@ -47,8 +56,11 @@
         </el-col>
         <el-col :span="12">
           <div class="fix-mini">
-            <div style="height: 4vh; line-height: 4vh;">
-              <span class="trend-title">按登记注册类型从业人员结构变化趋势</span>
+            <div class="fix-title">
+              <div class="pop_col_tit">
+                <i class="tit_icon icon-tit-line"></i>
+                <h3>按登记注册类型从业人员结构变化趋势</h3>
+              </div>
             </div>
             <div id="registration_type" class="bar-comtent">
 
@@ -57,8 +69,11 @@
         </el-col>
         <el-col :span="12">
           <div class="fix-mini fix-margin-right">
-            <div style="height: 4vh; line-height: 4vh;">
-              <span class="trend-title">按登记注册类型从业人员结构变化趋势</span>
+            <div class="fix-title">
+              <div class="pop_col_tit">
+                <i class="tit_icon icon-tit-line"></i>
+                <h3>按登记注册类型从业人员结构变化趋势</h3>
+              </div>
             </div>
             <div id="changes_employment" class="bar-comtent">
 
@@ -86,7 +101,7 @@
     },
 
     mounted () {
-      this.labor_trend()
+      this.init_labor_trend()
       this.growth_trend()
       this.industrial_structure()
       this.various_industries()
@@ -94,16 +109,46 @@
       this.changes_employment()
     },
     methods: {
-      labor_trend(){
+      init_labor_trend(){
+
+        let _this = this;
+        var dataX = [];
+        var dataY2 = [];
+        _this.$http({
+          url: _this.$http.adornUrl('/home/t01labrpopuratio/list'),
+          method: 'post',
+          data: {'area_code':'460000000000','date_stat':'2009'}
+        }).then(({data}) => {
+          if (data.code == 0) {
+            data.ratio.forEach(x=>{
+              dataX.push(x.dateStat);
+              dataY2.push(x.proportion);
+              _this.labor_trend(dataX,_this.incData, dataY2);
+            })
+          }
+        })
+
+      },
+      labor_trend(dataX, dataY1, dataY2){
+
         var labor_trend = echarts.init(document.getElementById('labor_trend'));
         var option = {
           barWidth:'15',
           legend: {
             data: ['从业人员', '从业人员劳动力人口比例'],
+            itemWidth: config().fontSize, // 图例标记的图形宽度。
+            itemHeight: config().fontSize, // 图例标记的图形高度。
+            itemGap: config().fontSize, // 图例每项之间的间隔。
             textStyle: config().textStyle,
           },
-          tooltip: {},
-          xAxis: {
+          tooltip : {
+            trigger: 'axis',
+            textStyle: config().textStyle,
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+          },
+          xAxis: [{
             type: 'category',
             axisLine:{
               show:false,
@@ -115,36 +160,56 @@
             axisTick:{
               show:false,
             },
-            data: this.incDate,
-          },
-          yAxis: {
-            show:true,
-            splitLine: {
-              show:false
+            data: dataX,
+          }],
+          yAxis: [
+            {
+              type: 'value',
+              name:'百万',
+              nameTextStyle:{
+                color:config().textStyle.color,
+                fontSize:config().textStyle.fontSize,
+                padding:[0,40,0,0]
+              },
+              splitLine: {
+                show:false
+              },
+              axisLine:{
+                show:false,
+              },
+              axisLabel: {
+                textStyle: config().textStyle
+              },
+              axisTick:{
+                show:false,
+              },
             },
-            type: 'value',
-            axisLine:{
-              show:false,
-            },
-            axisLabel: {
-              textStyle: config().textStyle
-            },
-            axisTick:{
-              show:false,
-            },
-            // min:1000,
-            // max:10000,
-          },
+            {
+              type: "value",
+              splitLine: {
+                show: false
+              },
+              axisTick: {
+                show: false
+              },
+              axisLine: {
+                show: false
+              },
+              axisLabel: {
+                show: false
+              },
+            }
+          ],
           grid:{
-            top:'5%',
-            left: '2%',
-            right: '2%',
+            top:'20%',
+            left: '3%',
+            right: '3%',
             bottom: '5%',
             containLabel: true
           },
           series: [
             {
-              data: this.incData,
+              data: dataY1,
               type: 'bar',
               name: '从业人员',
               barWidth : '15%',
@@ -168,9 +233,10 @@
               }
             },
             {
-              data: this.incVel,
+              data: dataY2,
               type: 'line',
               symbol: "none",
+              yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
               name: '从业人员劳动力人口比例',
               color:'#A54436'
             }
@@ -184,9 +250,18 @@
         var option = {
           legend: {
             data: ['劳动力人口', '从业人口'],
+            itemWidth: config().fontSize, // 图例标记的图形宽度。
+            itemHeight: config().fontSize, // 图例标记的图形高度。
+            itemGap: config().fontSize, // 图例每项之间的间隔。
             textStyle: config().textStyle,
           },
-          tooltip: {},
+          tooltip : {
+            trigger: 'axis',
+            textStyle: config().textStyle,
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+              type : 'line'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+          },
           xAxis: {
             type: 'category',
             axisLine:{
@@ -203,6 +278,12 @@
           },
           yAxis: {
             show:true,
+            name:'%',
+            nameTextStyle:{
+              color:config().textStyle.color,
+              fontSize:config().textStyle.fontSize,
+              padding:[0,30,0,0]
+            },
             splitLine: {
               show:true,
               lineStyle: {
@@ -223,10 +304,10 @@
             // max:10000,
           },
           grid:{
-            top:'5%',
-            left: '2%',
+            top:'20%',
+            left: '3%',
             right: '5%',
-            bottom: '5%',
+            bottom: '8%',
             containLabel: true
           },
           series: [
@@ -262,12 +343,15 @@
           color:['#335BB5','#F85B36','#8C8F92'],
           legend: {
             data:['第一产业从业人员','第二产业从业人员','第三产业从业人员'],
-            textStyle:config().textStyle
+            itemWidth: config().fontSize, // 图例标记的图形宽度。
+            itemHeight: config().fontSize, // 图例标记的图形高度。
+            itemGap: config().fontSize, // 图例每项之间的间隔。
+            textStyle: config().textStyle,
           },
           grid: {
-            left: '4%',
-            right: '4%',
-            bottom: '8%',
+            left: '3%',
+            right: '3%',
+            bottom: '5%',
             top:'20%',
             containLabel: true
           },
@@ -292,6 +376,12 @@
             {
               show:true,
               type : 'value',
+              name:'万人',
+              nameTextStyle:{
+                color:config().textStyle.color,
+                fontSize:config().textStyle.fontSize,
+                padding:[0,40,0,0]
+              },
               axisLabel: {
                 // rotate:45,//斜体字可不用
                 textStyle:config().textStyle,
@@ -313,29 +403,21 @@
               type:'bar',
               barWidth : '15%',
               stack: '产业结构',
-              data:[220, 330, 430, 320, 260, 550, 250, 540,210,320],
-              itemStyle: {
-                normal: {
-                  barBorderRadius:[0, 0, 10, 10],
-                }
-              }
+              data:[220, 330, 430, 320, 260, 550, 250, 540,210,320]
             },
             {
               name:'第二产业从业人员',
               type:'bar',
+              barWidth : '15%',
               stack: '产业结构',
               data:[320, 210, 260, 320, 220, 430, 550, 330,250,540]
             },
             {
               name:'第三产业从业人员',
               type:'bar',
+              barWidth : '15%',
               stack: '产业结构',
-              data:[260, 540, 250, 330, 430, 210, 320,220,320,540],
-              itemStyle: {
-                normal: {
-                  barBorderRadius:[10, 10, 0, 0],
-                }
-              }
+              data:[260, 540, 250, 330, 430, 210, 320,220,320,540]
             },
           ]
         };
@@ -431,14 +513,15 @@
           draggable:true,
           tooltip: {
             position: 'top',
+            textStyle: config().textStyle,
             formatter: function (params) {
-              return days[params.value[1]] + "<br>" + hours[params.value[0]] + ':' + params.value[2];
+              return hours[params.value[0]] + "<br>" + days[params.value[1]] + '：' + params.value[2];
             }
           },
           grid: {
             top:'10%',
-            left: '5%',
-            right: '5%',
+            left: '3%',
+            right: '4%',
             bottom: '5%',
             containLabel: true
           },
@@ -503,16 +586,19 @@
       registration_type (){
         var registration_type = echarts.init(document.getElementById('registration_type'));
         var option = {
-          tooltip: {
+          tooltip : {
             trigger: 'axis',
-            axisPointer: { // 坐标轴指示器，坐标轴触发有效
-              type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
-              color: '#fafafa'
+            textStyle: config().textStyle,
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
             }
           },
           legend: {
             data: ['国有', '集体', '联营','有限责任','股份','外商','港澳台商','私营','个体'],
-            textStyle:config().textStyle
+            itemWidth: config().fontSize, // 图例标记的图形宽度。
+            itemHeight: config().fontSize, // 图例标记的图形高度。
+            itemGap: config().fontSize, // 图例每项之间的间隔。
+            textStyle: config().textStyle,
           },
           grid: {
             left: '4%',
@@ -557,10 +643,10 @@
               name: '国有',
               type: 'bar',
               stack: '总量',
+              barWidth:'40%',
               itemStyle: {
                 color: '#4698FF'
               },
-              barWidth:'10%',
               data: [25, 20,15,25,20]
             },
             {
@@ -643,21 +729,26 @@
         var changes_employment = echarts.init(document.getElementById('changes_employment'));
         var option = {
 
-          tooltip: {
-            trigger: 'axis'
+          tooltip : {
+            trigger: 'axis',
+            textStyle: config().textStyle,
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
           },
           grid: {
-            left: '4%',
+            left: '6%',
             right: '4%',
-            bottom: '20%',
-            top:'25%',
+            bottom: '25%',
+            top:'20%',
             containLabel: false
           },
           legend: {
             data: ['2014', '2018'],
-            textStyle: {
-              color: "#fff"
-            },
+            itemWidth: config().fontSize, // 图例标记的图形宽度。
+            itemHeight: config().fontSize, // 图例标记的图形高度。
+            itemGap: config().fontSize, // 图例每项之间的间隔。
+            textStyle: config().textStyle,
           },
           xAxis: {
             type: 'category',
@@ -669,7 +760,7 @@
               }
             },
             axisLabel: {
-              rotate:45,//斜体字可不用
+              rotate:30,//斜体字可不用
               textStyle: config().textStyle
             },
             axisTick:{
@@ -679,6 +770,12 @@
 
           yAxis: {
             type: 'value',
+            name:'%',
+            nameTextStyle:{
+              color:config().textStyle.color,
+              fontSize:config().textStyle.fontSize,
+              padding:[0,30,0,0]
+            },
             axisLine: {
               show: false,
             },
@@ -704,7 +801,7 @@
                 color: '#196027'
               },
             },
-            data: [210, -135, -100, 200, 300,100,70,80,150,270,90]
+            data: [30, -20, -10, 35, 43,32,45,56,88,75,90]
           },
             {
               name: '2018',
@@ -715,7 +812,7 @@
                   color: '#A9544B'
                 },
               },
-              data: [150, -225, -90, 300, 200,100,200,150,110,80, 120]
+              data: [34, -43, -21, 66, 56,76,43,78,88,65, 34]
             }]
         };
         changes_employment.setOption(option)
@@ -745,21 +842,14 @@
       margin-right: 1vh;
     }
     .bar-comtent{
-       height: 23vh;
+       height: 22.6vh;
        margin-top: 2vh;
      }
     .bar-comtent2{
-      height: 53.5vh;
+      height: 53.3vh;
       margin-top: 2vh;
     }
-    .trend-title{
-      font-size: 2vh;
-      margin-left: 2vh;
-      line-height: 5vh;
-      font-weight: bold;
-      color: #fff;
 
-    }
   }
 
 </style>
