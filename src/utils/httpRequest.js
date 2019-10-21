@@ -4,7 +4,7 @@ import axios from 'axios'
 import qs from 'qs'
 import merge from 'lodash/merge'
 //import { clearLoginInfo } from './utils'
-var por = 'http://localhost:8081/cqyl-ls/bigscreen';
+var por = 'http://localhost:9002';
 // 'http://192.168.13.149:10101/cqyl-ls/bigscreen';
 // 'http://localhost:8081/cqyl-ls/bigscreen';
 const http = axios.create({

@@ -18,7 +18,7 @@
             <div class="fix-title">
               <div class="pop_col_tit">
                 <i class="tit_icon icon-tit-line"></i>
-                <h3>从业人扣增长率趋势</h3>
+                <h3>从业人员增长率趋势</h3>
               </div>
             </div>
             <div id="growth_trend" class="bar-comtent">
@@ -101,7 +101,7 @@
     },
 
     mounted () {
-      this.labor_trend()
+      this.init_labor_trend()
       this.growth_trend()
       this.industrial_structure()
       this.various_industries()
@@ -109,7 +109,28 @@
       this.changes_employment()
     },
     methods: {
-      labor_trend(){
+      init_labor_trend(){
+
+        let _this = this;
+        var dataX = [];
+        var dataY2 = [];
+        _this.$http({
+          url: _this.$http.adornUrl('/home/t01labrpopuratio/list'),
+          method: 'post',
+          data: {'area_code':'460000000000','date_stat':'2009'}
+        }).then(({data}) => {
+          if (data.code == 0) {
+            data.ratio.forEach(x=>{
+              dataX.push(x.dateStat);
+              dataY2.push(x.proportion);
+              _this.labor_trend(dataX,_this.incData, dataY2);
+            })
+          }
+        })
+
+      },
+      labor_trend(dataX, dataY1, dataY2){
+
         var labor_trend = echarts.init(document.getElementById('labor_trend'));
         var option = {
           barWidth:'15',
@@ -127,7 +148,7 @@
               type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
             }
           },
-          xAxis: {
+          xAxis: [{
             type: 'category',
             axisLine:{
               show:false,
@@ -139,42 +160,56 @@
             axisTick:{
               show:false,
             },
-            data: this.incDate,
-          },
-          yAxis: {
-            show:true,
-            name:'百万',
-            nameTextStyle:{
-              color:config().textStyle.color,
-              fontSize:config().textStyle.fontSize,
-              padding:[0,40,0,0]
+            data: dataX,
+          }],
+          yAxis: [
+            {
+              type: 'value',
+              name:'百万',
+              nameTextStyle:{
+                color:config().textStyle.color,
+                fontSize:config().textStyle.fontSize,
+                padding:[0,40,0,0]
+              },
+              splitLine: {
+                show:false
+              },
+              axisLine:{
+                show:false,
+              },
+              axisLabel: {
+                textStyle: config().textStyle
+              },
+              axisTick:{
+                show:false,
+              },
             },
-            splitLine: {
-              show:false
-            },
-            type: 'value',
-            axisLine:{
-              show:false,
-            },
-            axisLabel: {
-              textStyle: config().textStyle
-            },
-            axisTick:{
-              show:false,
-            },
-            // min:1000,
-            // max:10000,
-          },
+            {
+              type: "value",
+              splitLine: {
+                show: false
+              },
+              axisTick: {
+                show: false
+              },
+              axisLine: {
+                show: false
+              },
+              axisLabel: {
+                show: false
+              },
+            }
+          ],
           grid:{
             top:'20%',
-            left: '2%',
-            right: '2%',
+            left: '3%',
+            right: '3%',
             bottom: '5%',
             containLabel: true
           },
           series: [
             {
-              data: this.incData,
+              data: dataY1,
               type: 'bar',
               name: '从业人员',
               barWidth : '15%',
@@ -198,9 +233,10 @@
               }
             },
             {
-              data: this.incVel,
+              data: dataY2,
               type: 'line',
               symbol: "none",
+              yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
               name: '从业人员劳动力人口比例',
               color:'#A54436'
             }
@@ -223,7 +259,7 @@
             trigger: 'axis',
             textStyle: config().textStyle,
             axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+              type : 'line'        // 默认为直线，可选为：'line' | 'shadow'
             }
           },
           xAxis: {
@@ -269,9 +305,9 @@
           },
           grid:{
             top:'20%',
-            left: '2%',
+            left: '3%',
             right: '5%',
-            bottom: '5%',
+            bottom: '8%',
             containLabel: true
           },
           series: [
@@ -313,9 +349,9 @@
             textStyle: config().textStyle,
           },
           grid: {
-            left: '4%',
-            right: '4%',
-            bottom: '8%',
+            left: '3%',
+            right: '3%',
+            bottom: '5%',
             top:'20%',
             containLabel: true
           },
@@ -367,29 +403,21 @@
               type:'bar',
               barWidth : '15%',
               stack: '产业结构',
-              data:[220, 330, 430, 320, 260, 550, 250, 540,210,320],
-              itemStyle: {
-                normal: {
-                  barBorderRadius:[0, 0, 10, 10],
-                }
-              }
+              data:[220, 330, 430, 320, 260, 550, 250, 540,210,320]
             },
             {
               name:'第二产业从业人员',
               type:'bar',
+              barWidth : '15%',
               stack: '产业结构',
               data:[320, 210, 260, 320, 220, 430, 550, 330,250,540]
             },
             {
               name:'第三产业从业人员',
               type:'bar',
+              barWidth : '15%',
               stack: '产业结构',
-              data:[260, 540, 250, 330, 430, 210, 320,220,320,540],
-              itemStyle: {
-                normal: {
-                  barBorderRadius:[10, 10, 0, 0],
-                }
-              }
+              data:[260, 540, 250, 330, 430, 210, 320,220,320,540]
             },
           ]
         };
@@ -487,13 +515,13 @@
             position: 'top',
             textStyle: config().textStyle,
             formatter: function (params) {
-              return days[params.value[1]] + "<br>" + hours[params.value[0]] + ':' + params.value[2];
+              return hours[params.value[0]] + "<br>" + days[params.value[1]] + '：' + params.value[2];
             }
           },
           grid: {
             top:'10%',
-            left: '5%',
-            right: '5%',
+            left: '3%',
+            right: '4%',
             bottom: '5%',
             containLabel: true
           },
@@ -709,7 +737,7 @@
             }
           },
           grid: {
-            left: '5%',
+            left: '6%',
             right: '4%',
             bottom: '25%',
             top:'20%',
@@ -821,25 +849,6 @@
       height: 53.3vh;
       margin-top: 2vh;
     }
-    /*.pop_col_tit {*/
-    /*  position: relative;*/
-    /*  height: 4vh;*/
-    /*  h3 {*/
-    /*    font-size: 2vh;*/
-    /*    color: #a9b2d4;*/
-    /*    font-weight: bold;*/
-    /*    line-height: 4vh;*/
-    /*  }*/
-    /*  .tit_icon {*/
-    /*    width: 3.6vh;*/
-    /*    height: 3.6vh;*/
-    /*    display: inline-block;*/
-    /*    position: absolute;*/
-    /*    left: 1vh;*/
-    /*    z-index: 1;*/
-    /*  }*/
-    /*}*/
-    /*.icon-tit-line { background: url("../../static/img/icon-tit-line.svg") no-repeat 100%;}*/
 
   }
 
