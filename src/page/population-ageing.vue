@@ -50,7 +50,7 @@
                       <div class="tltleBox" style="z-index: 9999;margin-top: 1vh;"><span>排名</span><span>地区</span><span>老年人口占比</span></div>
                       <div  style="height: 51vh;overflow: hidden; position:relative">
                         <div>
-                          <div class="textBox act_tb" v-for="(item,index) in tableData"  :key="index" ><span>{{index+1}}</span><span>{{item.region}}</span><span>{{item.rate}} %</span></div>
+                          <div class="textBox act_tb" v-for="(item,index) in tableData1"  :key="index" ><span>{{item.rankNo}}</span><span>{{item.areaName}}</span><span>{{item.unitCnt}}</span></div>
                         </div>
                       </div>
                     </div>
@@ -98,26 +98,27 @@
       data(){
         return{
           tableData:[
-            {region:'海口市',rate:40,num:1,coor:[110.326837,20.031624]},
-            {region:'三亚市',rate:38,num:2,coor:[109.524255,18.256929]},
-            {region:'三沙市',rate:37,num:3,coor:[112.351689,16.838364]},
-            {region:'儋州市',rate:36,num:4,coor:[109.565074,19.533091]},
-            {region:'五指山市',rate:35,num:5,coor:[109.52483,18.780731]},
-            {region:'文昌市',rate:35,num:6,coor:[110.932715,19.616634]},
-            {region:'琼海市',rate:34,num:7,coor:[110.480832,19.255009]},
-            {region:'万宁市',rate:33,num:8,coor:[110.396559,18.802845]},
-            {region:'东方市',rate:32,num:9,coor:[108.65629,19.100448]},
-            {region:'定安县',rate:32,num:10,coor:[110.359209,19.683308]},
-            {region:'屯昌县',rate:31,num:11,coor:[110.108546,19.357035]},
-            {region:'澄迈县',rate:30,num:12,coor:[110.010062,19.744893]},
-            {region:'临高县',rate:29,num:13,coor:[109.688244,19.916212]},
-            {region:'白沙黎族自治县',rate:29,num:14,coor:[109.455171,19.233017]},
-            {region:'昌江黎族自治县',rate:29,num:15,coor:[109.063039,19.30236]},
-            {region:'乐东黎族自治县',rate:28,num:16,coor:[109.179933,18.756966]},
-            {region:'陵水黎族自治县',rate:27,num:17,coor:[110.042739,18.512332]},
-            {region:'保亭黎族自治县',rate:26,num:18,coor:[109.706931,18.647458]},
-            {region:'琼中黎族自治县',rate:25,num:19,coor:[109.846811,19.038617]}
+            {region:'海口市',coor:[110.326837,20.031624],code:460100000000},
+            {region:'三亚市',coor:[109.524255,18.256929],code:460200000000},
+            {region:'三沙市',coor:[112.351689,16.838364],code:460300000000},
+            {region:'儋州市',coor:[109.565074,19.533091],code:460400000000},
+            {region:'五指山市',coor:[109.52483,18.780731],code:469001000000},
+            {region:'文昌市',coor:[110.932715,19.616634],code:469005000000},
+            {region:'琼海市',coor:[110.480832,19.255009],code:469002000000},
+            {region:'万宁市',coor:[110.396559,18.802845],code:469006000000},
+            {region:'东方市',coor:[108.65629,19.100448],code:469007000000},
+            {region:'定安县',coor:[110.359209,19.683308],code:469021000000},
+            {region:'屯昌县',coor:[110.108546,19.357035],code:469022000000},
+            {region:'澄迈县',coor:[110.010062,19.744893],code:469023000000},
+            {region:'临高县',coor:[109.688244,19.916212],code:469024000000},
+            {region:'白沙黎族自治县',coor:[109.455171,19.233017],code:469025000000},
+            {region:'昌江黎族自治县',coor:[109.063039,19.30236],code:469026000000},
+            {region:'乐东黎族自治县',coor:[109.179933,18.756966],code:469027000000},
+            {region:'陵水黎族自治县',coor:[110.042739,18.512332],code:469028000000},
+            {region:'保亭黎族自治县',coor:[109.706931,18.647458],code:469029000000},
+            {region:'琼中黎族自治县',coor:[109.846811,19.038617],code:469030000000}
           ],
+          tableData1:[{areaName:"海口",unit:"",unitCnt:215667,rankNo:1}],
           t_ind:0,
         }
       },
@@ -125,31 +126,42 @@
       },
 
       mounted () {
-        this.left_chart1()
-        this.left_chart2()
-        this.left_chart3()
-        this.top_chart()
-        this.bottom_chart1()
-        this.bottom_chart2()
         this.left_chart1Data();
+        this.left_chart2Data()
+        this.left_chart3Data()
+        this.top_chartData()
+        this.bottom_chart1Data()
+        this.bottom_chart2Data()
       },
       methods: {
         left_chart1Data(){
           this.$http({
-            url: this.$http.adornUrl("/t06popuagemiddigitchgtrnd/select"),
+            url: this.$http.adornUrl("/t06agingpopustruandtrnd/select"),
             method: 'get',
             params: this.$http.adornParams({
             })
           }).then(({data}) => {
-            alert(JSON.stringify(data))
+            this.left_chart1(data.page)
           })
         },
-        left_chart1(){
-          var xData = ['2009','2010','2011','2012','2013','2014','2015','2016','2017','2018'];
-          var data1 = ["-","",300,600,140,210,500,600,110,230,600,120];
-          var data2 = [100,500,120,160,300,400,100,130,500,90];
-          var data3 = [20.2,20.4,15.2,16.9,23.1,14.4,16.3,18.5,19.1,26.6];
-          var data4 = [16.2,14.4,11.2,13.9,18.1,10.4,12.3,15.5,14.1,16.6];
+        left_chart1(data){
+          //alert(JSON.stringify(data))
+          var xData = [];
+          var data1 = [];
+          var data2 = [];
+          var data3 = [];
+          var data4 = [];
+
+          for (var i = 0;i < data.length; i++) {
+            if(data[i].unitType == '60岁+'){
+              xData.push(data[i].dateStat)
+              data1.push(data[i].popuTotal)
+              data3.push(data[i].ytyGrowth)
+            }else{
+              data2.push(data[i].popuTotal)
+              data4.push(data[i].ytyGrowth)
+            }
+          }
 
           var top_chart  = echarts.init(document.getElementById('left_chart1'));
           var option = {
@@ -280,14 +292,26 @@
           top_chart.setOption(option)
           window.onresize = top_chart.resize;
         },
-        left_chart2(){
-          var xData = ['2009','2010','2011','2012','2013','2014','2015','2016','2017','2018'];
-          var data1 = [30,60,44,61,50,60,61,53,68,42];
-          var data2 = [33,55,51,46,67,66,64,51,43,47];
-          var data3 = [31,50,54,66,46,60,59,56,51,63];
-          var data4 = [20.2,20.4,15.2,16.9,23.1,14.4,16.3,18.5,19.1,26.6];
-          var data5 = [16.2,14.4,11.2,13.9,18.1,10.4,12.3,15.5,14.1,16.6];
-
+        left_chart2Data(){
+          this.$http({
+            url: this.$http.adornUrl("/t06popubirthrateanddeadratetrnd/select"),
+            method: 'get',
+            params: this.$http.adornParams({
+            })
+          }).then(({data}) => {
+            this.left_chart2(data.page)
+          })
+        },
+        left_chart2(data){
+          //alert(JSON.stringify(data))
+          var xData = [];
+          var data1 = [];
+          var data2 = [];
+          for (var i = 0;i < data.length; i++) {
+            xData.push(data[i].dateStat)
+            data1.push(data[i].birthRate)
+            data2.push(data[i].deadRate)
+          }
           var top_chart  = echarts.init(document.getElementById('left_chart2'));
           var option = {
             color: ["#ed9d3c",'#4fd7fd'],
@@ -307,7 +331,7 @@
               itemHeight: config().fontSize, // 图例标记的图形高度。
               itemGap: config().fontSize, // 图例每项之间的间隔。
               textStyle: config().textStyle,
-              data: ['合计', '男', '女','常住人口出生率','户籍人口出生率'],//图例的名称数据
+              data: ['出生率','死亡率'],//图例的名称数据
             },
             grid: {
               left: '3%',
@@ -354,8 +378,8 @@
               }
             ],
             series : [
-             {
-                name: "合计",
+              {
+                name: "出生率",
                 type: "line",
                 smooth: true, //平滑曲线显示
                 showAllSymbol: true, //显示所有图形。
@@ -363,84 +387,31 @@
                 //symbolSize: 10, //标记的大小
                 itemStyle: {
                   //折线拐点标志的样式
-                  color: "#fff700"
+                  color: "#ff00d3"
                 },
                 lineStyle: {
-                  color: "#fff700"
+                  color: "#ff00d3"
                 },
                 data: data1,
                 zlevel: 11
               },
               {
-                name: "男",
+                name: "死亡率",
                 type: "line",
+                yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
                 smooth: true, //平滑曲线显示
                 showAllSymbol: true, //显示所有图形。
                 symbol: "circle", //标记的图形为实心圆
                 //symbolSize: 10, //标记的大小
                 itemStyle: {
                   //折线拐点标志的样式
-                  color: "#0016ff"
+                  color: "#11ff00"
                 },
                 lineStyle: {
-                  color: "#0016ff"
+                  type: 'dashed',
+                  color: "#11ff00"
                 },
                 data: data2,
-                zlevel: 11
-              },
-              {
-                name: "女",
-                type: "line",
-                smooth: true, //平滑曲线显示
-                showAllSymbol: true, //显示所有图形。
-                symbol: "circle", //标记的图形为实心圆
-                //symbolSize: 10, //标记的大小
-                itemStyle: {
-                  //折线拐点标志的样式
-                  color: "#ff00d3"
-                },
-                lineStyle: {
-                  color: "#ff00d3"
-                },
-                data: data3,
-                zlevel: 11
-              },
-              {
-                name: "常住人口出生率",
-                type: "line",
-                yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
-                smooth: true, //平滑曲线显示
-                showAllSymbol: true, //显示所有图形。
-                symbol: "circle", //标记的图形为实心圆
-                //symbolSize: 10, //标记的大小
-                itemStyle: {
-                  //折线拐点标志的样式
-                  color: "#00ffea"
-                },
-                lineStyle: {
-                  type: 'dashed',
-                  color: "#00ffea"
-                },
-                data: data4,
-                zlevel: 11
-              },
-              {
-                name: "户籍人口出生率",
-                type: "line",
-                yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
-                smooth: true, //平滑曲线显示
-                showAllSymbol: true, //显示所有图形。
-                symbol: "circle", //标记的图形为实心圆
-                //symbolSize: 10, //标记的大小
-                itemStyle: {
-                  //折线拐点标志的样式
-                  color: "#11ff00"
-                },
-                lineStyle: {
-                  type: 'dashed',
-                  color: "#11ff00"
-                },
-                data: data5,
                 zlevel: 11
               }
             ]
@@ -448,16 +419,44 @@
           top_chart.setOption(option)
           window.onresize = top_chart.resize;
         },
-        left_chart3(){
+        left_chart3Data(){
+          this.$http({
+            url: this.$http.adornUrl("/t06agegrpchgfeat/select"),
+            method: 'get',
+            params: this.$http.adornParams({
+            })
+          }).then(({data}) => {
+            this.left_chart3(data.page)
+          })
+        },
+        distinct(arr) {
+         return Array.from(new Set(arr));
+       },
+        left_chart3(data){
+          var legengData = [];
+          for (var i = 0;i < data.length; i++) {
+            legengData.push(data[i].dateStat)
+          }
+          legengData = this.distinct(legengData)
+        let myData = [];
+        var dat1 = [];
+        var dat2 = [];
+        for (var j = 0;j < data.length; j++) {
+          if(data[j].unitType != '中位数') {
+            if (data[j].dateStat == legengData[0]) {
+              myData.push(data[j].unitType)
+              dat1 .push(data[j].ytyGrowth);
+            } else {
+              dat2.push(data[j].ytyGrowth);
+            }
+          }
+        }
           var top_chart  = echarts.init(document.getElementById('left_chart3'));
-          let myData = ['0-4岁','5-9岁','10-14岁','15-19岁','20-24岁','25-29岁','30-34岁','35-39岁','40-44岁',
-            '45-49岁','50-54岁','55-59岁','60-64岁','65-69岁','70-74岁','75-79岁','80岁+'
-          ]
           var dataFirm = {
-            1: [38, 25, 26, 32, 23,24,56,78,34,47,68,49,87,68,34,12,4]
+            1: dat1
           }
           var dataDevice = {
-            1: [38, 45, 66, 42, 33,38,54,65,45,37,28,39,27,28,14,8,6]
+            1: dat2
           }
           var timeLineData = [1]
           var option = {
@@ -474,7 +473,7 @@
                 itemHeight: config().fontSize,
                 itemGap: config().fontSize*15,
                 textStyle: config().textStyle,
-                data: ['2014年', '2019年'] // 图例的数据数组,一般对应系列名称,即 series.name
+                data: legengData // 图例的数据数组,一般对应系列名称,即 series.name
               },
               tooltip: {
                 show: true,
@@ -621,7 +620,7 @@
               formatter: '{b}<br/>{a}: {c} '
             },
             series: [{
-              name: '2014年',
+              name: legengData[0],
               type: 'bar',
               barWidth: '40%',
               //barMinWidth: 5,
@@ -635,7 +634,7 @@
               data: dataFirm[timeLineData[0]]
             },
               {
-                name: '2019年',
+                name: legengData[1],
                 type: 'bar',
                 barWidth: '40%',
                 xAxisIndex: 2,
@@ -667,18 +666,36 @@
           top_chart.setOption(option)
           window.onresize = top_chart.resize;
         },
-        top_chart(){
+        top_chartData(){
+          this.$http({
+            url: this.$http.adornUrl("/t06theageddisbumap/select"),
+            method: 'get',
+            params: this.$http.adornParams({
+            })
+          }).then(({data}) => {
+            this.top_chart(data.page)
+            this.tableData1 = data.page
+          })
+        },
+        top_chart(data){
+          //alert(JSON.stringify(data))
           var chart_center1 = echarts.init(document.getElementById('top_chart'));
           echarts.registerMap('hainan',  hainan)
           var pd = []
-          for (var i = 0; i < this.tableData.length; i++) {
+          for (var i = 0; i < data.length; i++) {
             var tmp = {}
             var d = []
-            tmp.name = this.tableData[i].region
-            d.push(this.tableData[i].coor[0],this.tableData[i].coor[1],this.tableData[i].region,this.tableData[i].rate,i+1)
+            tmp.name = data[i].areaName
+            for (var j = 0; j < this.tableData.length; j++) {
+              if(data[i].areaCode == this.tableData[j].code){
+                d.push(this.tableData[j].coor[0],this.tableData[j].coor[1]);
+              }
+            }
+            d.push(data[i].areaName,data[i].unitCnt,data[i].rankNo)
             tmp.value = d
             pd.push(tmp)
           }
+          //alert(JSON.stringify(pd))
           var  option =  {
             tooltip: {
               trigger: 'item',
@@ -743,7 +760,7 @@
                 coordinateSystem: 'geo',
                 symbol: 'circle',
                 symbolSize: function (val) {
-                  return config().fontSize*val[3]/18 //val[3]*1.5-18
+                  return config().fontSize*(20-val[4])/4//val[3]*1.5-18
                 },
                 itemStyle: {
                   normal: {
@@ -796,16 +813,33 @@
           })
           window.onresize = chart_center1.resize;
         },
-        changeTab(v){
-          alert(v)
+        bottom_chart1Data(){
+          this.$http({
+            url: this.$http.adornUrl("/t06popuagemiddigitchgtrnd/select"),
+            method: 'get',
+            params: this.$http.adornParams({
+            })
+          }).then(({data}) => {
+            this.bottom_chart1(data.page)
+          })
         },
-        bottom_chart1(){
+        bottom_chart1(data){
           var top_chart  = echarts.init(document.getElementById('bottom_chart1'));
-          var XName= ["1999","2001","2003","2005","2007","2009","2011","2013","2015","2017","2019"]
+          var XName= []
+          var dat1 = []
+          var dat2 = []
+          for (var i = 0;i < data.length; i++) {
+            if(data[i].popuType == '常住'){
+              XName.push(data[i].dateStat)
+              dat1.push(data[i].middleCnt)
+            }else{
+              dat2.push(data[i].middleCnt)
+            }
+          }
           var data1 = [
-            [123,154, 234, 321,120,390, 634,432,245,178,299]
+            dat1,
+            dat2
           ]
-          var Line = ["云篆山水路线","昕博朗学校路线","新华小学路线","云锦五路路线"];
           var img = [
             'image://data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABRCAYAAABFTSEIAAAACXBIWXMAAAsSAAALEgHS3X78AAAEp0lEQVR42u3cz4sjRRTA8W9Vd3Vn8mMmjj9WQWSRZQ+CsH+B7MnDIgiCd0E8CYJ/gOAIelo8ehUP/gF6WLw5/gMueFP2sIcF0dHd2Z1kknR11fOQZJJJMtlZd03H7HtQpNOTnpn+8Lrm1etmjIig8e/DKoECKqACKqCGAiqgAiqghgIqoAIqoIYCKqACKqCGAiqgAiqghgIqoAJudKTr+osZMNPvBUQBHwHsPF9fB9R0DeHMOQ6T6WOrhEzXBM4swDOL0M6CrArRVoq3t2dGUIb9fTvatg8ZZup1PDBgzPmy98mey6qfzjLz2WaWjEUZKEvGyi9nWyneMOvGIyFQo2Sbg4MUSChpU9IeTTUpJdsEajPZOJeJG5uBZj7rLLduWS5dGm6XNLEELOFUFj54ACJCaychkpDSASK3bwsXL0YgVpWJKwM0iy9Zy8HdGru7jvt3Pbu7w0wES7drTwAbjTHMGCsQcIAnYTC1/wRx0wEnl27JNgZI8HQ6Kc1mQq83RNzaMjPzXqDbjTQaJRFLxIyyMSxAXEkWrhrQzAAmo5HOjCQf7jflILxOkohL+aUPgV4vEGNJo+E5PAy02+UIMEwBxo0CPDP7Dg5SnEtpt1PA0e87XO25FOoh8IYIH2Y5b45RzGAQBiIltZoHxqMcjbksXAVgdc2EQMYzzzdotyeZWKuleULXJtwT4SODfC2QCWR+IF9KnjuX1Xbo99Op7LVE8iXlz0YBTk5SyLEEjo5OLuccEoFUvHfO+reuUPx4zftXAIcx1hdcF+/TvFab4A0Bs0VwqyhpVnkJT89/Q4DDQ0e77YCMwIUsFMeFZD856699URRvX4nxE4A/jbnxXp7v4Zw3ReGNSDHI8wFQjIafuoyn58L/fB6sth/Ybg9fez2TRC6QZcZYvgHsazF+MP7YCyLXcM7gvSXLDGBqYDg+NhwdmSpPoTrAkub0W+f4FSB1fDucIunMHSLpO8WAH0rSy8u+19MBCHB4OHzd2pI+CEUhpigEiN+l6WcdY252jLn5s7Wf472ImPcN8pUl/tEHoV4XWq1Ke4KrLmPsTA3oODpytFoOyJKSyzHyMSIxteWngMW5cSEdDJQUhTdZVgxOz3/+jFJm4+bA2e5JpNU6WZ4Fw99JwnWMKccwpeddP+B7GZTNUPKqybJy0O+Hs1YfMz9swwvpB8fbGDG0GuGkkK7V0hxSmZQpABI8l2z0v3sJf50qpAMJCd2qCulql3LD1lRGQjm7lEsDz0rkxTQOfiPPxUBcuJTbbhss/Y1eyi3NwsmKInmkZsKk5gtPUzNhvp11507CSy/X6XYStpvFudpZw1ZWIOF4Cq6SdtbKbioJyAhRTu3u9yMJXerN+ugvaQQsjcZ8Q3VnZwxlSDhe1lB9GjrSw5b+1avT8+Jw+979nNaOI6U3KpTrWAosxVQmygK4ld8X0ZtK/7eViExD7O1NQPb3T7fsl4/4sBpwYzPwjFbTo95Yl9l9Vd1YN1X/147HebSjary1AHyc5qc+XLQEQx9ve8Kg6xr6hKoCKqACKqCGAiqgAiqghgIqoAIqoIYCKqACKqCGAiqgAiqghgIq4JrHP8fEWV8FMTmOAAAAAElFTkSuQmCC',
             'image://data:image/png;base64,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',
@@ -818,6 +852,20 @@
           var datas = [];
           Line.map((item,index)=>{
             datas.push(
+              {
+                symbolSize: 150,
+                symbol: img[index],
+                name: item,
+                type: "line",
+                yAxisIndex: 1,
+                data: data1[index] ,
+                itemStyle: {
+                  normal: {
+                    borderWidth: 5,
+                    color: color[index],
+                  }
+                }
+              },
               {
                 symbolSize: 150,
                 symbol: img[index],
@@ -930,10 +978,25 @@
           top_chart.setOption(option)
           window.onresize = top_chart.resize;
         },
-        bottom_chart2(){
-          var xData = ['2008','2009','2012','2012','2013','2014','2015','2016','2017','2018'];
-          var data1 = [30,38,56,57,68,66,64,59,74,73];
-          var data2 = [3.2,2.4,5.2,6.9,3.1,4.4,6.3,8.5,9.1,6.6];
+        bottom_chart2Data(){
+          this.$http({
+            url: this.$http.adornUrl("/t06bringchgfeat/select"),
+            method: 'get',
+            params: this.$http.adornParams({
+            })
+          }).then(({data}) => {
+            this.bottom_chart2(data.page)
+          })
+        },
+        bottom_chart2(data){
+          var xData = [];
+          var data1 = [];
+          var data2 = [];
+          for (var i = 0;i < data.length; i++) {
+            xData.push(data[i].dateStat)
+            data1.push(data[i].ytyGrowth/0.8)
+            data2.push(data[i].ytyGrowth)
+          }
 
           var chart_center1 = echarts.init(document.getElementById('bottom_chart2'));
           var option = {
