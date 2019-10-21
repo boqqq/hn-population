@@ -115,6 +115,9 @@
           barWidth:'15',
           legend: {
             data: ['从业人员', '从业人员劳动力人口比例'],
+            itemWidth: config().fontSize, // 图例标记的图形宽度。
+            itemHeight: config().fontSize, // 图例标记的图形高度。
+            itemGap: config().fontSize, // 图例每项之间的间隔。
             textStyle: config().textStyle,
           },
           tooltip : {
@@ -211,6 +214,9 @@
         var option = {
           legend: {
             data: ['劳动力人口', '从业人口'],
+            itemWidth: config().fontSize, // 图例标记的图形宽度。
+            itemHeight: config().fontSize, // 图例标记的图形高度。
+            itemGap: config().fontSize, // 图例每项之间的间隔。
             textStyle: config().textStyle,
           },
           tooltip : {
@@ -301,7 +307,10 @@
           color:['#335BB5','#F85B36','#8C8F92'],
           legend: {
             data:['第一产业从业人员','第二产业从业人员','第三产业从业人员'],
-            textStyle:config().textStyle
+            itemWidth: config().fontSize, // 图例标记的图形宽度。
+            itemHeight: config().fontSize, // 图例标记的图形高度。
+            itemGap: config().fontSize, // 图例每项之间的间隔。
+            textStyle: config().textStyle,
           },
           grid: {
             left: '4%',
@@ -558,7 +567,10 @@
           },
           legend: {
             data: ['国有', '集体', '联营','有限责任','股份','外商','港澳台商','私营','个体'],
-            textStyle:config().textStyle
+            itemWidth: config().fontSize, // 图例标记的图形宽度。
+            itemHeight: config().fontSize, // 图例标记的图形高度。
+            itemGap: config().fontSize, // 图例每项之间的间隔。
+            textStyle: config().textStyle,
           },
           grid: {
             left: '4%',
@@ -705,9 +717,10 @@
           },
           legend: {
             data: ['2014', '2018'],
-            textStyle: {
-              color: "#fff"
-            },
+            itemWidth: config().fontSize, // 图例标记的图形宽度。
+            itemHeight: config().fontSize, // 图例标记的图形高度。
+            itemGap: config().fontSize, // 图例每项之间的间隔。
+            textStyle: config().textStyle,
           },
           xAxis: {
             type: 'category',
