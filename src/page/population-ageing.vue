@@ -131,11 +131,22 @@
         this.top_chart()
         this.bottom_chart1()
         this.bottom_chart2()
+        this.left_chart1Data();
       },
       methods: {
+        left_chart1Data(){
+          this.$http({
+            url: this.$http.adornUrl("/t06popuagemiddigitchgtrnd/select"),
+            method: 'get',
+            params: this.$http.adornParams({
+            })
+          }).then(({data}) => {
+            alert(JSON.stringify(data))
+          })
+        },
         left_chart1(){
           var xData = ['2009','2010','2011','2012','2013','2014','2015','2016','2017','2018'];
-          var data1 = [300,600,140,210,500,600,110,230,600,120];
+          var data1 = ["-","",300,600,140,210,500,600,110,230,600,120];
           var data2 = [100,500,120,160,300,400,100,130,500,90];
           var data3 = [20.2,20.4,15.2,16.9,23.1,14.4,16.3,18.5,19.1,26.6];
           var data4 = [16.2,14.4,11.2,13.9,18.1,10.4,12.3,15.5,14.1,16.6];
