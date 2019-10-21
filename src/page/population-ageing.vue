@@ -41,7 +41,7 @@
                   <el-col :span="17">
                     <div class="pop_col_tit">
                       <i class="tit_icon icon-tit-line"></i>
-                      <h3>人口中位数变化率</h3>
+                      <h3>老年人分布地图（2019年）</h3>
                     </div>
                     <div id = "top_chart" class = "top_chart"></div>
                   </el-col>
