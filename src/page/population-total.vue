@@ -6,20 +6,27 @@
           <el-row>
             <el-col :span="24">
               <div class = "ind_left">
-                <div class="chart_title">户籍人口与常驻外来人口总量变化趋势</div>
+                <div class="chart_title">
+                  <i class="tit_icon icon-tit-line"></i>
+                  <h3 >户籍人口与常住外来人口总量变化趋势</h3></div>
                 <div id="chart1" class="left_chart"></div>
               </div>
             </el-col>
             <el-col :span="24">
               <div class = "ind_left">
-                <div class="chart_title">户籍人口与常驻外来人口总量变化趋势</div>
+                <div class="chart_title">
+                  <i class="tit_icon icon-tit-line"></i>
+                  <h3>常住人口与常住外来人口增长率变化趋势</h3>
+                </div>
                 <div id="chart2"  class="left_chart"></div>
 
               </div>
             </el-col>
             <el-col :span="24">
               <div class = "ind_left">
-                <div class="chart_title">劳动力人口增长率变化趋势</div>
+                <div class="chart_title">
+                  <i class="tit_icon icon-tit-line"></i>
+                  <h3>劳动力人口增长率变化趋势</h3></div>
                 <div id="chart3"  class="left_chart"></div>
               </div>
             </el-col>
@@ -29,7 +36,9 @@
           <el-row>
             <el-col :span="24">
               <div class = "top_right">
-                <div class = "chart_title"><h4>各地区户籍与常住外来人口增量分布</h4></div>
+                <div class = "chart_title">
+                  <i class="tit_icon icon-tit-line"></i>
+                  <h3>各地区户籍与常住外来人口增量分布</h3></div>
                 <div id = "chart6" style="height: 90%"></div>
               </div>
             </el-col>
@@ -38,13 +47,17 @@
                 <el-col :span="12">
 
                   <div class = "ind_right2">
-                    <div class="chart_title">各地区户籍人口增量变化</div>
+                    <div class="chart_title">
+                      <i class="tit_icon icon-tit-line"></i>
+                      <h3>各地区户籍人口增量变化</h3></div>
                     <div id="chart4" style="height: 97%"></div>
                   </div>
                 </el-col>
                 <el-col :span="12">
                   <div class = "ind_right2 " style="margin-right: 1vh">
-                    <div class="chart_title">各地区常住外来人口增量变化</div>
+                    <div class="chart_title">
+                      <i class="tit_icon icon-tit-line"></i>
+                      <h3>各地区常住外来人口增量变化</h3></div>
                     <div id="chart5" style="height: 98%;"></div>
                   </div>
                 </el-col>
@@ -135,6 +148,22 @@
                                 margin: 20
                             },
                         },
+
+                        {
+                            type: "value",
+                            splitLine: {
+                                show: false
+                            },
+                            axisTick: {
+                                show: false
+                            },
+                            axisLine: {
+                                show: false
+                            },
+                            axisLabel: {
+                                textStyle: config().textStyle
+                            },
+                        }
                     ],
                     series: [
                         {
@@ -155,6 +184,7 @@
 
                 }
                 chart1.setOption(option);
+                window.onresize = chart1.resize;
             },
             init_chart2() {
                 let chart2 = echarts.init(document.getElementById('chart2'), 'macarons');
@@ -227,6 +257,7 @@
                     ]
                 };
                 chart2.setOption(option);
+                window.onresize=chart2.resize;
             },
             init_chart3(){
                 let chart3 = echarts.init(jq('#chart3')[0], 'macarons');
@@ -308,6 +339,7 @@
                     ]
                 };
                 chart3.setOption(option);
+                window.onresize=chart3.resize;
             },
             init_chart4(){
                 let chart4 = echarts.init(jq('#chart4')[0], 'macarons');
@@ -353,9 +385,9 @@
                     grid: {
                         left: '3%',
                         right: '4%',
-                        bottom: '10%',
+                        bottom: '13%',
                         width:'95%',
-                        height:'75%',
+                        height:'74%',
                         containLabel: true
                     },
                     series: [{
@@ -381,6 +413,7 @@
                     }]
                 };
                 chart4.setOption(option);
+                window.onresize=chart4.resize;
             },
             init_chart5(){
                 let chart5 = echarts.init(jq('#chart5')[0], 'macarons');
@@ -426,9 +459,9 @@
                     grid: {
                         left: '3%',
                         right: '4%',
-                        bottom: '10%',
+                        bottom: '13%',
                         width:'93%',
-                        height:'75%',
+                        height:'74%',
                         containLabel: true
                     },
                     series: [{
@@ -454,9 +487,10 @@
                     }]
                 };
                 chart5.setOption(option);
+                window.onresize=chart5.resize;
             },
             init_chart6(){
-                let chart6 = echarts.init($('#chart6')[0]);
+                let chart6 = echarts.init(jq('#chart6')[0]);
                 echarts.registerMap('hainan',  hainan)
                 var pd = [{"name":"海口","value":[110.326837,20.031624,"海口","20.18"]}]
                 var   option = {
@@ -572,10 +606,12 @@
 <style lang="scss" scoped>
   #total{
     .chart_title{
-      color: white;
-      padding: 1vh;
-      height: 1vh;
-      font-size: 1.5em;
+      color: #a9b2d4;
+      padding-left: 5vh;
+      position: relative;
+      height: 4vh;
+      line-height: 4vh;
+      padding-top: 1vh;
     }
     .ind_left{
       height: 29.6vh;
@@ -609,5 +645,18 @@
       background-repeat: no-repeat;
       background-size: 100% 60.3vh;
     }
+    /*.tit_icon {*/
+    /*  width: 3.6vh;*/
+    /*  height: 3.6vh;*/
+    /*  display: inline-block;*/
+    /*  position: absolute;*/
+    /*  top:2vh;*/
+    /*  left: 1vh;*/
+    /*  z-index: 1;*/
+    /*}*/
+    /*.icon-tit-line {*/
+    /*  background: url("../../static/img/icon-tit-line.svg") no-repeat 100%;*/
+    /*}*/
+
   }
 </style>
