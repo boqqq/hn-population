@@ -94,6 +94,7 @@
   var echarts = require('echarts');
   import '../../static/js/map/china.js';
   import '../../static/js/map/hainan.js';
+  import hainan from '../../static/js/json/hainan.json';
   import {config} from '../../static/js/config/chartConfig.js';
   export default {
     name: "population-structure",
@@ -121,20 +122,32 @@
           {region: '保亭黎族自治县', rate: 26, num: 18, coor: [109.706931, 18.647458]},
           {region: '琼中黎族自治县', rate: 25, num: 19, coor: [109.846811, 19.038617]}
         ],
+        familyData:''
       }
     },
     components: {},
     mounted() {
+      this.chart_right3Data();
       this.chart_left1();
       this.chart_left2();
       this.chart_left3();
       this.chart_center2();
       this.chart_right1();
       this.chart_right2();
-      this.chart_right3();
       this.chart_center1();
     },
     methods: {
+      chart_right3Data(){
+        this.$http({
+          url: this.$http.adornUrl("/t03familymtntysitu5yrchg/findAll"),
+          method: 'get',
+          params: this.$http.adornParams({
+          })
+        }).then(({data}) => {
+          debugger
+          this.chart_right3(data);
+        })
+      },
       chart_left1() {
         var myChart = echarts.init(document.getElementById("chart_left1"));
         var option = {
@@ -168,7 +181,7 @@
           xAxis: {
             type: 'category',
             zlevel: 10,
-            data: ['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39', '40-44', '45-49', '50-54', '55-59', '60-64', '65-69', '70-74', '75-79', '80+'],
+            data: ['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39', '40-44', '45-49', '50-54', '55-59', '60-64', '65+'],
             axisLine: {
               show: false,
               lineStyle: {
@@ -887,7 +900,7 @@
         };
         myChart.setOption(option);
       },
-      chart_right3() {
+      chart_right3(data) {
         var myChart = echarts.init(document.getElementById("chart_right3"));
         var option = {
           grid:{
@@ -922,7 +935,7 @@
           },
           xAxis: {
             type: 'value',
-            max: 100,
+            max: 300,
             position: 'bottom',
             axisLabel: {
               show: true,
@@ -960,7 +973,7 @@
                 color: 'gray',
               }
             },
-            data: ['2014年', '2018年'],
+            data: data.page['years'],
             //axisLabel 坐标轴刻度标签的相关设置
             axisLabel: {
               show: true,
@@ -973,7 +986,7 @@
             name: '一孩率',
             type: 'bar',
             stack: '费用',
-            data: [25, 20],
+            data: data.page['one'],
             barWidth: '40%',
             itemStyle: {
               color: '#4699FF',
@@ -986,7 +999,7 @@
               type: 'bar',
               //stack 数据堆叠，同个类目轴上系列配置相同的stack值可以堆叠放置。
               stack: '费用',
-              data: [22, 12],
+              data: data.page['two'],
               barWidth: '40%',
               itemStyle: {
                 color: '#FF5B35',
@@ -998,37 +1011,12 @@
               type: 'bar',
               //stack 数据堆叠，同个类目轴上系列配置相同的stack值可以堆叠放置。
               stack: '费用',
-              data: [15, 20],
+              data: data.page['three'],
               barWidth: '40%',
               itemStyle: {
                 color: '#47D1FF',
               },
-            },
-            {
-              name: '四人户',
-              //type决定图表类型
-              type: 'bar',
-              //stack 数据堆叠，同个类目轴上系列配置相同的stack值可以堆叠放置。
-              stack: '费用',
-              data: [15, 13],
-              barWidth: '40%',
-              itemStyle: {
-                color: '#fff',
-              },
-            },
-            {
-              name: '五人及五人以上户',
-              //type决定图表类型
-              type: 'bar',
-              //stack 数据堆叠，同个类目轴上系列配置相同的stack值可以堆叠放置。
-              stack: '费用',
-              data: [15, 16],
-              barWidth: '40%',
-              itemStyle: {
-                color: '#5DEA80',
-              },
-            },
-
+            }
           ]
         };
         myChart.setOption(option);
