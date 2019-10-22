@@ -173,7 +173,28 @@
         pop_flow_bar:[190,118,172,176,223,84,111,90,94,241,100,110],
         pop_flow_line:[164,218,72,76,180,184,86,190,94,222,100,110],
         nameB: ['户籍人口','常住人口','流动人口'],
-        nameL: '同比增长率'
+        nameL: '同比增长率',
+        tableData:[
+          {region:'海口市',rate:40,num:1,coor:[110.326837,20.031624]},
+          {region:'三亚市',rate:38,num:2,coor:[109.524255,18.256929]},
+          {region:'三沙市',rate:37,num:3,coor:[112.351689,16.838364]},
+          {region:'儋州市',rate:36,num:4,coor:[109.565074,19.533091]},
+          {region:'五指山市',rate:35,num:5,coor:[109.52483,18.780731]},
+          {region:'文昌市',rate:35,num:6,coor:[110.932715,19.616634]},
+          {region:'琼海市',rate:34,num:7,coor:[110.480832,19.255009]},
+          {region:'万宁市',rate:33,num:8,coor:[110.396559,18.802845]},
+          {region:'东方市',rate:32,num:9,coor:[108.65629,19.100448]},
+          {region:'定安县',rate:32,num:10,coor:[110.359209,19.683308]},
+          {region:'屯昌县',rate:31,num:11,coor:[110.108546,19.357035]},
+          {region:'澄迈县',rate:30,num:12,coor:[110.010062,19.744893]},
+          {region:'临高县',rate:29,num:13,coor:[109.688244,19.916212]},
+          {region:'白沙黎族自治县',rate:29,num:14,coor:[109.455171,19.233017]},
+          {region:'昌江黎族自治县',rate:29,num:15,coor:[109.063039,19.30236]},
+          {region:'乐东黎族自治县',rate:28,num:16,coor:[109.179933,18.756966]},
+          {region:'陵水黎族自治县',rate:27,num:17,coor:[110.042739,18.512332]},
+          {region:'保亭黎族自治县',rate:26,num:18,coor:[109.706931,18.647458]},
+          {region:'琼中黎族自治县',rate:25,num:19,coor:[109.846811,19.038617]}
+        ],
       }
     },
     components: {
@@ -301,17 +322,23 @@
       ind_chart_map(id){
         var ind_chart_map = echarts.init(document.getElementById(id));
         echarts.registerMap('hainan',  hainan)
-        var pd = [{"name":"海口","value":[110.326837,20.031624,"海口","20.18"]}]
-        var option ={
+
+        var pd = [];
+        for (var i = 0; i < this.tableData.length; i++) {
+          var tmp = {}
+          var d = []
+          tmp.name = this.tableData[i].region
+          d.push(this.tableData[i].coor[0],this.tableData[i].coor[1],this.tableData[i].region,this.tableData[i].rate,i+1)
+          tmp.value = d
+          pd.push(tmp)
+        };
+        var  option =  {
           tooltip: {
             trigger: 'item',
             textStyle: config().textStyle,
             formatter: function (params) {
-              if(typeof(params.value)[2] == "undefined"){
-                return params.name + ' : ' + params.value;
-              }else{
-                return params.name + ' : ' + params.value[2];
-              }
+              var st = params.value[2]+'</br>常住人口：'+params.value[3]+'</br>增量：'+params.value[4]
+              return st
             }
           },
           legend: {
@@ -321,57 +348,45 @@
             data:['pm2.5'],
             textStyle: config().textStyle,
           },
-          visualMap: {
-            show: false,
-            min: 0,
-            max: 500,
-            left: 'left',
-            top: 'bottom',
-            text: ['高', '低'], // 文本，默认为数值文本
-            calculable: true,
-            seriesIndex: [1],
-            inRange: {
-              // color: ['#3B5077', '#031525'] // 蓝黑
-              // color: ['#ffc0cb', '#800080'] // 红紫
-              // color: ['#3C3B3F', '#605C3C'] // 黑绿
-              //color: ['#0f0c29', '#302b63', '#24243e'] // 黑紫黑
-              //color: ['#23074d', '#cc5333'] // 紫红
-              // color: ['#00467F', '#A5CC82'] // 蓝绿
-              // color: ['#1488CC', '#2B32B2'] // 浅蓝
-              // color: ['#00467F', '#A5CC82'] // 蓝绿
-              // color: ['#00467F', '#A5CC82'] // 蓝绿
-              // color: ['#00467F', '#A5CC82'] // 蓝绿
-              // color: ['#00467F', '#A5CC82'] // 蓝绿
-
-            }
-          },
           geo: {
             show: true,
-            top:0,
             map: 'hainan',
             layoutSize: "500%",
-            zoom:6,
-            center: [109.76112,19.2472],
+            zoom:5.5,
+            center: [109.76112,18.8472],
             label: {
               normal: {
-                show: false
+                show: true,
+                textStyle: config().textStyle,
               },
               emphasis: {
-                show: false,
+                show: true,
+                textStyle: config().textStyle,
               }
             },
             roam: true,
             itemStyle: {
               normal: {
-                areaColor: '#052363',
-                borderColor: 'rgba(63, 218, 255, 0.5)',
+                areaColor: 'transparent',
+                borderColor: '#3fdaff',
                 borderWidth: 2,
                 shadowColor: 'rgba(63, 218, 255, 0.5)',
-                shadowBlur: 0,
+                shadowBlur: 30
               },
               emphasis: {
                 areaColor: '#2B91B7',
               }
+            }
+          },
+          visualMap: {
+            show:false,
+            max: 19,
+            min:1,
+            dimension:4,
+            seriesIndex:0,
+            calculable: true,
+            inRange: {
+              color: ['#ff3800','#ff4f00' ,'#ff8c00','#ffc900','#e8ff00','#6dff00','#00ff23']
             }
           },
           series : [
@@ -380,11 +395,13 @@
               type: 'effectScatter',
               coordinateSystem: 'geo',
               symbol: 'circle',
-              symbolSize: 10,
+              symbolSize: function (val) {
+                return config().fontSize*val[3]/18 //val[3]*1.5-18
+              },
               itemStyle: {
                 normal: {
                   color: 'red'
-                },
+                }
               },
               zlevel: 9,
               data: pd,
@@ -394,17 +411,36 @@
               type: 'scatter',
               coordinateSystem: 'geo',
               symbol: 'pin',
-              symbolSize: 40,
-              itemStyle: {
-                normal: {
-                  color: 'yellow'
+              symbolSize: function (val) {
+                if(val[4]<=10){
+                  return config().fontSize*3
                 }
               },
-              zlevel: 9,
+              itemStyle: {
+                normal: {
+                  color: '#0000ff'
+                }
+              },
+              label: {
+                normal: {
+                  formatter:  function (val) {
+                    if(val.data.value[4]<=10){
+                      return val.data.value[4]
+                    }else{
+                      return '';
+                    }
+                  },
+                  //position: 'top',
+                  textStyle: config().textStyle,
+                  show: true
+                }
+              },
+              zlevel: 10,
               data: pd,
             }
           ]
         };
+
         ind_chart_map.setOption(option);
         window.onresize = ind_chart_map.resize;
       },
