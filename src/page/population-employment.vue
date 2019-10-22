@@ -72,7 +72,7 @@
             <div class="fix-title">
               <div class="pop_col_tit">
                 <i class="tit_icon icon-tit-line"></i>
-                <h3>按登记注册类型从业人员结构变化趋势</h3>
+                <h3>各行业从业人员结构5年变迁</h3>
               </div>
             </div>
             <div id="changes_employment" class="bar-comtent">
@@ -113,17 +113,22 @@
 
         let _this = this;
         var dataX = [];
+        var dataY1 = [];
         var dataY2 = [];
         _this.$http({
-          url: _this.$http.adornUrl('/home/t01labrpopuratio/list'),
-          method: 'post',
-          data: {'area_code':'460000000000','date_stat':'2009'}
+          url: _this.$http.adornUrl('/t04workpersmemqtyocuplabrpopuratio/list'),
+          method: 'get',
+          params: _this.$http.adornParams({
+            'areaCode':'460000000000'
+          }, false)
         }).then(({data}) => {
+          console.log(data)
           if (data.code == 0) {
-            data.ratio.forEach(x=>{
+            data.list.forEach(x=>{
               dataX.push(x.dateStat);
-              dataY2.push(x.proportion);
-              _this.labor_trend(dataX,_this.incData, dataY2);
+              dataY1.push(x.practitionerNum);
+              dataY2.push(x.ytyGrowth);
+              _this.labor_trend(dataX,dataY1, dataY2);
             })
           }
         })
