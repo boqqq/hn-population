@@ -101,92 +101,110 @@
             this.init_chart6()
         },
         methods:{
+
             //户籍人口与常驻外来人口总量变化趋势
             init_chart1() {
-                let chart1 = echarts.init(document.getElementById('chart1'), 'macarons');
-                let option = {
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                        }
-                    },
-                    legend: {
-                        top: '3%',
-                        right: '4%',
-                        textStyle: {
-                            color : 'white',
-                        },
-                        data: ['户籍人口', '常驻外来人口']
-                    },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '15%',
-                        width:'93%',
-                        height:'70%',
-                        containLabel: true
-                    },
-                    xAxis: [
-                        {
-                            type: 'category',
-                            axisLabel: {
-                                interval: 0,
-                                color:'#fff',
-                                margin: 20
-                            },
-                            data: ['2010年', '2011年', '2012年', '2013年', '2014年', '2015年', '2016年', '2017年', '2018年', '2019年']
-                        }
-                    ],
-                    yAxis: [
-                        {
-                            type: 'value',
-                            splitLine: false,
-                            axisLabel: {
-                                interval: 0,
-                                color:'#fff',
-                                margin: 20
-                            },
-                        },
+                this.$http({
+                    url: this.$http.adornUrl("/t02housdrgstprmnfognpoputotlchg/list"),
+                    method: 'get',
+                    params: this.$http.adornParams({
+                    })
+                }).then(({data}) => {
+                    let dts=data.list;
+                    let xData=[];
+                    let hjData=[];
+                    let czData=[];
+                    for(let i = 0;i < dts.length; i++){
+                        xData.push(dts[i]["dateStat"].substr(0,4));
+                        hjData.push(Number.parseInt(dts[i]["hjPopu"]));
+                        czData.push(Number.parseInt(dts[i]["wlPopu"]));
+                    }
+                    let chart1 = echarts.init(document.getElementById('chart1'), 'macarons');
+                    let option = {
 
-                        {
-                            type: "value",
-                            splitLine: {
-                                show: false
-                            },
-                            axisTick: {
-                                show: false
-                            },
-                            axisLine: {
-                                show: false
-                            },
-                            axisLabel: {
-                                textStyle: config().textStyle
-                            },
-                        }
-                    ],
-                    series: [
-                        {
-                            name: '户籍人口',
-                            type: 'bar',
-                            stack: '额度',
-                            color: '#10a2ff',
-                            data: [1030, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, ]
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                            }
                         },
-                        {
-                            name: '常驻外来人口',
-                            type: 'bar',
-                            stack: '额度',
-                            color: '#ff2e83',
-                            data: [400, 400, 500, 600, 700, 600, 700, 800, 900, 1000, ]
-                        }
-                    ]
+                        legend: {
+                            top: '3%',
+                            right: '4%',
+                            textStyle: {
+                                color : 'white',
+                            },
+                            data: ['户籍人口', '常住外来人口']
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '15%',
+                            width:'93%',
+                            height:'70%',
+                            containLabel: true
+                        },
+                        xAxis: [
+                            {
+                                type: 'category',
+                                axisLabel: {
+                                    interval: 0,
+                                    color:'#fff',
+                                    margin: 20
+                                },
+                                //data: ['2010年', '2011年', '2012年', '2013年', '2014年', '2015年', '2016年', '2017年', '2018年', '2019年']
+                                data:xData
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                                splitLine: false,
+                                axisLabel: {
+                                    interval: 0,
+                                    color:'#fff',
+                                    margin: 20
+                                },
+                            },
+                        ],
+                        series: [
+                            {
+                                name: '户籍人口',
+                                type: 'bar',
+                                stack: '人口',
+                                color: '#10a2ff',
+                                data: hjData//[1030, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, ]
+                            },
+                            {
+                                name: '常住外来人口',
+                                type: 'bar',
+                                stack: '人口',
+                                color: '#ff2e83',
+                                data:czData //[400, 400, 500, 600, 700, 600, 700, 800, 900, 1000, ]
+                            }
+                        ]
 
-                }
-                chart1.setOption(option);
-                window.onresize = chart1.resize;
+                    }
+                    chart1.setOption(option);
+                    window.onresize = chart1.resize;
+                })
             },
             init_chart2() {
+                this.$http({
+                    url: this.$http.adornUrl("/t02prmnpopuprmnfognpopugrowchg/list"),
+                    method: 'get',
+                    params: this.$http.adornParams({
+                    })
+                }).then(({data}) => {
+                        let dts=data.list;
+                        let xData=[];
+                        let czGrowth=[];
+                        let wlGrowth=[];
+                        for(let i = 0;i < dts.length; i++){
+                            xData.push(dts[i]["dateStat"].substr(0,4));
+                            czGrowth.push(Number.parseFloat(dts[i]["czGrowth"]));
+                            wlGrowth.push(Number.parseFloat(dts[i]["wlGrowth"]));
+                        }
                 let chart2 = echarts.init(document.getElementById('chart2'), 'macarons');
                 let option = {
 
@@ -224,7 +242,7 @@
                             color:'#fff',
                             margin: 20
                         },
-                        data: ['2010年','2011年','2012年','2013年','2014年','2015年','2016年','2017年','2018年','2019年']
+                        data: xData//['2010年','2011年','2012年','2013年','2014年','2015年','2016年','2017年','2018年','2019年']
                     },
                     yAxis: {
                         type: 'value',
@@ -244,7 +262,7 @@
                             symbol:'circle',
                             stack: '常住人口增长率',
                             color:'#10a2ff',
-                            data:[10, 20, 30, 20, 30,30,20,30,20,30]
+                            data:czGrowth//[10, 20, 30, 20, 30,30,20,30,20,30]
                         },
                         {
                             name:'常住外来人口增长率',
@@ -252,14 +270,32 @@
                             stack: '常住外来人口增长率',
 
                             color:'#ff2e83',
-                            data:[-20, -30, -20, -10, 50,40,50,60,50,90]
+                            data:wlGrowth//[-20, -30, -20, -10, 50,40,50,60,50,90]
                         }
                     ]
                 };
                 chart2.setOption(option);
                 window.onresize=chart2.resize;
+                })
             },
             init_chart3(){
+                this.$http({
+                    url: this.$http.adornUrl("/t02labrpopugrowratechgtrnd/list"),
+                    method: 'get',
+                    params: this.$http.adornParams({
+                    })
+                }).then(({data}) => {
+                        let dts=data.list;
+                        let xData=[];
+                        let ytyGrowth01=[];
+                        let ytyGrowth02=[];
+                        let ytyGrowth03=[];
+                        for(let i = 0;i < dts.length; i++){
+                            xData.push(dts[i]["dateStat"].substr(0,4));
+                            ytyGrowth01.push(dts[i]["ytyGrowth01"]);
+                            ytyGrowth02.push(dts[i]["ytyGrowth02"]);
+                            ytyGrowth03.push(dts[i]["ytyGrowth03"]);
+                        }
                 let chart3 = echarts.init(jq('#chart3')[0], 'macarons');
                 let option = {
 
@@ -292,7 +328,7 @@
                         },
                         boundaryGap: false,
                         color:'blue',
-                        data: ['2010年','2011年','2012年','2013年','2014年','2015年','2016年','2017年','2018年','2019年']
+                        data:xData //['2010年','2011年','2012年','2013年','2014年','2015年','2016年','2017年','2018年','2019年']
                     },
                     yAxis: {
                         type: 'value',
@@ -318,7 +354,7 @@
                             symbol:'circle',
                             stack: '0-14岁增长',
                             color:'#10a2ff',
-                            data:[0.09, 0.06, 0.03, 0.04, 0.03,0.025,0.02,0.015,0.01,0.012]
+                            data:ytyGrowth01//[0.09, 0.06, 0.03, 0.04, 0.03,0.025,0.02,0.015,0.01,0.012]
                         },
                         {
                             name:'15-64岁增长率',
@@ -326,7 +362,7 @@
                             stack: '15-64岁增长率',
 
                             color:'rgb(255,0,72)',
-                            data:[0.04, 0.03, 0.031, 0.025, 0.020,0.018,0.011,0.01,-0.01,-0.001]
+                            data:ytyGrowth02//[0.04, 0.03, 0.031, 0.025, 0.020,0.018,0.011,0.01,-0.01,-0.001]
                         },
                         {
                             name:'65岁增长率',
@@ -334,269 +370,364 @@
                             stack: '65岁增长率',
 
                             color:'rgb(219,32,255)',
-                            data:[0.07, 0.05, 0.02, 0.09, 0.07,0.06,0.05,0.04,0.02,0.03]
+                            data:ytyGrowth03//[0.07, 0.05, 0.02, 0.09, 0.07,0.06,0.05,0.04,0.02,0.03]
                         }
                     ]
                 };
                 chart3.setOption(option);
                 window.onresize=chart3.resize;
+                })
             },
             init_chart4(){
-                let chart4 = echarts.init(jq('#chart4')[0], 'macarons');
-                let option = {
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    xAxis: {
-                        type: 'category',
-                        data: ['海口市','三亚市','三沙市','儋州市','五指山市','文昌市','琼海市','万宁市','东方市',
-                            '定安县','屯昌县','澄迈县','临高县','白沙黎族自治县',
-                            '昌江黎族自治县','乐东黎族自治县','陵水黎族自治县',
-                            '保亭黎族苗族自治县','琼中苗族黎族自治县'],
-                        axisLabel: {
-                            interval: 0,
-                            color:'#fff',
-                            margin: 20,
-                            rotate:30
-                        },
-                        axisLine:{
+                this.$http({
+                    url: this.$http.adornUrl("/t02zonehousdrgstpopuincchg/list"),
+                    method: 'get',
+                    params: this.$http.adornParams({
+                    })
+                }).then(({data}) => {
+                    let dts = data.list;
+                    let xData = [];
+                    let popuTotal = [];
 
-                        }
+                    for (let i = 0; i < dts.length; i++) {
+                        xData.push(dts[i]["areaName"]);
+                        popuTotal.push(dts[i]["popuTotal"]);
+                    }
+                    let chart4 = echarts.init(jq('#chart4')[0], 'macarons');
+                    let option = {
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: xData,//['海口市', '三亚市', '三沙市', '儋州市', '五指山市', '文昌市', '琼海市', '万宁市', '东方市',
+                                //'定安县', '屯昌县', '澄迈县', '临高县', '白沙黎族自治县',
+                                //'昌江黎族自治县', '乐东黎族自治县', '陵水黎族自治县',
+                                //'保亭黎族苗族自治县', '琼中苗族黎族自治县'],
+                            axisLabel: {
+                                interval: 0,
+                                color: '#fff',
+                                margin: 20,
+                                rotate: 30
+                            },
+                            axisLine: {}
 
-                    },
-                    yAxis: {
-                        name:'万人',
-                        type: 'value',
-                        show:true,
-                        axisLabel: {
-                            interval: 0,
-                            color:'#fff',
-                            margin: 20
                         },
-                        splitLine:{
-                            show:false,
-                        },
-                        axisLine:{
-                            lineStyle:{
-                                color:'#FFFFFF'
+                        yAxis: {
+                            name: '万人',
+                            type: 'value',
+                            show: true,
+                            axisLabel: {
+                                interval: 0,
+                                color: '#fff',
+                                margin: 20
+                            },
+                            splitLine: {
+                                show: false,
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: '#FFFFFF'
+                                },
                             },
                         },
-                    },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '13%',
-                        width:'95%',
-                        height:'74%',
-                        containLabel: true
-                    },
-                    series: [{
-                        data: [10,9,8, 7, 6, 5, 4,3,2,1,-9,-8,-7,-6,-5, -4, -3, -2, -1],
-                        type: 'bar',
-                        barWidth:'15%',
-                        itemStyle: {
-                            normal: {
-                                color: function(params) {
-                                    if(params.data<0)
-                                    {
-                                        return 'rgb(35,255,29)'
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '13%',
+                            width: '95%',
+                            height: '74%',
+                            containLabel: true
+                        },
+                        series: [{
+                            data: popuTotal,//[10, 9, 8, 7, 6, 5, 4, 3, 2, 1, -9, -8, -7, -6, -5, -4, -3, -2, -1],
+                            type: 'bar',
+                            barWidth: '15%',
+                            itemStyle: {
+                                normal: {
+                                    color: function (params) {
+                                        if (params.data < 0) {
+                                            return 'rgb(35,255,29)'
+                                        } else {
+                                            return 'rgb(255,46,131)'
+                                        }
                                     }
-                                    else
-                                    {
-                                        return 'rgb(255,46,131)'
-                                    }
-                                }
-                            },
+                                },
 
 
-                        }
-                    }]
-                };
-                chart4.setOption(option);
-                window.onresize=chart4.resize;
+                            }
+                        }]
+                    };
+                    chart4.setOption(option);
+                    window.onresize = chart4.resize;
+                })
             },
             init_chart5(){
-                let chart5 = echarts.init(jq('#chart5')[0], 'macarons');
-                let option = {
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    xAxis: {
-                        type: 'category',
-                        data: ['海口市','三亚市','三沙市','儋州市','五指山市','文昌市','琼海市','万宁市','东方市',
-                            '定安县','屯昌县','澄迈县','临高县','白沙黎族自治县',
-                            '昌江黎族自治县','乐东黎族自治县','陵水黎族自治县',
-                            '保亭黎族苗族自治县','琼中苗族黎族自治县'],
-                        axisLabel: {
-                            interval: 0,
-                            color:'#fff',
-                            margin: 20,
-                            rotate:30
-                        },
-                        axisLine:{
+                this.$http({
+                    url: this.$http.adornUrl("/t02zoneprmnfognpopuincchg/list"),
+                    method: 'get',
+                    params: this.$http.adornParams({
+                    })
+                }).then(({data}) => {
+                    let dts = data.list;
+                    let xData = [];
+                    let popuTotal = [];
 
-                        }
+                    for (let i = 0; i < dts.length; i++) {
+                        xData.push(dts[i]["areaName"]);
+                        popuTotal.push(dts[i]["popuTotal"]);
+                    }
+                    let chart5 = echarts.init(jq('#chart5')[0], 'macarons');
+                    let option = {
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: xData,//['海口市', '三亚市', '三沙市', '儋州市', '五指山市', '文昌市', '琼海市', '万宁市', '东方市',
+                                //'定安县', '屯昌县', '澄迈县', '临高县', '白沙黎族自治县',
+                                //'昌江黎族自治县', '乐东黎族自治县', '陵水黎族自治县',
+                                //'保亭黎族苗族自治县', '琼中苗族黎族自治县'],
+                            axisLabel: {
+                                interval: 0,
+                                color: '#fff',
+                                margin: 20,
+                                rotate: 30
+                            },
+                            axisLine: {}
 
-                    },
-                    yAxis: {
-                        name:'万人',
-                        type: 'value',
-                        show:true,
-                        axisLabel: {
-                            interval: 0,
-                            color:'#fff',
-                            margin: 20
                         },
-                        splitLine:{
-                            show:false,
-                        },
-                        axisLine:{
-                            lineStyle:{
-                                color:'#FFFFFF'
+                        yAxis: {
+                            name: '万人',
+                            type: 'value',
+                            show: true,
+                            axisLabel: {
+                                interval: 0,
+                                color: '#fff',
+                                margin: 20
+                            },
+                            splitLine: {
+                                show: false,
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: '#FFFFFF'
+                                },
                             },
                         },
-                    },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '13%',
-                        width:'93%',
-                        height:'74%',
-                        containLabel: true
-                    },
-                    series: [{
-                        data: [10,9,8, 7, 6, 5, 4,3,2,1,-9,-8,-7,-6,-5, -4, -3, -2, -1],
-                        type: 'bar',
-                        barWidth:'15%',
-                        itemStyle: {
-                            normal: {
-                                color: function(params) {
-                                    if(params.data<0)
-                                    {
-                                        return 'rgb(35,255,29)'
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '13%',
+                            width: '93%',
+                            height: '74%',
+                            containLabel: true
+                        },
+                        series: [{
+                            data:popuTotal, //[10, 9, 8, 7, 6, 5, 4, 3, 2, 1, -9, -8, -7, -6, -5, -4, -3, -2, -1],
+                            type: 'bar',
+                            barWidth: '15%',
+                            itemStyle: {
+                                normal: {
+                                    color: function (params) {
+                                        if (params.data < 0) {
+                                            return 'rgb(35,255,29)'
+                                        } else {
+                                            return 'rgb(255,46,131)'
+                                        }
                                     }
-                                    else
-                                    {
-                                        return 'rgb(255,46,131)'
-                                    }
-                                }
-                            },
+                                },
 
 
-                        }
-                    }]
-                };
-                chart5.setOption(option);
-                window.onresize=chart5.resize;
+                            }
+                        }]
+                    };
+                    chart5.setOption(option);
+                    window.onresize = chart5.resize;
+                })
             },
             init_chart6(){
                 let chart6 = echarts.init(jq('#chart6')[0]);
-                echarts.registerMap('hainan',  hainan)
-                var pd = [{"name":"海口","value":[110.326837,20.031624,"海口","20.18"]}]
-                var   option = {
-                    tooltip: {
-                        trigger: 'item',
-                        textStyle: config().textStyle,
-                        formatter: function (params) {
-                            if(typeof(params.value)[2] == "undefined"){
-                                return params.name + ' : ' + params.value;
-                            }else{
-                                return params.name + ' : ' + params.value[2];
-                            }
-                        }
-                    },
-                    legend: {
-                        orient: 'vertical',
-                        y: 'bottom',
-                        x:'right',
-                        data:['shopping'],
-                        textStyle: config().textStyle,
-                    },
-                    visualMap: {
-                        show: false,
-                        min: 0,
-                        max: 500,
-                        left: 'left',
-                        top: 'bottom',
-                        text: ['高', '低'], // 文本，默认为数值文本
-                        calculable: true,
-                        seriesIndex: [1],
-                        inRange: {
-                            // color: ['#3B5077', '#031525'] // 蓝黑
-                            // color: ['#ffc0cb', '#800080'] // 红紫
-                            // color: ['#3C3B3F', '#605C3C'] // 黑绿
-                            //color: ['#0f0c29', '#302b63', '#24243e'] // 黑紫黑
-                            //color: ['#23074d', '#cc5333'] // 紫红
-                            // color: ['#00467F', '#A5CC82'] // 蓝绿
-                            // color: ['#1488CC', '#2B32B2'] // 浅蓝
-                            // color: ['#00467F', '#A5CC82'] // 蓝绿
-                            // color: ['#00467F', '#A5CC82'] // 蓝绿
-                            // color: ['#00467F', '#A5CC82'] // 蓝绿
-                            // color: ['#00467F', '#A5CC82'] // 蓝绿
+                let geoCoordMap= {
+                    '海口市': [110.326837, 20.031624],
+                    '三亚市': [109.524255, 18.256929],
+                    '三沙市': [112.351689, 16.838364],
+                    '儋州市': [109.565074, 19.533091],
+                    '五指山市': [109.52483, 18.780731],
+                    '文昌市': [110.932715, 19.616634],
+                    '琼海市': [110.480832, 19.255009],
+                    '万宁市': [110.396559, 18.802845],
+                    '东方市': [108.65629, 19.100448],
+                    '定安县': [110.359209, 19.683308],
+                    '屯昌县': [110.108546, 19.357035],
+                    '澄迈县': [110.010062, 19.744893],
+                    '临高县': [109.688244, 19.916212],
+                    '白沙黎族自治县': [109.455171, 19.233017],
+                    '昌江黎族自治县': [109.063039, 19.30236],
+                    '乐东黎族自治县': [109.179933, 18.756966],
+                    '陵水黎族自治县': [110.042739, 18.512332],
+                    '保亭黎族苗族县': [109.706931, 18.647458],
+                    '琼中黎族苗族县': [109.846811, 19.038617]
+                }
 
-                        }
-                    },
+                let data = [
+                    {name: '海口市', value: 1 },
+                    {name: '三亚市', value: 2 },
+                    {name: '三沙市', value: 3 },
+                    {name: '儋州市', value: 4 },
+                    {name: '五指山市', value: 5 },
+                    {name: '文昌市', value: 6 },
+                    {name: '琼海市', value: 7 },
+                    {name: '万宁市', value: 8 },
+                    {name: '东方市', value: 9 },
+                    {name: '定安县', value: 10 },
+                    {name: '屯昌县', value: 11 },
+                    {name: '澄迈县', value: 12 },
+                    {name: '临高县', value: 13 },
+                    {name: '白沙黎族自治县',value: 14 },
+                    {name: '昌江黎族自治县', value: 15 },
+                    {name: '乐东黎族自治县', value: 16 },
+                    {name: '陵水黎族自治县', value: 17 },
+                    {name: '保亭黎族苗族自治县', value: 18 },
+                    {name: '琼中黎族苗族自治县', value: 19 },
 
-                    geo: {
-                        show: true,
-                        map: 'hainan',
-                        layoutSize: "500%",
-                        zoom:9,
-                        center: [109.76112,19.2472],
-                        label: {
-                            normal: {
-                                show: false
-                            },
-                            emphasis: {
-                                show: false,
-                            }
-                        },
-                        roam: true,
-                        itemStyle: {
-                            normal: {
-                                areaColor: 'transparent',
-                                borderColor: '#3fdaff',
-                                borderWidth: 2,
-                                shadowColor: 'rgba(63, 218, 255, 0.5)',
-                                shadowBlur: 30
-                            },
-                            emphasis: {
-                                areaColor: '#2B91B7',
-                            }
+                 ];
+
+                //取得json的样式，读取json文件
+                echarts.registerMap('hainan', hainan)
+                let handleData = function(data) {
+                    let list = [];
+                    for (let i = 0; i < data.length; i++) {
+                        let geoCoord = geoCoordMap[data[i].name];
+                        if (geoCoord) {
+                            list.push({
+                                name: data[i].name,
+                                value: geoCoord.concat(data[i].value)
+                            });
                         }
-                    },
-                    series : [
-                        { //城市点位
-                            name: 'city',
-                            type: 'effectScatter',
-                            coordinateSystem: 'geo',
-                            symbol: 'circle',
-                            symbolSize: 30,
-                            itemStyle: {
-                                normal: {
-                                    color: 'red'
-                                }
-                            },
-                            zlevel: 9,
-                            data: pd,
-                        },
-                        { //城市点位
-                            name: 'city',
-                            type: 'scatter',
-                            coordinateSystem: 'geo',
-                            symbol: 'pin',
-                            symbolSize: 50,
-                            itemStyle: {
-                                normal: {
-                                    color: 'yellow'
-                                }
-                            },
-                            zlevel: 9,
-                            data: pd,
-                        }
-                    ]
+                    }
+                    return list;
                 };
-                chart6.setOption(option)
+                let option = {
+                    baseOption: {
+                        timeline: {
+                            show: false,
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: '{b}: 增量{c}人'
+                        },
+                    },
+                    options: [{
+                        backgroundColor: "#051835",
+                        title: {
+                            text: '海南省人口',
+                            left: 'center',
+                            top: "10",
+                            textStyle: {
+                                color: '#ffffff',
+                                fontSize: 24,
+                            }
+                        },
+                        visualMap: {
+                            min: 0,
+                            max: 20,
+                            left: '20',
+                            bottom: '50',
+                            text: ['20', '0'],
+                            calculable: true,
+                            inRange: {
+                                color: ['#9EA3FF', '#6966FF', '#0300FF']
+                            },
+                            textStyle: {
+                                color: '#ffffff',
+                                fontSize: 14
+                            },
+                            itemWidth: 30,
+                            itemHeight: 150,
+                        },
+                        geo: {
+                            show: true,
+                            map: 'hainan',
+                            layoutSize: "400%",
+                            zoom: 9,
+                            center: [109.76112, 19.2472],
+                            label: {
+                                normal: {
+                                    show: true,
+                                    textStyle: config().textStyle,
+                                },
+                                emphasis: {
+                                    show: true,
+                                    textStyle: config().textStyle,
+                                }
+                            },
+                            itemStyle: {
+                                normal: {
+                                    areaColor: 'transparent',
+                                    borderColor: '#3fdaff',
+                                    borderWidth: 2,
+                                    shadowColor: 'rgba(63, 218, 255, 0.5)',
+                                    shadowBlur: 30
+                                },
+                                emphasis: {
+                                    areaColor: '#2B91B7',
+                                }
+                            }
+                        },
+                        "series": [
+                            {
+                                name: 'light',
+                                type: 'scatter',
+                                coordinateSystem: 'geo',
+                                data: handleData(data),
+                                symbolSize: 1,
+                                label: {
+                                    normal: {
+                                        formatter: '{b}',
+                                        fontSize: 10,
+                                        show: true
+                                    },
+                                    emphasis: {
+                                        show: true
+                                    }
+                                },
+                                itemStyle: {
+                                    normal: {
+                                        color: '#ccc',
+                                        areaColor: 'transparent',
+                                        borderColor: 'transparent',
+                                        label: {
+                                            show: true,
+                                            textStyle: {
+                                                color: "rgb(249, 249, 249)",
+                                                fontSize: 16
+                                            }
+                                        }
+                                    },
+                                }
+                            },
+                            {
+                                center: [109.76112, 19.2472],
+                                data: data,
+                                zoom:9,
+                                label: {
+                                    "emphasis": {
+                                        "show": false
+                                    },
+                                    "normal": {
+                                        "show": false
+                                    }
+                                },
+                                mapType: "hainan",
+                                roam: false,
+                                type: "map"
+                            }
+                        ]
+                    }]
+                }
+
+                chart6.setOption(option);
                 window.onresize = chart6.resize;
             },
         }
