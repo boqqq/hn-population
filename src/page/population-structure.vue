@@ -257,7 +257,7 @@
             containLabel: true
           },
           legend: {
-            data: ['2014年年龄组占比', '2018年年龄组占比'],
+            data: ['2015年年龄组占比', '2019年年龄组占比'],
             right: '10%',
             top: '1%',
             textStyle: {
@@ -327,7 +327,7 @@
             }
           },
           series: [{
-            name: '2014年年龄组占比',
+            name: '2015年年龄组占比',
             type: 'bar',
             barWidth: '30%',
             itemStyle: {
@@ -344,7 +344,7 @@
             data: data.page['2015']
           },
             {
-              name: '2018年年龄组占比',
+              name: '2019年年龄组占比',
               type: 'bar',
               barWidth: '30%',
               itemStyle: {
