@@ -93,24 +93,10 @@
 
       data(){
         return{
-          pop_month: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-          pop_hou_bar:[190,118,172,176,223,84,111,90,94,241,100,110],
-          pop_hou_line:[164,218,72,76,180,184,86,190,94,222,100,110],
-          nameB: ['城乡居民人均可支配收入','6岁及以上人口人均受教育年限','劳动生产率','每千人口医院床位数'],
-          nameL: ['增长率','文盲率',],
           xName: []
         }
       },
       mounted () {
-        // this.chart_line ('chart_line_1')
-        // this.chart_line ('chart_line_2')
-        // this.chart_bar ('chart_bar_1',this.pop_month,this.pop_hou_bar,this.pop_hou_line,this.nameB[0],this.nameL[0])
-        // this.chart_bar ('chart_bar_2',this.pop_month,this.pop_hou_bar,this.pop_hou_line,this.nameB[1],this.nameL[1])
-        // this.chart_bar ('chart_bar_3',this.pop_month,this.pop_hou_bar,this.pop_hou_line,this.nameB[2],this.nameL[0])
-        // this.chart_bar ('chart_bar_4',this.pop_month,this.pop_hou_bar,this.pop_hou_line,this.nameB[3],this.nameL[0])
-        // this.chart_lgLine('chart_lgLine_1')
-        // this.chart_lgLine('chart_lgLine_2')
-        // this.chart_radar('chart_radar_1')
 
         this.init_chrn_br()
         this.init_cap_invst()
