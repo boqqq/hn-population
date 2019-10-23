@@ -115,33 +115,33 @@
           {region: '屯昌县',coor: [110.108546, 19.357035]},
           {region: '澄迈县',coor: [110.010062, 19.744893]},
           {region: '临高县',coor: [109.688244, 19.916212]},
-          {region: '白沙黎族自治县',coor: [109.455171, 19.233017]},
-          {region: '昌江黎族自治县',coor: [109.063039, 19.30236]},
-          {region: '乐东黎族自治县',coor: [109.179933, 18.756966]},
-          {region: '陵水黎族自治县',coor: [110.042739, 18.512332]},
-          {region: '保亭黎族自治县',coor: [109.706931, 18.647458]},
-          {region: '琼中黎族自治县',coor: [109.846811, 19.038617]}
+          {region: '白沙县',coor: [109.455171, 19.233017]},
+          {region: '昌江县',coor: [109.063039, 19.30236]},
+          {region: '乐东县',coor: [109.179933, 18.756966]},
+          {region: '陵水县',coor: [110.042739, 18.512332]},
+          {region: '保亭县',coor: [109.706931, 18.647458]},
+          {region: '琼中县',coor: [109.846811, 19.038617]}
         ],
         tableData1: [
           {region: '海口市',coor: [110.396837, 20.091624]},
           {region: '三亚市',coor: [109.594255, 18.296929]},
           {region: '三沙市',coor: [112.391689, 16.898364]},
           {region: '儋州市',coor: [109.655074, 19.593091]},
-          {region: '五指山市',coor: [109.59483, 18.790731]},
+          {region: '五指山市',coor: [109.530223,18.79489]},
           {region: '文昌市',coor: [110.992715, 19.696634]},
           {region: '琼海市',coor: [110.560832, 19.295009]},
           {region: '万宁市',coor: [110.466559, 18.892845]},
           {region: '东方市',coor: [108.69629, 19.190448]},
-          {region: '定安县',coor: [110.399209, 19.693308]},
-          {region: '屯昌县',coor: [110.198546, 19.397035]},
+          {region: '定安县',coor: [110.36812,19.527614]},
+          {region: '屯昌县',coor: [110.065458,19.403481]},
           {region: '澄迈县',coor: [110.090062, 19.794893]},
-          {region: '临高县',coor: [109.728244, 19.996212]},
-          {region: '白沙黎族自治县',coor: [109.495171, 19.293017]},
-          {region: '昌江黎族自治县',coor: [109.093039, 19.39236]},
-          {region: '乐东黎族自治县',coor: [109.219933, 18.796966]},
-          {region: '陵水黎族自治县',coor: [110.082739, 18.592332]},
-          {region: '保亭黎族自治县',coor: [109.746931, 18.697458]},
-          {region: '琼中黎族自治县',coor: [109.886811, 19.098617]}
+          {region: '临高县',coor: [109.634921,19.926612]},
+          {region: '白沙县',coor: [109.421826,19.171567]},
+          {region: '昌江县',coor: [108.868717,19.31628]},
+          {region: '乐东县',coor: [109.219933, 18.796966]},
+          {region: '陵水县',coor: [110.037852,18.48079]},
+          {region: '保亭县',coor: [109.590799,18.635126]},
+          {region: '琼中县',coor: [109.886811, 19.098617]}
         ],
         familyData:''
       }
@@ -155,7 +155,7 @@
       this.chart_right2Data();
       this.chart_right3Data();
       this.chart_center2Data();
-      this.chart_center1();
+      this.chart_center1Data();
     },
     methods: {
       chart_left1Data(){
@@ -186,6 +186,16 @@
           })
         }).then(({data}) => {
           this.chart_left3(data);
+        })
+      },
+      chart_center1Data(){
+        this.$http({
+          url: this.$http.adornUrl("/t03popuflowinflowoutstru/findAll"),
+          method: 'get',
+          params: this.$http.adornParams({
+          })
+        }).then(({data}) => {
+          this.chart_center1(data);
         })
       },
       chart_center2Data(){
@@ -1185,15 +1195,22 @@
         myChart.setOption(option);
         window.onresize = chart_right3.resize;
       },
-      chart_center1() {
+      chart_center1(data) {
         var myChart = echarts.init(document.getElementById("chart_center1"));
+        var flowIn=data.flow.flowIn;
+        var flowOut=data.flow.flowOut;
         echarts.registerMap('hainan', hainan)
         var pd = []
         for (var i = 0; i < this.tableData.length; i++) {
           var tmp = {}
           var d = []
           tmp.name = this.tableData[i].region
-          d.push(this.tableData[i].coor[0], this.tableData[i].coor[1], this.tableData[i].region, this.tableData[i].rate, i + 1)
+          d.push(this.tableData[i].coor[0], this.tableData[i].coor[1], this.tableData[i].region)
+          for(var y = 0; y < flowIn.length;y++){
+            if (flowIn[y]['areaName'] == tmp.name){
+                d.push(flowIn[y]['popuTotal'])
+            }
+          }
           tmp.value = d
           pd.push(tmp)
         }
@@ -1202,7 +1219,12 @@
           var tmp = {}
           var d = []
           tmp.name = this.tableData1[i].region
-          d.push(this.tableData1[i].coor[0], this.tableData1[i].coor[1], this.tableData1[i].region, this.tableData1[i].rate, i + 1)
+          d.push(this.tableData1[i].coor[0], this.tableData1[i].coor[1], this.tableData1[i].region)
+          for(var y = 0; y < flowOut.length;y++){
+            if (flowOut[y]['areaName'] == tmp.name){
+              d.push(flowOut[y]['popuTotal'])
+            }
+          }
           tmp.value = d
           pd1.push(tmp)
         }
@@ -1211,8 +1233,11 @@
             trigger: 'item',
             textStyle: config().textStyle,
             formatter: function (params) {
-              var st = params.value[2] + '</br>老年人口占比：' + params.value[3]
-              return st
+              if(params.seriesName == '流入人口'){
+                return params.value[2] + '</br>流入人口：' + params.value[3]+'万人'
+              }else {
+                return params.value[2] + '</br>流出人口：' + Math.abs(params.value[3])+'万人'
+              }
             }
           },
           legend: {
@@ -1258,7 +1283,7 @@
               type: 'effectScatter',
               coordinateSystem: 'geo',
               symbolSize: function (val) {
-                if (val[4] <= 10) {
+                if(val.length==4){
                   return config().fontSize * 1.5
                 }
               },
@@ -1270,10 +1295,8 @@
               label: {
                 normal: {
                   formatter: function (val) {
-                    if (val.data.value[4] <= 10) {
-                      return val.data.value[4]
-                    } else {
-                      return '';
+                    if(val.data.value.length==4){
+                      return val.data.value[3]
                     }
                   },
                   //position: 'top',
@@ -1289,10 +1312,10 @@
               type: 'effectScatter',
               coordinateSystem: 'geo',
               symbolSize: function (val) {
-                if (val[4] <= 10) {
+                if(val.length==4){
                   return config().fontSize * 1.5
                 }
-              },
+                },
               itemStyle: {
                 normal: {
                   color: 'blue'
@@ -1301,10 +1324,8 @@
               label: {
                 normal: {
                   formatter: function (val) {
-                    if (val.data.value[4] <= 10) {
-                      return val.data.value[4]
-                    } else {
-                      return '';
+                    if(val.data.value.length==4){
+                      return val.data.value[3]
                     }
                   },
                   //position: 'top',
