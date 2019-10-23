@@ -1,6 +1,6 @@
 <template>
   <div class="chart_main">
-    <el-row>
+    <el-row :gutter="7">
       <el-col :span="8">
         <div class="quality_col chart_col">
           <div class="pop_col_tit">
@@ -93,28 +93,71 @@
 
       data(){
         return{
-          pop_month: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-          pop_hou_bar:[190,118,172,176,223,84,111,90,94,241,100,110],
-          pop_hou_line:[164,218,72,76,180,184,86,190,94,222,100,110],
-          nameB: ['城乡居民人均可支配收入','6岁及以上人口人均受教育年限','劳动生产率','每千人口医院床位数'],
-          nameL: ['增长率','文盲率',]
-
+          xName: []
         }
       },
       mounted () {
-        this.chart_line ('chart_line_1')
-        this.chart_line ('chart_line_2')
-        this.chart_bar ('chart_bar_1',this.pop_month,this.pop_hou_bar,this.pop_hou_line,this.nameB[0],this.nameL[0])
-        this.chart_bar ('chart_bar_2',this.pop_month,this.pop_hou_bar,this.pop_hou_line,this.nameB[1],this.nameL[1])
-        this.chart_bar ('chart_bar_3',this.pop_month,this.pop_hou_bar,this.pop_hou_line,this.nameB[2],this.nameL[0])
-        this.chart_bar ('chart_bar_4',this.pop_month,this.pop_hou_bar,this.pop_hou_line,this.nameB[3],this.nameL[0])
-        this.chart_lgLine('chart_lgLine_1')
-        this.chart_lgLine('chart_lgLine_2')
-        this.chart_radar('chart_radar_1')
+
+        this.init_chrn_br()
+        this.init_cap_invst()
+        this.init_gover_incom()
+        this.init_recv_edu()
+        this.init_labr_work()
+        this.init_pub_cult()
+        this.init_achie_situ()
+        this.init_hlth_serv()
+        this.init_egr_coef()
       },
 
       methods: {
-        chart_line(id){
+
+        init_chrn_br(){
+          let _this = this;
+          var dataX = [];
+          var dataY1 = [];
+          var dataY2 = [];
+          _this.$http({
+            url: _this.$http.adornUrl('/t05chrnbrsitu/list'),
+            method: 'get',
+            params: _this.$http.adornParams({
+              'areaCode':'460000000000'
+            }, false)
+          }).then(({data}) => {
+            if (data.code == 0) {
+              data.list.forEach(x=>{
+                dataX.push(x.dateStat);
+                dataY1.push(x.businessNum);
+                dataY2.push(x.childDieNum);
+                _this.chart_line('chart_line_1',dataX,dataY1, dataY2,'5岁以下儿童中、重度营养不良患病率','5岁以下儿童死亡率','#4478fc','#00d4c7');
+              })
+            }
+          })
+
+        },
+        init_cap_invst(){
+          let _this = this;
+          var dataX = [];
+          var dataY1 = [];
+          var dataY2 = [];
+          _this.$http({
+            url: _this.$http.adornUrl('/t05perscapinvst/list'),
+            method: 'get',
+            params: _this.$http.adornParams({
+              'areaCode':'460000000000'
+            }, false)
+          }).then(({data}) => {
+            if (data.code == 0) {
+              data.list.forEach(x=>{
+                dataX.push(x.dateStat);
+                dataY1.push(x.capInvstRadio);
+                dataY2.push(x.ytyGrowth);
+                _this.chart_line('chart_line_2',dataX,dataY1, dataY2,'文教卫科支出占地方一般公共预算支出的比重','增长率','#4478fc','#f0396b');
+              })
+            }
+          })
+
+        },
+        chart_line(id,dataX,dataY1, dataY2,name1,name2,color1,color2){
           var chart_line=echarts.init(document.getElementById(id));
           var fontColor = '#30eee9';
           var option ={
@@ -131,15 +174,15 @@
             },
             legend: {
               show:true,
-              x:'center',
-              y:'0',
+              left:10,
+              top:0,
               icon: 'stack',
               itemWidth:10,
               itemHeight:10,
               textStyle:{
                 color:'#1bb4f6'
               },
-              data:['第一项','第二项']
+              data:[name1,name2]
             },
             xAxis : [
               {
@@ -163,14 +206,12 @@
                     color:'#195384'
                   }
                 },
-                data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+                data :dataX
               }
             ],
             yAxis : [
               {
                 type : 'value',
-                min:0,
-                max:1000,
                 axisLabel : {
                   formatter: '{value}',
                   textStyle:{
@@ -195,16 +236,17 @@
             ],
             series : [
               {
-                name:'第一项',
+                name:name1,
+                smooth:true,
                 type:'line',
                 stack: '总量',
                 symbol:'circle',
                 symbolSize: 8,
                 itemStyle: {
                   normal: {
-                    color:'#0092f6',
+                    color:color1,
                     lineStyle: {
-                      color: "#0092f6",
+                      color: color1,
                       width:1
                     },
                     areaStyle: {
@@ -226,10 +268,11 @@
                     }
                   }
                 },
-                data:[120, 132, 101, 134, 90, 230, 210, 182, 191, 234, 290, 330]
+                data:dataY1
               },
               {
-                name:'第二项',
+                name:name2,
+                smooth:true,
                 type:'line',
                 stack: '总量',
                 symbol:'circle',
@@ -237,9 +280,9 @@
 
                 itemStyle: {
                   normal: {
-                    color:'#00d4c7',
+                    color:color2,
                     lineStyle: {
-                      color: "#00d4c7",
+                      color: color2,
                       width:1
                     },
                     areaStyle: {
@@ -254,21 +297,95 @@
                     }
                   }
                 },
-                data:[220, 182, 191, 234, 290, 330, 310,201, 154, 190, 330, 410]
+                data:dataY2
               },
             ]
           };
           chart_line.setOption(option);
           window.onresize = chart_line.resize;
         },
-        chart_bar(id,month,barVal,lineVal,nameB,nameL){
+
+        init_gover_incom(){
+          let _this = this;
+          var dataX = [];
+          var dataY1 = [];
+          var dataY2 = [];
+          _this.$http({
+            url: _this.$http.adornUrl('/t05rsdntgoverincom/list'),
+            method: 'get',
+            params: _this.$http.adornParams({
+              'areaCode':'460000000000'
+            }, false)
+          }).then(({data}) => {
+            if (data.code == 0) {
+              data.list.forEach(x=>{
+                dataX.push(x.dateStat);
+                dataY1.push(x.goverIncom1);
+                dataY2.push(x.ytyGrowth);
+                _this.chart_bar('chart_bar_1',dataX,dataY1,dataY2,'城乡居民人均可支配收入','增长率','#42c7f1','#4478fc','#f8c300');
+              })
+            }
+          })
+
+        },
+        init_recv_edu(){
+          let _this = this;
+          var dataX = [];
+          var dataY1 = [];
+          var dataY2 = [];
+          _this.$http({
+            url: _this.$http.adornUrl('/t05popurecvedusitu/list'),
+            method: 'get',
+            params: _this.$http.adornParams({
+              'areaCode':'460000000000'
+            }, false)
+          }).then(({data}) => {
+            if (data.code == 0) {
+              data.list.forEach(x=>{
+                dataX.push(x.dateStat);
+                dataY1.push(x.educatedYear);
+                dataY2.push(x.illRadio);
+                _this.chart_bar('chart_bar_2',dataX,dataY1,dataY2,'6岁及以上人口人均受教育年限','文盲率','#42c7f1','#4478fc','#f8c300');
+              })
+            }
+          })
+
+        },
+        init_labr_work(){
+          let _this = this;
+          var dataX = [];
+          var dataY1 = [];
+          var dataY2 = [];
+          _this.$http({
+            url: _this.$http.adornUrl('/t05populabrwork/list'),
+            method: 'get',
+            params: _this.$http.adornParams({
+              'areaCode':'460000000000'
+            }, false)
+          }).then(({data}) => {
+            if (data.code == 0) {
+              data.list.forEach(x=>{
+                dataX.push(x.dateStat);
+                dataY1.push(x.labrWorkRadio);
+                dataY2.push(x.ytyGrowth);
+                _this.chart_bar('chart_bar_3',dataX,dataY1,dataY2,'劳动生产率','增长率','#20e19f','#20e19f','#03baff');
+              })
+            }
+          })
+
+        },
+        chart_bar(id,dataX,dataY1,dataY2,name1,name2,color1,color2,color3){
           var chart_bar=echarts.init(document.getElementById(id));
           var option = {
+            tooltip : {
+              show: true,
+              trigger: 'item'
+            },
             legend: {
               textStyle:{
                 color:'#1bb4f6',
               },
-              right:'4%',
+              left:10,
               icon: 'circle'
             },
             barWidth:'15',
@@ -285,7 +402,7 @@
               textStyle:{
                 color:'#fff'
               },
-              data: month
+              data: dataX
             },
             yAxis: [{
               axisTick:{
@@ -301,8 +418,6 @@
                   color:'rgba(255,255,255,.6)'
                 }
               },
-              min:60,
-              max:260,
             },
               {
                 axisTick:{
@@ -342,30 +457,30 @@
             },
             series: [
               {
-                data:barVal,
+                data:dataY1,
                 type: 'bar',
-                name: nameB,
+                name: name1,
                 itemStyle: {
                   normal: {
                     barBorderRadius: 0,//圆角
                     color: new echarts.graphic.LinearGradient(
                       0, 0, 0, 1, [{
                         offset: 0,
-                        color: '#42c7f1'
+                        color: color1
                       },
-                        {
-                          offset: 1,
-                          color: '#4478fc'
-                        }
+                        // {
+                        //   offset: 1,
+                        //   color: color2
+                        // }
                       ])
                   }
                 }
               },
               {
-                data: lineVal,
+                data: dataY2,
                 type: 'line',
-                name: nameL,
-                color:'#f8c300'
+                name: name2,
+                color:color3
               }
             ]
           };
@@ -373,9 +488,195 @@
           chart_bar.setOption(option);
           window.onresize = chart_bar.resize;
         },
-        chart_lgLine(id){
+
+        init_hlth_serv(){
+          let _this = this;
+          var dataX = [];
+          var dataY1 = [];
+          var dataY2 = [];
+          _this.$http({
+            url: _this.$http.adornUrl('/t05mdclhlthserv/list'),
+            method: 'get',
+            params: _this.$http.adornParams({
+              'areaCode':'460000000000'
+            }, false)
+          }).then(({data}) => {
+            if (data.code == 0) {
+              data.list.forEach(x=>{
+                dataX.push(x.dateStat);
+                dataY1.push(x.bedNum);
+                dataY2.push(x.ytyGrowth);
+                _this.chart_pictorialBar('chart_bar_4',dataX,dataY1,dataY2,'每千人口医院床位数','增长率','#20e19f','#20e19f','#03baff');
+              })
+            }
+          })
+
+        },
+        chart_pictorialBar(id,dataX,dataY1,dataY2,name1,name2,color1,color2,color3){
+          var chart_bar=echarts.init(document.getElementById(id));
+          var option = {
+            tooltip : {
+              show: true,
+              trigger: 'item'
+            },
+            legend: {
+              textStyle:{
+                color:'#1bb4f6',
+              },
+              left:10,
+              icon: 'circle'
+            },
+            xAxis: {
+              axisTick:{
+                show:false
+              },
+              type: 'category',
+              axisLine:{
+                lineStyle:{
+                  color:'rgba(255,255,255,.6)'
+                }
+              },
+              textStyle:{
+                color:'#fff'
+              },
+              data: dataX
+            },
+            yAxis: [{
+              axisTick:{
+                show:false
+              },
+              splitLine: {
+                show:false
+              },
+              type: 'value',
+              axisLine:{
+                show:false,
+                lineStyle:{
+                  color:'rgba(255,255,255,.6)'
+                }
+              },
+            },
+              {
+                axisTick:{
+                  show:false
+                },
+                splitLine: {
+                  show:true,
+                  lineStyle:{
+                    color:'rgba(255,255,255,.1)'
+                  }
+                },
+                type: 'value',
+                axisLine:{
+                  show:false,
+                  lineStyle:{
+                    color:'rgba(255,255,255,.6)'
+                  }
+                },
+                min:0,
+                max:100,
+                position: "right",
+                axisLabel: {
+                  show: true,
+                  formatter: "{value} %", //右侧Y轴文字显示
+                  textStyle: {
+                    color:'rgba(255,255,255,.6)'
+                  }
+                }
+              },
+            ],
+            grid:{
+              top:'20%',
+              left: '5%',
+              right: '5%',
+              bottom: '10%',
+              containLabel: true
+            },
+            series: [
+              {
+                data:dataY1,
+                type: 'pictorialBar',
+                symbol: 'path://M0,10 L10,10 C5.5,10 5.5,5 5,0 C4.5,5 4.5,10 0,10 z',
+                name: name1,
+                itemStyle: {
+                  normal: {
+                    barBorderRadius: 0,//圆角
+                    color: new echarts.graphic.LinearGradient(
+                      0, 0, 0, 1, [{
+                        offset: 0,
+                        color: color1
+                      },
+                        // {
+                        //   offset: 1,
+                        //   color: color2
+                        // }
+                      ])
+                  }
+                }
+              },
+              {
+                data: dataY2,
+                type: 'line',
+                name: name2,
+                color:color3
+              }
+            ]
+          };
+
+          chart_bar.setOption(option);
+          window.onresize = chart_bar.resize;
+        },
+
+        init_pub_cult(){
+          let _this = this;
+          var dataX = [];
+          var dataY = [];
+          _this.$http({
+            url: _this.$http.adornUrl('/t05basicpubcult/list'),
+            method: 'get',
+            params: _this.$http.adornParams({
+              'areaCode':'460000000000'
+            }, false)
+          }).then(({data}) => {
+            if (data.code == 0) {
+              data.list.forEach(x=>{
+                dataX.push(x.dateStat);
+                dataY.push(x.pubCultNum);
+                _this.chart_lgLine('chart_lgLine_1',dataX,dataY,'人均拥有公共图书馆藏量','#1986ff','#dd0042');
+              })
+            }
+          })
+        },
+        init_achie_situ(){
+          let _this = this;
+          var dataX = [];
+          var dataY = [];
+          _this.$http({
+            url: _this.$http.adornUrl('/t05reseaachiesitu/list'),
+            method: 'get',
+            params: _this.$http.adornParams({
+              'areaCode':'460000000000'
+            }, false)
+          }).then(({data}) => {
+            if (data.code == 0) {
+              data.list.forEach(x=>{
+                dataX.push(x.dateStat);
+                dataY.push(x.ytyGrowth);
+                _this.chart_lgLine('chart_lgLine_2',dataX,dataY,'每万人专利数量','#0e55b7', '#0fd9c7');
+              })
+            }
+          })
+        },
+        chart_lgLine(id,dataX,dataY,name1,color1,color2){
           var chart_lgLine=echarts.init(document.getElementById(id));
           var option = {
+            legend:{
+              show:true,
+              left:10,
+              textStyle:{
+                color:'#1bb4f6'
+              },
+            },
             tooltip: {
               trigger: 'axis',
               axisPointer: {
@@ -399,7 +700,7 @@
                   color: 'rgba(255,255,255,.5)'
                 }
               },
-              data: ['2009','2010','2011','2012','2013','2014','2015','2016','2017','2018',]
+              data:dataX
             }],
             yAxis: [{
               type: 'value',
@@ -425,7 +726,7 @@
               }
             }],
             series: [{
-              name: '最高温度',
+              name:name1,
               type: 'line',
               smooth: true,
               symbol: 'circle',
@@ -440,12 +741,12 @@
                 normal: {
                   color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
                     offset: 0,
-                    color: 'rgba(16,97,204, 0.3)'
+                    color: 'rgba(16,97,204,.2)'
                   }, {
-                    offset: 0.8,
-                    color: 'rgba(17,235,210, 0)'
+                    offset: 1,
+                    color:'rgba(16,97,204,.2)'
                   }], false),
-                  shadowColor: 'rgba(0, 0, 0, 0.1)',
+                  shadowColor:  'rgba(17,235,210,.2)',
                   shadowBlur: 10
                 }
               },
@@ -454,10 +755,10 @@
 
                   color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
                     offset: 0,
-                    color: 'rgba(16,97,204,1)'
+                    color: color1
                   }, {
                     offset: 1,
-                    color: 'rgba(17,235,210,1)'
+                    color: color2
                   }])
                 },
                 emphasis: {
@@ -468,26 +769,56 @@
 
                 },
               },
-              data: [11,32, 34, 39,15, 35,1, 38, 36, 34 ]
+              data:dataY
             }, ]
           };
           chart_lgLine.setOption(option);
           window.onresize = chart_lgLine.resize;
         },
-        chart_radar(id){
+
+        init_egr_coef(){
+          let _this = this;
+          var dataX = [];
+          var dataY1 = [];
+          var dataY2 = [];
+          this.xName = []
+          _this.$http({
+            url: _this.$http.adornUrl('/t05familyegrcoef/list'),
+            method: 'get',
+            params: _this.$http.adornParams({
+              'areaCode':'460000000000'
+            }, false)
+          }).then(({data}) => {
+            if (data.code == 0) {
+              data.list.forEach(x=>{
+                dataX.push(x.dateStat);
+                this.xName.push({'name': x.dateStat})
+                dataY1.push(x.counEgrCoef);
+                dataY2.push(x.cityEgrCoef);
+                _this.chart_radar('chart_radar_1',dataX,dataY1,dataY2,'城镇居民家庭恩格尔系数','农村居民家庭恩格尔系数');
+              })
+            }
+          })
+        },
+        chart_radar(id,dataX,dataY1,dataY2,name1,name2){
           var chart_radar=echarts.init(document.getElementById(id));
           var option = {
+            tooltip: {
+              show: true,
+              trigger: "item",
+              right:20,
+            },
             color: ['#3D91F7', '#61BE67'],
             legend: {
               show: true,
               icon: "circle",
-              right:0,
+              left:10,
               top:0,
               itemWidth: 14,
               itemHeight: 14,
               itemGap: 21,
               orient: "horizontal",
-              data: ['城镇居民家庭恩格尔系数', '农村居民家庭恩格尔系数'],
+              data: [name1, name2],
               textStyle: {
                 fontSize: 14,
                 color: '#1bb4f6'
@@ -502,47 +833,8 @@
                   padding: [3, 5]
                 }
               },
-              indicator: [{
-                name: '2009',
-                max: 50000
-              },
-                {
-                  name: '2018',
-                  max: 50000
-                },
-                {
-                  name: '2017',
-                  max: 50000
-                },
-                {
-                  name: '2016',
-                  max: 50000
-                },
-                {
-                  name: '2015',
-                  max: 50000
-                },
-                {
-                  name: '2014',
-                  max: 50000
-                },
-                {
-                  name: '2013',
-                  max: 50000
-                },
-                {
-                  name: '2012',
-                  max: 50000
-                },
-                {
-                  name: '2011',
-                  max: 50000
-                },
-                {
-                  name: '2010',
-                  max: 50000
-                }
-              ],
+              indicator: this.xName,
+
               splitArea: { // 坐标轴在 grid 区域中的分隔区域，默认不显示。
                 show: true,
                 areaStyle: { // 分隔区域的样式设置。
@@ -571,22 +863,22 @@
               //areaStyle: {normal: {}},
 
               data: [{
-                value: [35000, 35000, 35000, 35000, 50000, 19000, 21000, 35000, 35000, 35000,],
-                name: 'a',
+                value: dataY1,
+                name:name1,
                 areaStyle: {
                   normal: {
-                    color: '#366BAF'
+                    color: 'rgba(54,107,175,.3)'
                   },
                 },
 
 
               },
                 {
-                  value: [50000, 14000, 28020, 31100, 35000, 21000, 35000, 35000, 35000, 19000],
-                  name: 'b',
+                  value:dataY2,
+                  name: name2,
                   areaStyle: {
                     normal: {
-                      color: '#4B8659'
+                      color: 'rgba(75,134,89,.3)'
                     },
                   },
                 }
@@ -609,8 +901,6 @@
     background: #0c1752;
     border:1px solid #162f58;
     border-radius: 1vh;
-    margin-left: 2vh;
-    margin-right: 2vh;
   }
   /*.pop_col_tit {*/
   /*  padding:2vh 5vh;*/
