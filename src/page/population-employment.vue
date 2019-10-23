@@ -652,23 +652,23 @@
               },
               textStyle: config().textStyle
             },
-            {
-              show: true,
-              type: 'slider',
-              xAxisIndex: 0,
-              start: 0,
-              end: 60,
-              bottom: '5%',
-              height: config().fontSize,
-              backgroundColor: '#041257',
-              borderColor: 'transparent',
-              fillerColor: '#059DFA',
-              handleStyle: {
-                fontSize:config().fontSize,
-                color: 'transparent'
-              },
-              textStyle: config().textStyle
-            }
+            // {
+            //   show: true,
+            //   type: 'slider',
+            //   xAxisIndex: 0,
+            //   start: 0,
+            //   end: 60,
+            //   bottom: '5%',
+            //   height: config().fontSize,
+            //   backgroundColor: '#041257',
+            //   borderColor: 'transparent',
+            //   fillerColor: '#059DFA',
+            //   handleStyle: {
+            //     fontSize:config().fontSize,
+            //     color: 'transparent'
+            //   },
+            //   textStyle: config().textStyle
+            // }
           ],
           series: [{
             name: 'patents',
@@ -916,32 +916,32 @@
               }
             },
             axisLabel: {
-              rotate:22,//斜体字可不用
+              rotate:30,//斜体字可不用
               textStyle: config().textStyle
             },
             axisTick:{
               show:false
             }
           },
-          dataZoom: [// 这个dataZoom组件，若未设置xAxisIndex或yAxisIndex，则默认控制x轴。
-            {
-              show: true,
-              type: 'slider',
-              xAxisIndex: 0,
-              start: 0,
-              end: 60,
-              bottom: '5%',
-              height: config().fontSize,
-              backgroundColor: '#041257',
-              borderColor: 'transparent',
-              fillerColor: '#059DFA',
-              handleStyle: {
-                fontSize:config().fontSize,
-                color: 'transparent'
-              },
-              textStyle: config().textStyle
-            }
-          ],
+          // dataZoom: [// 这个dataZoom组件，若未设置xAxisIndex或yAxisIndex，则默认控制x轴。
+          //   {
+          //     show: true,
+          //     type: 'slider',
+          //     xAxisIndex: 0,
+          //     start: 0,
+          //     end: 60,
+          //     bottom: '5%',
+          //     height: config().fontSize,
+          //     backgroundColor: '#041257',
+          //     borderColor: 'transparent',
+          //     fillerColor: '#059DFA',
+          //     handleStyle: {
+          //       fontSize:config().fontSize,
+          //       color: 'transparent'
+          //     },
+          //     textStyle: config().textStyle
+          //   }
+          // ],
           yAxis: {
             type: 'value',
             name:'%',
