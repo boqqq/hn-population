@@ -93,11 +93,12 @@
 
       data(){
         return{
-          xName: []
+          xName: [],
+          itemWidth:12,
+          itemHeight:12,
         }
       },
       mounted () {
-
         this.init_chrn_br()
         this.init_cap_invst()
         this.init_gover_incom()
@@ -108,9 +109,7 @@
         this.init_hlth_serv()
         this.init_egr_coef()
       },
-
       methods: {
-
         init_chrn_br(){
           let _this = this;
           var dataX = [];
@@ -159,7 +158,6 @@
         },
         chart_line(id,dataX,dataY1, dataY2,name1,name2,color1,color2){
           var chart_line=echarts.init(document.getElementById(id));
-          var fontColor = '#30eee9';
           var option ={
             grid: {
               left: '5%',
@@ -177,8 +175,8 @@
               left:10,
               top:0,
               icon: 'stack',
-              itemWidth:10,
-              itemHeight:10,
+              itemWidth: this.itemWidth,
+              itemHeight: this.itemHeight,
               textStyle:{
                 color:'#1bb4f6'
               },
@@ -189,12 +187,12 @@
                 type : 'category',
                 boundaryGap : false,
                 axisLabel:{
-                  color: fontColor
+                  color:'rgba(255,255,255,.6)'
                 },
                 axisLine:{
                   show:true,
                   lineStyle:{
-                    color:'#397cbc'
+                    color:'rgba(255,255,255,.5)'
                   }
                 },
                 axisTick:{
@@ -203,7 +201,7 @@
                 splitLine:{
                   show:true,
                   lineStyle:{
-                    color:'#195384'
+                    color:'rgba(255,255,255,.1)'
                   }
                 },
                 data :dataX
@@ -215,12 +213,12 @@
                 axisLabel : {
                   formatter: '{value}',
                   textStyle:{
-                    color:'#2ad1d2'
+                    color:'rgba(255,255,255,.6)'
                   }
                 },
                 axisLine:{
                   lineStyle:{
-                    color:'#27b4c2'
+                    color:'rgba(255,255,255,.5)'
                   }
                 },
                 axisTick:{
@@ -229,7 +227,7 @@
                 splitLine:{
                   show:true,
                   lineStyle:{
-                    color:'#11366e'
+                    color:'rgba(255,255,255,.1)'
                   }
                 }
               },
@@ -386,7 +384,9 @@
                 color:'#1bb4f6',
               },
               left:10,
-              icon: 'circle'
+              icon: 'circle',
+              itemWidth: this.itemWidth,
+              itemHeight: this.itemHeight,
             },
             barWidth:'15',
             xAxis: {
@@ -404,7 +404,8 @@
               },
               data: dataX
             },
-            yAxis: [{
+            yAxis: [
+              {
               axisTick:{
                 show:false
               },
@@ -436,8 +437,6 @@
                     color:'rgba(255,255,255,.6)'
                   }
                 },
-                min:0,
-                max:100,
                 position: "right",
                 axisLabel: {
                   show: true,
@@ -458,6 +457,7 @@
             series: [
               {
                 data:dataY1,
+                yAxisIndex: 0,
                 type: 'bar',
                 name: name1,
                 itemStyle: {
@@ -478,6 +478,7 @@
               },
               {
                 data: dataY2,
+                yAxisIndex: 1,
                 type: 'line',
                 name: name2,
                 color:color3
@@ -524,7 +525,9 @@
                 color:'#1bb4f6',
               },
               left:10,
-              icon: 'circle'
+              icon: 'circle',
+              itemWidth: this.itemWidth,
+              itemHeight: this.itemHeight,
             },
             xAxis: {
               axisTick:{
@@ -573,8 +576,6 @@
                     color:'rgba(255,255,255,.6)'
                   }
                 },
-                min:0,
-                max:100,
                 position: "right",
                 axisLabel: {
                   show: true,
@@ -595,6 +596,7 @@
             series: [
               {
                 data:dataY1,
+                yAxisIndex: 0,
                 type: 'pictorialBar',
                 symbol: 'path://M0,10 L10,10 C5.5,10 5.5,5 5,0 C4.5,5 4.5,10 0,10 z',
                 name: name1,
@@ -615,6 +617,7 @@
                 }
               },
               {
+                yAxisIndex: 1,
                 data: dataY2,
                 type: 'line',
                 name: name2,
@@ -673,6 +676,8 @@
             legend:{
               show:true,
               left:10,
+              itemWidth: this.itemWidth,
+              itemHeight: this.itemHeight,
               textStyle:{
                 color:'#1bb4f6'
               },
@@ -716,7 +721,7 @@
               axisLabel: {
                 margin: 5,
                 textStyle: {
-                  fontSize: 14
+                  fontSize: 12
                 }
               },
               splitLine: {
@@ -778,7 +783,7 @@
 
         init_egr_coef(){
           let _this = this;
-          var dataX = [];
+          // var dataX = [];
           var dataY1 = [];
           var dataY2 = [];
           this.xName = []
@@ -791,16 +796,16 @@
           }).then(({data}) => {
             if (data.code == 0) {
               data.list.forEach(x=>{
-                dataX.push(x.dateStat);
+                // dataX.push(x.dateStat);
                 this.xName.push({'name': x.dateStat})
                 dataY1.push(x.counEgrCoef);
                 dataY2.push(x.cityEgrCoef);
-                _this.chart_radar('chart_radar_1',dataX,dataY1,dataY2,'城镇居民家庭恩格尔系数','农村居民家庭恩格尔系数');
+                _this.chart_radar('chart_radar_1',dataY1,dataY2,'城镇居民家庭恩格尔系数','农村居民家庭恩格尔系数');
               })
             }
           })
         },
-        chart_radar(id,dataX,dataY1,dataY2,name1,name2){
+        chart_radar(id,dataY1,dataY2,name1,name2){
           var chart_radar=echarts.init(document.getElementById(id));
           var option = {
             tooltip: {
@@ -814,13 +819,13 @@
               icon: "circle",
               left:10,
               top:0,
-              itemWidth: 14,
-              itemHeight: 14,
+              itemWidth: this.itemWidth,
+              itemHeight: this.itemHeight,
               itemGap: 21,
               orient: "horizontal",
               data: [name1, name2],
               textStyle: {
-                fontSize: 14,
+                fontSize: 12,
                 color: '#1bb4f6'
               },
             },
@@ -840,7 +845,6 @@
                 areaStyle: { // 分隔区域的样式设置。
                   color: ['#21293d'], // 分隔区域颜色。分隔区域会按数组中颜色的顺序依次循环设置颜色。默认是一个深浅的间隔色。
                 }
-
               },
               // axisLabel:{//展示刻度
               //     show: true
@@ -856,7 +860,6 @@
                   width: 1, // 分隔线线宽
                 }
               }
-
             },
             series: [{
               type: 'radar',
@@ -870,8 +873,6 @@
                     color: 'rgba(54,107,175,.3)'
                   },
                 },
-
-
               },
                 {
                   value:dataY2,
@@ -887,7 +888,7 @@
           };
           chart_radar.setOption(option);
           window.onresize = chart_radar.resize;
-        }
+        },
       }
     }
 </script>
