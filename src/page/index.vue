@@ -704,34 +704,34 @@
         for (var i = 0; i < data.length; i++) {
           var tmp1 = {}
           for (var j = 0; j < this.tableData.length; j++) {
-            if(this.tableData[j].code == data[i].areaCode){
+            if(this.tableData[j].code == data[i].area_code){
                tmp1.name = this.tableData[j].region
             }
           }
-          tmp1.value = data[i].popuTotal
+          tmp1.value = data[i].popu_total
+          tmp1.increment = data[i].popu_total1
           data1.push(tmp1)
         };
         var  option = {
           tooltip: {
             show: true,
             formatter: function(params) {
-              if (params.data) {
-                return `${params.name}(<span style="font-size:10px;">持有设备量:${params.data.devicesCount}</span>)</br>${params.marker}使用总数：${params.data.value}</br>${params.marker}活跃度：${params.data.devicesUseLv}`
-              } else {
-                return;
-              }
+              var str = params.name+'<br/>常住人口：'+params.data.value+' 万人<br/>本月增量：'+
+                params.data.increment+' 万人';
+              return str;
             }
           },
           visualMap: {
+            show:false,
             type: "continuous",
             text: ["高", "低"],
             showLabel: true,
             seriesIndex: [0],
             min: 0,
             // calculable: true,
-            max: 100,
+            max: 200,
             inRange: {
-              color: ['#f7fbff', '#4e7cef', '#0549f3']
+              color: ['#2ac8fd', '#34a4d8', '#046fb7']
             },
             textStyle: {
               color: "#000"
@@ -747,6 +747,10 @@
             top:'-3%',
             center: [109.76112,19.2472],
             label: {
+              normal: {
+                show: true,
+                textStyle: config().textStyle
+              },
               emphasis: {
                 show: true,
                 textStyle: config().textStyle,
@@ -762,7 +766,7 @@
                 shadowBlur: 30
               },
               emphasis: {
-                areaColor: '#2B91B7',
+                areaColor: '#e2d445',
               }
             }
           },
@@ -771,9 +775,6 @@
             type: "map",
             roam: false,
             geoIndex: 0,
-            label: {
-              show: false
-            },
             data: data1
           }, ]
         }
