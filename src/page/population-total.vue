@@ -38,8 +38,15 @@
               <div class = "top_right">
                 <div class = "chart_title">
                   <i class="tit_icon icon-tit-line"></i>
-                  <h3>各地区户籍与常住外来人口增量分布</h3></div>
-                <div id = "chart6" style="height: 90%"></div>
+                  <h3>各地区户籍与常住外来人口增量分布</h3>
+                  </div>
+                <div style="position: absolute;top:10vh; left:5vh;width:15vh;z-index: 1000;">
+                  <el-radio-group v-model="radio">
+                    <el-radio  :label="1" style="color: wheat; " >户籍人口</el-radio>
+                    <el-radio  :label="2" style="margin-top: 2vh;color:wheat ">常住外来人口</el-radio>
+                  </el-radio-group>
+                </div>
+                <div id = "chart6" style="height: 92%;"></div>
               </div>
             </el-col>
             <el-col :span="24">
@@ -84,13 +91,18 @@
         name: "populaton-total",
         data(){
             return {
-
-            }
+                radio: 1
+            };
         },
         created () {
         },
         beforeDestroy() {
 
+        },
+        watch: {
+            radio(newVal ,oldValue) {
+                this.init_chart6();
+            }
         },
         mounted() {
             this.init_chart1()
@@ -100,6 +112,7 @@
             this.init_chart5()
             this.init_chart6()
         },
+
         methods:{
 
             //户籍人口与常驻外来人口总量变化趋势
@@ -179,7 +192,7 @@
                                 name: '常住外来人口',
                                 type: 'bar',
                                 stack: '人口',
-                                color: '#ff2e83',
+                                color: '#01fea8',
                                 data:czData //[400, 400, 500, 600, 700, 600, 700, 800, 900, 1000, ]
                             }
                         ]
@@ -234,7 +247,7 @@
                             lineStyle:{
                                 width:10,
                                 type:'solid',
-                                color:'#a098ff'
+                                color:'#4478fc'
                             }
                         },
                         axisLabel: {
@@ -261,7 +274,7 @@
                             type:'line',
                             symbol:'circle',
                             stack: '常住人口增长率',
-                            color:'#10a2ff',
+                            color:'#03baff',
                             data:czGrowth//[10, 20, 30, 20, 30,30,20,30,20,30]
                         },
                         {
@@ -269,7 +282,7 @@
                             type:'line',
                             stack: '常住外来人口增长率',
 
-                            color:'#ff2e83',
+                            color:'#01fea8',
                             data:wlGrowth//[-20, -30, -20, -10, 50,40,50,60,50,90]
                         }
                     ]
@@ -353,7 +366,7 @@
                             type:'line',
                             symbol:'circle',
                             stack: '0-14岁增长',
-                            color:'#10a2ff',
+                            color:'#4478fc',
                             data:ytyGrowth01//[0.09, 0.06, 0.03, 0.04, 0.03,0.025,0.02,0.015,0.01,0.012]
                         },
                         {
@@ -361,7 +374,7 @@
                             type:'line',
                             stack: '15-64岁增长率',
 
-                            color:'rgb(255,0,72)',
+                            color:'#01fea8',
                             data:ytyGrowth02//[0.04, 0.03, 0.031, 0.025, 0.020,0.018,0.011,0.01,-0.01,-0.001]
                         },
                         {
@@ -369,7 +382,7 @@
                             type:'line',
                             stack: '65岁增长率',
 
-                            color:'rgb(219,32,255)',
+                            color:'#f0396b',
                             data:ytyGrowth03//[0.07, 0.05, 0.02, 0.09, 0.07,0.06,0.05,0.04,0.02,0.03]
                         }
                     ]
@@ -447,9 +460,9 @@
                                 normal: {
                                     color: function (params) {
                                         if (params.data < 0) {
-                                            return 'rgb(35,255,29)'
+                                            return '#7cedfe'
                                         } else {
-                                            return 'rgb(255,46,131)'
+                                            return '#4478fc'
                                         }
                                     }
                                 },
@@ -531,9 +544,9 @@
                                 normal: {
                                     color: function (params) {
                                         if (params.data < 0) {
-                                            return 'rgb(35,255,29)'
+                                            return '#7cedfe'
                                         } else {
-                                            return 'rgb(255,46,131)'
+                                            return '#4478fc'
                                         }
                                     }
                                 },
@@ -569,30 +582,62 @@
                     '保亭黎族苗族县': [109.706931, 18.647458],
                     '琼中黎族苗族县': [109.846811, 19.038617]
                 }
+                let data=[]
+                if(this.radio=='1'){
+                    data = [
+                        {name: '海口市', value: 1 },
+                        {name: '三亚市', value: 2 },
+                        {name: '三沙市', value: 3 },
+                        {name: '儋州市', value: 4 },
+                        {name: '五指山市', value: 5 },
+                        {name: '文昌市', value: 6 },
+                        {name: '琼海市', value: 7 },
+                        {name: '万宁市', value: 8 },
+                        {name: '东方市', value: 9 },
+                        {name: '定安县', value: 10 },
+                        {name: '屯昌县', value: 11 },
+                        {name: '澄迈县', value: 12 },
+                        {name: '临高县', value: 13 },
+                        {name: '白沙黎族自治县',value: 14 },
+                        {name: '昌江黎族自治县', value: 15 },
+                        {name: '乐东黎族自治县', value: 16 },
+                        {name: '陵水黎族自治县', value: 17 },
+                        {name: '保亭黎族苗族自治县', value: 18 },
+                        {name: '琼中黎族苗族自治县', value: 19 },
 
-                let data = [
-                    {name: '海口市', value: 1 },
-                    {name: '三亚市', value: 2 },
-                    {name: '三沙市', value: 3 },
-                    {name: '儋州市', value: 4 },
-                    {name: '五指山市', value: 5 },
-                    {name: '文昌市', value: 6 },
-                    {name: '琼海市', value: 7 },
-                    {name: '万宁市', value: 8 },
-                    {name: '东方市', value: 9 },
-                    {name: '定安县', value: 10 },
-                    {name: '屯昌县', value: 11 },
-                    {name: '澄迈县', value: 12 },
-                    {name: '临高县', value: 13 },
-                    {name: '白沙黎族自治县',value: 14 },
-                    {name: '昌江黎族自治县', value: 15 },
-                    {name: '乐东黎族自治县', value: 16 },
-                    {name: '陵水黎族自治县', value: 17 },
-                    {name: '保亭黎族苗族自治县', value: 18 },
-                    {name: '琼中黎族苗族自治县', value: 19 },
+                    ];
+                }else{
+                        data = [
+                            {name: '海口市', value: 2 },
+                            {name: '三亚市', value: 4 },
+                            {name: '三沙市', value: 6 },
+                            {name: '儋州市', value: 12 },
+                            {name: '五指山市', value: 24 },
+                            {name: '文昌市', value: 48 },
+                            {name: '琼海市', value: 96 },
+                            {name: '万宁市', value: 192 },
+                            {name: '东方市', value: 96 },
+                            {name: '定安县', value: 48 },
+                            {name: '屯昌县', value: 24 },
+                            {name: '澄迈县', value: 12 },
+                            {name: '临高县', value: 6 },
+                            {name: '白沙黎族自治县',value: 4 },
+                            {name: '昌江黎族自治县', value: 3 },
+                            {name: '乐东黎族自治县', value: 2 },
+                            {name: '陵水黎族自治县', value: 1 },
+                            {name: '保亭黎族苗族自治县', value: 18 },
+                            {name: '琼中黎族苗族自治县', value: 19 },
+                        ];
+                }
+                let dataValues=[];
 
-                 ];
+                for(let i=0;i<data.length;i++){
+                    dataValues.push(data[i]['value']);
+                }
+                let max = Math.max.apply(null, dataValues);
+                let min = Math.min.apply(null, dataValues);
 
+                console.log(max, min) // 55,6
                 //取得json的样式，读取json文件
                 echarts.registerMap('hainan', hainan)
                 let handleData = function(data) {
@@ -620,21 +665,21 @@
                     },
                     options: [{
                         backgroundColor: "#051835",
-                        title: {
-                            text: '海南省人口',
-                            left: 'center',
-                            top: "10",
-                            textStyle: {
-                                color: '#ffffff',
-                                fontSize: 24,
-                            }
-                        },
+                        // title: {
+                        //     text: '海南省人口',
+                        //     left: 'center',
+                        //     top: "10",
+                        //     textStyle: {
+                        //         color: '#ffffff',
+                        //         fontSize: 24,
+                        //     }
+                        // },
                         visualMap: {
-                            min: 0,
-                            max: 20,
-                            left: '20',
-                            bottom: '50',
-                            text: ['20', '0'],
+                            min: min,
+                            max: max,
+                            left: '3%',
+                            bottom: '2%',
+                            text: [max, min],
                             calculable: true,
                             inRange: {
                                 color: ['#9EA3FF', '#6966FF', '#0300FF']
@@ -643,7 +688,7 @@
                                 color: '#ffffff',
                                 fontSize: 14
                             },
-                            itemWidth: 30,
+                            itemWidth: 20,
                             itemHeight: 150,
                         },
                         geo: {
