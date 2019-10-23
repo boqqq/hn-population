@@ -102,46 +102,46 @@
     data() {
       return {
         tableData: [
-          {region: '海口市', rate: 40, num: 1, coor: [110.326837, 20.031624]},
-          {region: '三亚市', rate: 38, num: 2, coor: [109.524255, 18.256929]},
-          {region: '三沙市', rate: 37, num: 3, coor: [112.351689, 16.838364]},
-          {region: '儋州市', rate: 36, num: 4, coor: [109.565074, 19.533091]},
-          {region: '五指山市', rate: 35, num: 5, coor: [109.52483, 18.780731]},
-          {region: '文昌市', rate: 35, num: 6, coor: [110.932715, 19.616634]},
-          {region: '琼海市', rate: 34, num: 7, coor: [110.480832, 19.255009]},
-          {region: '万宁市', rate: 33, num: 8, coor: [110.396559, 18.802845]},
-          {region: '东方市', rate: 32, num: 9, coor: [108.65629, 19.100448]},
-          {region: '定安县', rate: 32, num: 10, coor: [110.359209, 19.683308]},
-          {region: '屯昌县', rate: 31, num: 11, coor: [110.108546, 19.357035]},
-          {region: '澄迈县', rate: 30, num: 12, coor: [110.010062, 19.744893]},
-          {region: '临高县', rate: 29, num: 13, coor: [109.688244, 19.916212]},
-          {region: '白沙黎族自治县', rate: 29, num: 14, coor: [109.455171, 19.233017]},
-          {region: '昌江黎族自治县', rate: 29, num: 15, coor: [109.063039, 19.30236]},
-          {region: '乐东黎族自治县', rate: 28, num: 16, coor: [109.179933, 18.756966]},
-          {region: '陵水黎族自治县', rate: 27, num: 17, coor: [110.042739, 18.512332]},
-          {region: '保亭黎族自治县', rate: 26, num: 18, coor: [109.706931, 18.647458]},
-          {region: '琼中黎族自治县', rate: 25, num: 19, coor: [109.846811, 19.038617]}
+          {region: '海口市',coor: [110.326837, 20.031624]},
+          {region: '三亚市',coor: [109.524255, 18.256929]},
+          {region: '三沙市',coor: [112.351689, 16.838364]},
+          {region: '儋州市',coor: [109.565074, 19.533091]},
+          {region: '五指山市',coor: [109.52483, 18.780731]},
+          {region: '文昌市',coor: [110.932715, 19.616634]},
+          {region: '琼海市',coor: [110.480832, 19.255009]},
+          {region: '万宁市',coor: [110.396559, 18.802845]},
+          {region: '东方市',coor: [108.65629, 19.100448]},
+          {region: '定安县',coor: [110.359209, 19.683308]},
+          {region: '屯昌县',coor: [110.108546, 19.357035]},
+          {region: '澄迈县',coor: [110.010062, 19.744893]},
+          {region: '临高县',coor: [109.688244, 19.916212]},
+          {region: '白沙黎族自治县',coor: [109.455171, 19.233017]},
+          {region: '昌江黎族自治县',coor: [109.063039, 19.30236]},
+          {region: '乐东黎族自治县',coor: [109.179933, 18.756966]},
+          {region: '陵水黎族自治县',coor: [110.042739, 18.512332]},
+          {region: '保亭黎族自治县',coor: [109.706931, 18.647458]},
+          {region: '琼中黎族自治县',coor: [109.846811, 19.038617]}
         ],
         tableData1: [
-          {region: '海口市', rate: 50, num: 1, coor: [110.346837, 20.031624]},
-          {region: '三亚市', rate: 58, num: 2, coor: [109.544255, 18.256929]},
-          {region: '三沙市', rate: 57, num: 3, coor: [112.361689, 16.838364]},
-          {region: '儋州市', rate: 56, num: 4, coor: [109.575074, 19.533091]},
-          {region: '五指山市', rate: 55, num: 5, coor: [109.54483, 18.780731]},
-          {region: '文昌市', rate: 55, num: 6, coor: [110.952715, 19.616634]},
-          {region: '琼海市', rate: 54, num: 7, coor: [110.500832, 19.255009]},
-          {region: '万宁市', rate: 53, num: 8, coor: [110.406559, 18.802845]},
-          {region: '东方市', rate: 52, num: 9, coor: [108.67629, 19.100448]},
-          {region: '定安县', rate: 52, num: 10, coor: [110.379209, 19.683308]},
-          {region: '屯昌县', rate: 51, num: 11, coor: [110.128546, 19.357035]},
-          {region: '澄迈县', rate: 50, num: 12, coor: [110.030062, 19.744893]},
-          {region: '临高县', rate: 59, num: 13, coor: [109.708244, 19.916212]},
-          {region: '白沙黎族自治县', rate: 49, num: 14, coor: [109.475171, 19.233017]},
-          {region: '昌江黎族自治县', rate: 49, num: 15, coor: [109.083039, 19.30236]},
-          {region: '乐东黎族自治县', rate: 18, num: 16, coor: [109.199933, 18.756966]},
-          {region: '陵水黎族自治县', rate: 17, num: 17, coor: [110.062739, 18.512332]},
-          {region: '保亭黎族自治县', rate: 16, num: 18, coor: [109.726931, 18.647458]},
-          {region: '琼中黎族自治县', rate: 15, num: 19, coor: [109.866811, 19.038617]}
+          {region: '海口市',coor: [110.396837, 20.091624]},
+          {region: '三亚市',coor: [109.594255, 18.296929]},
+          {region: '三沙市',coor: [112.391689, 16.898364]},
+          {region: '儋州市',coor: [109.655074, 19.593091]},
+          {region: '五指山市',coor: [109.59483, 18.790731]},
+          {region: '文昌市',coor: [110.992715, 19.696634]},
+          {region: '琼海市',coor: [110.560832, 19.295009]},
+          {region: '万宁市',coor: [110.466559, 18.892845]},
+          {region: '东方市',coor: [108.69629, 19.190448]},
+          {region: '定安县',coor: [110.399209, 19.693308]},
+          {region: '屯昌县',coor: [110.198546, 19.397035]},
+          {region: '澄迈县',coor: [110.090062, 19.794893]},
+          {region: '临高县',coor: [109.728244, 19.996212]},
+          {region: '白沙黎族自治县',coor: [109.495171, 19.293017]},
+          {region: '昌江黎族自治县',coor: [109.093039, 19.39236]},
+          {region: '乐东黎族自治县',coor: [109.219933, 18.796966]},
+          {region: '陵水黎族自治县',coor: [110.082739, 18.592332]},
+          {region: '保亭黎族自治县',coor: [109.746931, 18.697458]},
+          {region: '琼中黎族自治县',coor: [109.886811, 19.098617]}
         ],
         familyData:''
       }
@@ -1096,7 +1096,7 @@
             nameTextStyle: {
               color: '#fff',
               fontSize: config().fontSize,
-              padding: [0,0, -config().fontSize/0.45, -config().fontSize/4,],
+              padding: [0,0, -config().fontSize/0.45, -config().fontSize/4],
             },
             max: 300,
             position: 'bottom',
@@ -1187,105 +1187,44 @@
       },
       chart_center1() {
         var myChart = echarts.init(document.getElementById("chart_center1"));
-        echarts.registerMap('ls', hainan);
-        var geoCoordMap = {
-          '五指山市':[109.52009,18.781815],
-          '琼海市':[110.497792,19.2476],
-          '东方市':[108.697661,19.095913],
-          '屯昌县':[110.109727,19.357102],
-          '临高县':[109.696293,19.919747],
-          '乐东县':[109.18683,18.749572],
-          '陵水县':[110.040028,18.541886],
-          '琼中县':[109.950762,18.701291],
-          '海口市':[110.355422,20.023402],
-          '三亚市':[109.499588,18.302402],
-          '三沙市':[112.344722,16.837188],
-          '儋州市':[109.620805,19.529053],
+        echarts.registerMap('hainan', hainan)
+        var pd = []
+        for (var i = 0; i < this.tableData.length; i++) {
+          var tmp = {}
+          var d = []
+          tmp.name = this.tableData[i].region
+          d.push(this.tableData[i].coor[0], this.tableData[i].coor[1], this.tableData[i].region, this.tableData[i].rate, i + 1)
+          tmp.value = d
+          pd.push(tmp)
         }
-        var geoCoordMap1 = {
-          '五指山市':[109.54009,18.781815],
-          '琼海市':[110.517792,19.2476],
-          '东方市':[108.717661,19.095913],
-          '屯昌县':[110.129727,19.357102],
-          '临高县':[109.716293,19.919747],
-          '乐东县':[109.20683,18.749572],
-          '陵水县':[110.060028,18.541886],
-          '琼中县':[109.970762,18.701291],
-          '海口市':[110.375422,20.023402],
-          '三亚市':[109.519588,18.302402],
-          '三沙市':[112.364722,16.837188],
-          '儋州市':[109.640805,19.529053],
+        var pd1 = []
+        for (var i = 0; i < this.tableData1.length; i++) {
+          var tmp = {}
+          var d = []
+          tmp.name = this.tableData1[i].region
+          d.push(this.tableData1[i].coor[0], this.tableData1[i].coor[1], this.tableData1[i].region, this.tableData1[i].rate, i + 1)
+          tmp.value = d
+          pd1.push(tmp)
         }
-        var data = [
-          {name:'五指山市',value:21},
-          {name:'琼海市',value:22},
-          {name:'东方市',value:12},
-          {name:'屯昌县',value:13},
-          {name:'临高县',value:15},
-          {name:'乐东县',value:16},
-          {name:'陵水县',value:18},
-          {name:'琼中县',value:19},
-          {name:'海口市',value:17},
-          {name:'三亚市',value:12},
-          {name:'三沙市',value:12},
-          {name:'儋州市',value:11},
-
-        ];
-        var data1 = [
-          {name:'五指山市',value:21},
-          {name:'琼海市',value:29},
-          {name:'东方市',value:21},
-          {name:'屯昌县',value:31},
-          {name:'临高县',value:19},
-          {name:'乐东县',value:19},
-          {name:'陵水县',value:21},
-          {name:'琼中县',value:24},
-          {name:'海口市',value:27},
-          {name:'三亚市',value:22},
-          {name:'三沙市',value:22},
-          {name:'儋州市',value:27},
-
-        ];
-        var convertData = function (data) {
-          var res = [];
-          for (var i = 0; i < data.length; i++) {
-            var geoCoord = geoCoordMap[data[i].name];
-            if (geoCoord) {
-              res.push({
-                name: data[i].name,
-                value: geoCoord.concat(data[i].value)
-              });
-            }
-          }
-          return res;
-        };
-        var convertData1 = function (data1) {
-          var res = [];
-          for (var i = 0; i < data1.length; i++) {
-            var geoCoord1 = geoCoordMap1[data1[i].name];
-            if (geoCoord1) {
-              res.push({
-                name: data1[i].name,
-                value: geoCoord1.concat(data1[i].value)
-              });
-            }
-          }
-          return res;
-        };
         var option = {
           tooltip: {
-            formatter : function(e){
-              if (e.seriesName == "流入人口") {
-                return '流入人口<br>'+e.name + ':' + e.value[2] + '人';
-              }else{
-                return '流出人口<br>'+e.name + ':' + e.value[2] + '人';
-              }
-
+            trigger: 'item',
+            textStyle: config().textStyle,
+            formatter: function (params) {
+              var st = params.value[2] + '</br>老年人口占比：' + params.value[3]
+              return st
             }
+          },
+          legend: {
+            orient: 'vertical',
+            y: 'bottom',
+            x: 'right',
+            data: ['pm2.5'],
+            textStyle: config().textStyle,
           },
           geo: {
             show: true,
-            map: 'ls',
+            map: 'hainan',
             layoutSize: "500%",
             zoom: 9,
             center: [109.76112, 19.2472],
@@ -1313,98 +1252,68 @@
               }
             }
           },
-          series: [{
-            type: 'map',
-            map: 'ls',
-            geoIndex: 1,
-            aspectScale: 0.75, //长宽比
-            zoom:1.2,
-            label: {
-              normal: {
-                formatter: '{b}',
-                show: true,
-                textStyle:{
-                  color:'#fff'
-                }
-              },
-              emphasis: {
-                show: false,
-                textStyle: {
-                  color: '#05C3F9'
-                }
-              }
-            },
-            roam: false,
-            itemStyle: {
-              normal: {
-                areaColor: 'transparent',
-                borderColor: '#3B5077',
-                borderWidth: 1
-              },
-              emphasis: {
-                areaColor: '#070d18',
-                shadowColor: '#1773c3',
-                shadowBlur: 20
-              }
-            },
-            data: data,
-          },
-            {
+          series: [
+            { //城市点位
               name: '流入人口',
               type: 'effectScatter',
               coordinateSystem: 'geo',
-              symbol: 'circle',
               symbolSize: function (val) {
-                return val[2] / 2;
-              },
-              label: {
-                normal: {
-                  show: true,
-                  formatter: function(value){
-                    return value.value[2]
-                  },
-                  textStyle: {
-                    color: '#fff',
-                    fontSize: config().fontSize,
-                  }
+                if (val[4] <= 10) {
+                  return config().fontSize * 1.5
                 }
               },
               itemStyle: {
                 normal: {
-                  color: 'red', //标志颜色
+                  color: 'red'
                 }
               },
-              zlevel: 6,
-              data: convertData(data),
-            }
-            ,
-            {
+              label: {
+                normal: {
+                  formatter: function (val) {
+                    if (val.data.value[4] <= 10) {
+                      return val.data.value[4]
+                    } else {
+                      return '';
+                    }
+                  },
+                  //position: 'top',
+                  textStyle: config().textStyle,
+                  show: true
+                }
+              },
+              zlevel: 10,
+              data: pd,
+            },
+            { //城市点位
               name: '流出人口',
               type: 'effectScatter',
               coordinateSystem: 'geo',
-              symbol: 'circle',
               symbolSize: function (val) {
-                return val[2] / 2;
-              },
-              label: {
-                normal: {
-                  show: true,
-                  formatter: function(value){
-                    return value.value[2]
-                  },
-                  textStyle: {
-                    color: '#fff',
-                    fontSize: config().fontSize,
-                  }
+                if (val[4] <= 10) {
+                  return config().fontSize * 1.5
                 }
               },
               itemStyle: {
                 normal: {
-                  color: 'blue', //标志颜色
+                  color: 'blue'
                 }
               },
-              zlevel: 6,
-              data: convertData1(data1),
+              label: {
+                normal: {
+                  formatter: function (val) {
+                    if (val.data.value[4] <= 10) {
+                      return val.data.value[4]
+                    } else {
+                      return '';
+                    }
+                  },
+                  //position: 'top',
+                  textStyle: config().textStyle,
+                  show: true
+                }
+              },
+              zlevel: 10,
+              data: pd1,
             }
           ]
         };
