@@ -715,6 +715,7 @@
         var  option = {
           tooltip: {
             show: true,
+            textStyle: config().textStyle,
             formatter: function(params) {
               var str = params.name+'<br/>常住人口：'+params.data.value+' 万人<br/>本月增量：'+
                 params.data.increment+' 万人';
@@ -731,11 +732,9 @@
             // calculable: true,
             max: 200,
             inRange: {
-              color: ['#2ac8fd', '#34a4d8', '#046fb7']
+              color: ['#04c1f0', '#1eaed2', '#4177ed']
             },
-            textStyle: {
-              color: "#000"
-            },
+            textStyle: config().textStyle,
             bottom: '-5',
             left: 0
           },
@@ -760,8 +759,8 @@
             itemStyle: {
               normal: {
                 areaColor: 'transparent',
-                borderColor: '#3fdaff',
-                borderWidth: 2,
+                borderColor: '#0c1752',
+                borderWidth: 1,
                 shadowColor: 'rgba(63, 218, 255, 0.5)',
                 shadowBlur: 30
               },
