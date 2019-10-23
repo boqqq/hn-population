@@ -102,11 +102,11 @@
 
     mounted () {
       this.init_labor_trend()
-      this.growth_trend()
-      this.industrial_structure()
-      this.various_industries()
-      this.registration_type()
-      this.changes_employment()
+      this.init_growth_trend()
+      this.init_industrial_structure()
+      this.init_various_industries()
+      this.init_registration_type()
+      this.init_changes_employment()
     },
     methods: {
       init_labor_trend(){
@@ -119,10 +119,11 @@
           url: _this.$http.adornUrl('/t04workpersmemqtyocuplabrpopuratio/list'),
           method: 'get',
           params: _this.$http.adornParams({
-            'areaCode':'460000000000'
+            'areaCode':'460000000000',
+            'limit':10,
+            'order':'date_stat'
           }, false)
         }).then(({data}) => {
-          console.log(data)
           if (data.code == 0) {
             data.list.forEach(x=>{
               dataX.push(x.dateStat);
@@ -243,14 +244,40 @@
               symbol: "none",
               yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
               name: '从业人员劳动力人口比例',
-              color:'#A54436'
+              color:'#02faa9'
             }
           ]
         };
         labor_trend.setOption(option)
         window.onresize = labor_trend.resize;
       },
-      growth_trend(){
+      init_growth_trend(){
+
+        let _this = this;
+        var dataX = [];
+        var dataY1 = [];
+        var dataY2 = [];
+        _this.$http({
+          url: _this.$http.adornUrl('/t04workpopugrowratetrnd/list'),
+          method: 'get',
+          params: _this.$http.adornParams({
+            'areaCode':'460000000000',
+            'limit':10,
+            'order':'date_stat'
+          }, false)
+        }).then(({data}) => {
+          if (data.code == 0) {
+            data.list.forEach(x=>{
+              dataX.push(x.dateStat);
+              dataY2.push(x.orkingYtyGrowth);
+              dataY1.push(x.workYtyGrowth);
+              _this.growth_trend(dataX,dataY1, dataY2);
+            })
+          }
+        })
+
+      },
+      growth_trend(dataX,dataY1, dataY2){
         var growth_trend = echarts.init(document.getElementById('growth_trend'));
         var option = {
           legend: {
@@ -279,7 +306,7 @@
             axisTick:{
               show:false,
             },
-            data: this.incDate,
+            data: dataX,
           },
           yAxis: {
             show:true,
@@ -317,25 +344,53 @@
           },
           series: [
             {
-              data: this.incData,
+              data: dataY1,
               type: 'line',
               symbol: "none",
               name: '劳动力人口',
-              color:'#3661B3'
+              color:'#4478fc'
             },
             {
-              data: this.incVel,
+              data: dataY2,
               type: 'line',
               symbol: "none",
               name: '从业人口',
-              color:'#A54436'
+              color:'#02faa9'
             }
           ]
         };
         growth_trend.setOption(option)
         window.onresize = growth_trend.resize;
       },
-      industrial_structure (){
+      init_industrial_structure(){
+
+        let _this = this;
+        var dataX = [];
+        var dataY1 = [];
+        var dataY2 = [];
+        var dataY3 = [];
+        _this.$http({
+          url: _this.$http.adornUrl('/t04indsworkpersmemstruchgtrnd/list'),
+          method: 'get',
+          params: _this.$http.adornParams({
+            'areaCode':'460000000000',
+            'limit':10,
+            'order':'date_stat'
+          }, false)
+        }).then(({data}) => {
+          if (data.code == 0) {
+            data.list.forEach(x=>{
+              dataX.push(x.dateStat);
+              dataY3.push(x.tertiaryIndustryNum);
+              dataY2.push(x.agroNum);
+              dataY1.push(x.industrialNum);
+              _this.industrial_structure(dataX,dataY1, dataY2, dataY3);
+            })
+          }
+        })
+
+      },
+      industrial_structure (dataX,dataY1, dataY2,dataY3){
         var industrial_structure = echarts.init(document.getElementById('industrial_structure'));
         var option = {
           tooltip : {
@@ -345,7 +400,7 @@
               type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
             }
           },
-          color:['#335BB5','#F85B36','#8C8F92'],
+          color:['#4478fc','#62b8fd','#7cedfe'],
           legend: {
             data:['第一产业从业人员','第二产业从业人员','第三产业从业人员'],
             itemWidth: config().fontSize, // 图例标记的图形宽度。
@@ -374,7 +429,7 @@
               axisLine:{
                 show:false,
               },
-              data : ['2019','2011','2012','2013','2014','2015','2016','2017','2018','2019']
+              data : dataX
             }
           ],
           yAxis : [
@@ -408,108 +463,123 @@
               type:'bar',
               barWidth : '15%',
               stack: '产业结构',
-              data:[220, 330, 430, 320, 260, 550, 250, 540,210,320]
+              data:dataY1
             },
             {
               name:'第二产业从业人员',
               type:'bar',
               barWidth : '15%',
               stack: '产业结构',
-              data:[320, 210, 260, 320, 220, 430, 550, 330,250,540]
+              data:dataY2
             },
             {
               name:'第三产业从业人员',
               type:'bar',
               barWidth : '15%',
               stack: '产业结构',
-              data:[260, 540, 250, 330, 430, 210, 320,220,320,540]
+              data:dataY3
             },
           ]
         };
         industrial_structure.setOption(option)
       },
-      various_industries (){
+      init_various_industries(){
+
+        let _this = this;
+        var dataX = [];
+        var dataY = [];
+        var dataS = [];
+        _this.$http({
+          url: _this.$http.adornUrl('/t04indsworkpersmemqtychgtrnd/list'),
+          method: 'get',
+          params: _this.$http.adornParams({
+            'areaCode':'460000000000'
+          }, false)
+        }).then(({data}) => {
+          if (data.code == 0) {
+            dataX = data.result.year;
+            dataY = data.result.desc;
+            dataS = data.result.lists;
+            _this.various_industries(dataX,dataY, dataS);
+          }
+        })
+
+      },
+      various_industries (dataX,dataY, dataS){
         var various_industries = echarts.init(document.getElementById('various_industries'));
-        var hours = ['', '2009', '2010', '2011', '2012', '2013', '2014','2015','2016','2017','2018'];
-        var days = ['',
-          '零售批发',
-          '建筑业',
-          '电力',
-          '制造业',
-          '采矿业',
-          '农林牧渔'
-        ];
-
-        var data =[
-          //[0, 0, 10],
-          //第一位表示纵轴-Y从1开始录入
-          //[1, 0, 5],
-          [1, 1, 11],
-          [1, 2, 9],
-          [1, 3, 36],
-          [1, 4,15],
-          [1, 5, 41],
-          [1, 6, 30],
-          [1, 7, 12],
-          [1, 8, 9],
-          [1, 9, 12],
-          [1, 10,9],
-          //[2, 0, 0.0],
-          [2, 1, 7],
-          [2, 2, 20],
-          [2, 3, 7],
-          [2, 4, 10],
-          [2, 5, 11],
-          [2, 6, 2],
-          [2, 7,23],
-          [2, 8,3],
-          [2, 9, 31],
-          [2, 10,15],
-          //[3, 0, 0.0],
-          [3, 1, 65],
-          [3, 2,29],
-          [3, 3, 78],
-          [3, 4, 18],
-          [3, 5, 16],
-          [3, 6, 8],
-          [3, 7, 17],
-          [3, 8, 40],
-          [3, 9, 9],
-          [3, 10,18],
-
-          [4, 1, 83],
-          [4, 2,55],
-          [4, 3, 84],
-          [4, 4,9],
-          [4, 5, 41],
-          [4, 6, 55],
-          [4, 7,8],
-          [4, 8, 6],
-          [4, 9, 5],
-          [4, 10,2],
-
-          [5, 1,4],
-          [5, 2,3],
-          [5, 3,14],
-          [5, 4, 98],
-          [5, 5, 21],
-          [5, 6,12],
-          [5, 7, 8],
-          [5, 8, 20],
-          [5, 9, 21],
-          [5, 10, 2],
-
-          [6, 1,20],
-          [6, 2,7],
-          [6, 3,15],
-          [6, 4, 13],
-          [6, 5, 2],
-          [6, 6,11],
-          [6, 7, 12],
-          [6, 8, 86],
-          [6, 9, 15],
-          [6, 10, 32],
-        ];
+        var hours = dataX;
+        var days = dataY;
+        var data = dataS;
+        // var data =[
+        //   //[0, 0, 10],
+        //   //第一位表示纵轴-Y从1开始录入
+        //   //[1, 0, 5],
+        //   [1, 1, 11],
+        //   [1, 2, 9],
+        //   [1, 3, 36],
+        //   [1, 4,15],
+        //   [1, 5, 41],
+        //   [1, 6, 30],
+        //   [1, 7, 12],
+        //   [1, 8, 9],
+        //   [1, 9, 12],
+        //   [1, 10,9],
+        //   //[2, 0, 0.0],
+        //   [2, 1, 7],
+        //   [2, 2, 20],
+        //   [2, 3, 7],
+        //   [2, 4, 10],
+        //   [2, 5, 11],
+        //   [2, 6, 2],
+        //   [2, 7,23],
+        //   [2, 8,3],
+        //   [2, 9, 31],
+        //   [2, 10,15],
+        //   //[3, 0, 0.0],
+        //   [3, 1, 65],
+        //   [3, 2,29],
+        //   [3, 3, 78],
+        //   [3, 4, 18],
+        //   [3, 5, 16],
+        //   [3, 6, 8],
+        //   [3, 7, 17],
+        //   [3, 8, 40],
+        //   [3, 9, 9],
+        //   [3, 10,18],
+        //
+        //   [4, 1, 83],
+        //   [4, 2,55],
+        //   [4, 3, 84],
+        //   [4, 4,9],
+        //   [4, 5, 41],
+        //   [4, 6, 55],
+        //   [4, 7,8],
+        //   [4, 8, 6],
+        //   [4, 9, 5],
+        //   [4, 10,2],
+        //
+        //   [5, 1,4],
+        //   [5, 2,3],
+        //   [5, 3,14],
+        //   [5, 4, 98],
+        //   [5, 5, 21],
+        //   [5, 6,12],
+        //   [5, 7, 8],
+        //   [5, 8, 20],
+        //   [5, 9, 21],
+        //   [5, 10, 2],
+        //
+        //   [6, 1,20],
+        //   [6, 2,7],
+        //   [6, 3,15],
+        //   [6, 4, 13],
+        //   [6, 5, 2],
+        //   [6, 6,11],
+        //   [6, 7, 12],
+        //   [6, 8, 86],
+        //   [6, 9, 15],
+        //   [6, 10, 32],
+        // ];
         data = data.map(function (item) {
           return [item[1], item[0], item[2]];
         });
@@ -525,9 +595,9 @@
           },
           grid: {
             top:'10%',
-            left: '3%',
-            right: '4%',
-            bottom: '5%',
+            left: '2%',
+            right: '10%',
+            bottom: '13%',
             containLabel: true
           },
           xAxis: {
@@ -564,6 +634,42 @@
               show:false,
             },
           },
+          dataZoom: [
+            {
+              show: true,
+              type: 'slider',
+              yAxisIndex: 0,
+              start: 0,
+              end: 30,
+              right: '1%',
+              width: config().fontSize,
+              backgroundColor: '#041257',
+              borderColor: 'transparent',
+              fillerColor: '#059DFA',
+              handleStyle: {
+                fontSize:config().fontSize,
+                color: 'transparent'
+              },
+              textStyle: config().textStyle
+            },
+            {
+              show: true,
+              type: 'slider',
+              xAxisIndex: 0,
+              start: 0,
+              end: 60,
+              bottom: '5%',
+              height: config().fontSize,
+              backgroundColor: '#041257',
+              borderColor: 'transparent',
+              fillerColor: '#059DFA',
+              handleStyle: {
+                fontSize:config().fontSize,
+                color: 'transparent'
+              },
+              textStyle: config().textStyle
+            }
+          ],
           series: [{
             name: 'patents',
             type: 'scatter',
@@ -572,13 +678,13 @@
                 normal: {
                   show: true,
                   color: function (params){
-                    var color = ['#208590','#414B92','#237B3F','#8A8D92','#8A382C','#145C8E','#5F3611'];
+                    var color = ['#4478fc','#03baff','#7cedfe','#842af0','#20e19f','#f8c300','#ea396a','#3945de','#007eff', '#09c3df', '#5a05c0'];
                     return color[params.data[1]-1];
                   }
                 }
               },
             symbolSize: function (val) {
-              return Math.sqrt(val[2])*5
+              return Math.sqrt(val[2])*config().textStyle.fontSize
             },
             data: data,
             animationDelay: function (idx) {
@@ -588,7 +694,41 @@
         };
         various_industries.setOption(option)
       },
-      registration_type (){
+      init_registration_type(){
+
+        let _this = this;
+        var dataX = [];
+        var dataY1 = [];
+        var dataY2 = [];
+        var dataY3 = [];
+        var dataY4 = [];
+        var dataY5 = [];
+        var dataY6 = [];
+        _this.$http({
+          url: _this.$http.adornUrl('/t04rgstrgsttypworkpersmemstruchg/list'),
+          method: 'get',
+          params: _this.$http.adornParams({
+            'areaCode':'460000000000',
+            'limit':5,
+            'order':'date_stat'
+          }, false)
+        }).then(({data}) => {
+          if (data.code == 0) {
+            data.list.forEach(x=>{
+              dataX.push(x.dateStat);
+              dataY1.push(x.stateNumGrowth);
+              dataY2.push(x.privateNumGrowth);
+              dataY3.push(x.statOwenNumGrowth);
+              dataY4.push(x.cityCollNum);
+              dataY5.push(x.cityCollNumGrowth);
+              dataY6.push(x.otherNumGrowth);
+              _this.registration_type (dataX, dataY1,dataY2,dataY3,dataY4,dataY5,dataY6);
+            })
+          }
+        })
+
+      },
+      registration_type (dataX, dataY1,dataY2,dataY3,dataY4,dataY5,dataY6){
         var registration_type = echarts.init(document.getElementById('registration_type'));
         var option = {
           tooltip : {
@@ -599,7 +739,7 @@
             }
           },
           legend: {
-            data: ['国有', '集体', '联营','有限责任','股份','外商','港澳台商','私营','个体'],
+            data: ['国有', '私营', '城镇私营','城镇个体','城镇集体','其他'],
             itemWidth: config().fontSize, // 图例标记的图形宽度。
             itemHeight: config().fontSize, // 图例标记的图形高度。
             itemGap: config().fontSize, // 图例每项之间的间隔。
@@ -641,7 +781,7 @@
               textStyle:config().textStyle,
               formatter:'{value}年'
             },
-            data: ['2014', '2015', '2015', '2017', '2018']
+            data: dataX
           },
           series : [
             {
@@ -650,87 +790,98 @@
               stack: '总量',
               barWidth:'40%',
               itemStyle: {
-                color: '#4698FF'
+                color: '#4478fc'
               },
-              data: [25, 20,15,25,20]
-            },
-            {
-              name: '集体',
-              type: 'bar',
-              stack: '总量',
-              itemStyle: {
-                color: '#F95C35'
-              },
-              data: [10, 5,15,5,5]
-            },
-            {
-              name: '联营',
-              type: 'bar',
-              stack: '总量',
-              itemStyle: {
-                color: '#3AE45F'
-              },
-              data: [15, 10,10,15,10]
-            },
-            {
-              name: '有限责任',
-              type: 'bar',
-              stack: '总量',
-              itemStyle: {
-                color: '#465DFF'
-              },
-              data: [15, 15,10,15,10]
-            },
-            {
-              name: '股份',
-              type: 'bar',
-              stack: '总量',
-              itemStyle: {
-                color: '#DDB41C'
-              },
-              data: [5, 10,10,10,15]
-            },
-            {
-              name: '外商',
-              type: 'bar',
-              stack: '总量',
-              itemStyle: {
-                color: '#36F5FA'
-              },
-              data: [10, 10,15,10,15]
-            },
-            {
-              name: '港澳台商',
-              type: 'bar',
-              stack: '总量',
-              itemStyle: {
-                color: '#7684FC'
-              },
-              data: [10, 10,5,5,5]
+              data: dataY1
             },
             {
               name: '私营',
               type: 'bar',
               stack: '总量',
               itemStyle: {
-                color: '#9DF9E5'
+                color: '#62b8fd'
               },
-              data: [5, 5,10,10,10]
+              data: dataY2
             },
             {
-              name: '个体',
+              name: '城镇私营',
               type: 'bar',
               stack: '总量',
               itemStyle: {
-                color: '#FFFFFF'
+                color: '#7cedfe'
               },
-              data: [5, 15,10,5,10]
+              data: dataY3
+            },
+            {
+              name: '城镇个体',
+              type: 'bar',
+              stack: '总量',
+              itemStyle: {
+                color: '#842af0'
+              },
+              data: dataY4
+            },
+            {
+              name: '城镇集体',
+              type: 'bar',
+              stack: '总量',
+              itemStyle: {
+                color: '#20e19f'
+              },
+              data: dataY5
+            },
+            {
+              name: '其他',
+              type: 'bar',
+              stack: '总量',
+              itemStyle: {
+                color: '#f8e350'
+              },
+              data: dataY6
             }
           ]
         };
         registration_type.setOption(option)
       },
-      changes_employment (){
+      init_changes_employment(){
+
+        let _this = this;
+        var dataX = [];
+        var dataY = [];
+        var dataS = [];
+        var series = [];
+        var color = ['#4478fc', '#03baff', '#20e19f', '#842af0', '#f8c300'];
+        _this.$http({
+          url: _this.$http.adornUrl('/t04indsworkpersmemstru5yrchg/list'),
+          method: 'get',
+          params: _this.$http.adornParams({
+            'areaCode':'460000000000',
+            'limit':5,
+          }, false)
+        }).then(({data}) => {
+          if (data.code == 0) {
+            dataS = data.result.year;
+            dataY = data.result.lists;
+            dataX = data.result.desc;
+            for(var i = 0;i<dataY.length;i++){
+              series.push({
+                name: dataS[i],
+                type: 'bar',
+                barWidth: '15%',
+                itemStyle: {
+                  normal: {
+                    color: color[i]
+                  },
+                },
+                data: dataY[i]
+              });
+            }
+          _this.changes_employment (dataX, series,dataS);
+          }
+        })
+
+      },
+      changes_employment (dataX, series,dataS){
         var changes_employment = echarts.init(document.getElementById('changes_employment'));
         var option = {
 
@@ -744,12 +895,12 @@
           grid: {
             left: '6%',
             right: '4%',
-            bottom: '25%',
+            bottom: '45%',
             top:'20%',
             containLabel: false
           },
           legend: {
-            data: ['2014', '2018'],
+            data: dataS,
             itemWidth: config().fontSize, // 图例标记的图形宽度。
             itemHeight: config().fontSize, // 图例标记的图形高度。
             itemGap: config().fontSize, // 图例每项之间的间隔。
@@ -758,21 +909,39 @@
           xAxis: {
             type: 'category',
             zlevel:10,
-            data: ['农林牧渔','采矿','制造','建设','批发','计算机通信','软件信息','能源采矿','消费品','居民服务','住宿餐饮'],
+            data: dataX,
             axisLine: {
               lineStyle: {
                 color: '#138EEE'
               }
             },
             axisLabel: {
-              rotate:30,//斜体字可不用
+              rotate:22,//斜体字可不用
               textStyle: config().textStyle
             },
             axisTick:{
               show:false
             }
           },
-
+          dataZoom: [// 这个dataZoom组件，若未设置xAxisIndex或yAxisIndex，则默认控制x轴。
+            {
+              show: true,
+              type: 'slider',
+              xAxisIndex: 0,
+              start: 0,
+              end: 60,
+              bottom: '5%',
+              height: config().fontSize,
+              backgroundColor: '#041257',
+              borderColor: 'transparent',
+              fillerColor: '#059DFA',
+              handleStyle: {
+                fontSize:config().fontSize,
+                color: 'transparent'
+              },
+              textStyle: config().textStyle
+            }
+          ],
           yAxis: {
             type: 'value',
             name:'%',
@@ -797,28 +966,7 @@
               show:false
             }
           },
-          series: [{
-            name: '2014',
-            type: 'bar',
-            barWidth: '20%',
-            itemStyle: {
-              normal: {
-                color: '#196027'
-              },
-            },
-            data: [30, -20, -10, 35, 43,32,45,56,88,75,90]
-          },
-            {
-              name: '2018',
-              type: 'bar',
-              barWidth: '20%',
-              itemStyle: {
-                normal: {
-                  color: '#A9544B'
-                },
-              },
-              data: [34, -43, -21, 66, 56,76,43,78,88,65, 34]
-            }]
+          series: series
         };
         changes_employment.setOption(option)
       },
@@ -847,12 +995,10 @@
       margin-right: 1vh;
     }
     .bar-comtent{
-       height: 22.6vh;
-       margin-top: 2vh;
+       height: 24.6vh;
      }
     .bar-comtent2{
-      height: 53.3vh;
-      margin-top: 2vh;
+      height: 55.3vh;
     }
 
   }
