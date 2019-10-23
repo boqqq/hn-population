@@ -11,11 +11,13 @@
                   <h3 class="pop_type_title">人均地区GDP</h3>
                   <el-row>
                     <el-col :span="10">
-                      <p class="pop_type_val">65000<span class="pop_type_unit">元</span></p>
+                      <p class="pop_type_val">{{leftIndex.gdp}}<span class="pop_type_unit">元</span></p>
                     </el-col>
                     <el-col :span="14">
                       <span class="pop_type_last">同比</span>
-                      <span class="pop_type_prop up"><i class="arr_icon icon-upArr"></i>5.05%</span>
+                      <span class="pop_type_prop" :class = "leftIndex.gdp_yty_growth >= 0 ?'up':'dn'">
+                        <i class="arr_icon" :class = "leftIndex.gdp_yty_growth >= 0 ?'icon-upArr':'icon-dnArr'"></i>{{leftIndex.gdp_yty_growth}}%
+                      </span>
                     </el-col>
                   </el-row>
                   <div class="pop_type_frIcon icon-dec-line"></div>
@@ -29,11 +31,13 @@
                   <h3 class="pop_type_title">恩格尔系数</h3>
                   <el-row>
                     <el-col :span="10">
-                      <p class="pop_type_val">4.5<span class="pop_type_unit"></span></p>
+                      <p class="pop_type_val">{{leftIndex.egr_coef}}<span class="pop_type_unit"></span></p>
                     </el-col>
                     <el-col :span="14">
                       <span class="pop_type_last">同比</span>
-                      <span class="pop_type_prop up"><i class="arr_icon icon-upArr"></i>5.05%</span>
+                      <span class="pop_type_prop" :class = "leftIndex.egr_yty_growth >= 0 ?'up':'dn'">
+                        <i class="arr_icon" :class = "leftIndex.egr_yty_growth >= 0 ?'icon-upArr':'icon-dnArr'"></i>{{leftIndex.egr_yty_growth}}%
+                      </span>
                     </el-col>
                   </el-row>
                   <div class="pop_type_frIcon icon-dec-line"></div>
@@ -47,11 +51,13 @@
                   <h3 class="pop_type_title">人口自然增长率</h3>
                   <el-row>
                     <el-col :span="10">
-                      <p class="pop_type_val">3<span class="pop_type_unit">%</span></p>
+                      <p class="pop_type_val">{{leftIndex.yty_growth_01}}<span class="pop_type_unit">%</span></p>
                     </el-col>
                     <el-col :span="14">
                       <span class="pop_type_last">同比</span>
-                      <span class="pop_type_prop dn"><i class="arr_icon icon-dnArr"></i>0.35%</span>
+                      <span class="pop_type_prop" :class = "leftIndex.yty_growth_02 >= 0 ?'up':'dn'">
+                        <i class="arr_icon" :class = "leftIndex.yty_growth_02 >= 0 ?'icon-upArr':'icon-dnArr'"></i>{{leftIndex.yty_growth_02}}%
+                      </span>
                     </el-col>
                   </el-row>
                   <div class="pop_type_frIcon icon-dec-line"></div>
@@ -65,11 +71,13 @@
                   <h3 class="pop_type_title">老年系数</h3>
                   <el-row>
                     <el-col :span="10">
-                      <p class="pop_type_val">17<span class="pop_type_unit">%</span></p>
+                      <p class="pop_type_val">{{leftIndex.age_yty_growth1}}<span class="pop_type_unit">%</span></p>
                     </el-col>
                     <el-col :span="14">
                       <span class="pop_type_last">同比</span>
-                      <span class="pop_type_prop up"><i class="arr_icon icon-upArr"></i>0.55%</span>
+                      <span class="pop_type_prop" :class = "leftIndex.age_yty_growth2 >= 0 ?'up':'dn'">
+                        <i class="arr_icon" :class = "leftIndex.age_yty_growth2 >= 0 ?'icon-upArr':'icon-dnArr'"></i>{{leftIndex.age_yty_growth2}}%
+                      </span>
                     </el-col>
                   </el-row>
                   <div class="pop_type_frIcon icon-dec-line"></div>
@@ -83,11 +91,13 @@
                   <h3 class="pop_type_title">老少比</h3>
                   <el-row>
                     <el-col :span="10">
-                      <p class="pop_type_val">77<span class="pop_type_unit">%</span></p>
+                      <p class="pop_type_val">{{leftIndex.old_yty_growth1}}<span class="pop_type_unit">%</span></p>
                     </el-col>
                     <el-col :span="14">
                       <span class="pop_type_last">同比</span>
-                      <span class="pop_type_prop dn"><i class="arr_icon icon-dnArr"></i>0.15%</span>
+                      <span class="pop_type_prop" :class = "leftIndex.old_yty_growth2 >0 ?'up':'dn'">
+                        <i class="arr_icon" :class = "leftIndex.old_yty_growth2 > 0 ?'icon-upArr':'icon-dnArr'"></i>{{leftIndex.old_yty_growth2}}%
+                      </span>
                     </el-col>
                   </el-row>
                   <div class="pop_type_frIcon icon-dec-line"></div>
@@ -101,11 +111,13 @@
                   <h3 class="pop_type_title">总抚养比</h3>
                   <el-row>
                     <el-col :span="10">
-                      <p class="pop_type_val">27<span class="pop_type_unit">%</span></p>
+                      <p class="pop_type_val">{{leftIndex.totl_yty_growth1}}<span class="pop_type_unit">%</span></p>
                     </el-col>
                     <el-col :span="14">
                       <span class="pop_type_last">同比</span>
-                      <span class="pop_type_prop up"><i class="arr_icon icon-upArr"></i>0.15%</span>
+                      <span class="pop_type_prop" :class = "leftIndex.gdp_yty_growth2 >= 0 ?'up':'dn'">
+                        <i class="arr_icon" :class = "leftIndex.gdp_yty_growth2 >= 0 ?'icon-upArr':'icon-dnArr'"></i>{{leftIndex.totl_yty_growth2}}%
+                      </span>
                     </el-col>
                   </el-row>
                   <div class="pop_type_frIcon icon-dec-line"></div>
@@ -134,10 +146,10 @@
                       <h3>空气质量排名（2019年9月）</h3>
                     </div>
                     <div class = "top_chart">
-                      <div class="tltleBox" style="z-index: 9999;margin-top: 1vh;"><span>地区</span><span>空气质量优良率</span><span>排名</span></div>
+                      <div class="tltleBox" style="z-index: 9999;margin-top: 1vh;"><span>地区</span><span>空气质量优良天数</span><span>排名</span></div>
                       <div  style="height: 51vh;overflow: hidden; position:relative">
                         <div>
-                          <div class="textBox" v-for="(item,index) in tableData" :class="{'active':index%2 != 1}" :key="index" ><span>{{item.region}}</span><span>{{item.rate}}</span><span>{{index+1}}</span></div>
+                          <div class="textBox" v-for="(item,index) in tableData" :class="{'active':index%2 != 1}" :key="index" ><span>{{item.areaName}}</span><span>{{item.practitionerNum}}天</span><span>{{item.qltyFstNm}}</span></div>
                         </div>
                       </div>
                     </div>
@@ -160,19 +172,19 @@
                         <div class = "diff3">农村</div>
                       </div>
                       <div class = "dev_diff">
-                        <div class = "diff1"><span>{{tableData2[0].name}}</span></div>
-                        <div class = "diff2"><span>{{tableData2[0].city}}</span><span>m²</span></div>
-                        <div class = "diff3"><span>{{tableData2[0].countryside}}</span><span>m²</span></div>
+                        <div class = "diff1"><span>人均住房面积</span></div>
+                        <div class = "diff2"><span>{{bottomIndex1.acreage2}}</span><span>m²</span></div>
+                        <div class = "diff3"><span>{{bottomIndex1.acreage1}}</span><span>m²</span></div>
                       </div>
                       <div class = "dev_diff">
-                        <div class = "diff1"><span>{{tableData2[1].name}}</span></div>
-                        <div class = "diff2"><span>{{tableData2[1].city}}</span><span>%</span></div>
-                        <div class = "diff3"><span>{{tableData2[1].countryside}}</span><span>%</span></div>
+                        <div class = "diff1"><span>固定资产投资完成率</span></div>
+                        <div class = "diff2"><span>{{80}}</span><span>%</span></div>
+                        <div class = "diff3"><span>{{75}}</span><span>%</span></div>
                       </div>
                       <div class = "dev_diff">
-                        <div class = "diff1"><span>{{tableData2[2].name}}</span></div>
-                        <div class = "diff2"><span>{{tableData2[2].city}}</span></div>
-                        <div class = "diff3"><span>{{tableData2[2].countryside}}</span></div>
+                        <div class = "diff1"><span>恩格尔系数</span></div>
+                        <div class = "diff2"><span>{{bottomIndex1.coef2}}</span></div>
+                        <div class = "diff3"><span>{{bottomIndex1.coef1}}</span></div>
                       </div>
                     </div>
                   </div>
@@ -187,25 +199,25 @@
                       <el-col :span="5">
                         <div class = "dev_pe">
                           <p>人口密度</p>
-                          <p><span>{{tableData3[0].value}}</span><span>人/m²</span></p>
+                          <p><span>{{bottomIndex2.watr_qty}}</span><span>人/m²</span></p>
                         </div>
                       </el-col>
                       <el-col :span="6">
                         <div class = "dev_pe">
                           <p>人均公园绿地面积</p>
-                          <p><span>{{tableData3[1].value}}</span><span>m²/人</span></p>
+                          <p><span>{{bottomIndex2.consm_qty}}</span><span>m²/人</span></p>
                         </div>
                       </el-col>
                       <el-col :span="6">
                         <div class = "dev_pe">
                           <p>人均日生活用水量</p>
-                          <p><span>{{tableData3[2].value}}</span><span>吨/人</span></p>
+                          <p><span>{{bottomIndex2.popu_denst}}</span><span>吨/人</span></p>
                         </div>
                       </el-col>
                       <el-col :span="7">
                         <div class = "dev_pe">
                           <p>人均生活能源消耗量</p>
-                          <p><span>{{tableData3[3].value}}</span><span>千克标准煤</span></p>
+                          <p><span>{{bottomIndex2.green_area}}</span><span>千克标准煤</span></p>
                         </div>
                       </el-col>
                     </el-row>
@@ -217,15 +229,43 @@
                       <i class="tit_icon icon-tit-line"></i>
                       <h3>人与社会保障</h3>
                     </div>
-                    <dev>
-                      <div class = "dev_gua" v-for="(item,index) in tableData4" :key="index">
-                        <p><span>{{item.name}}</span></p>
+                    <div>
+                      <div class = "dev_gua">
+                        <p><span>每万人口拥有医生数</span></p>
                         <p>
-                          <span>{{item.value}}</span>
-                          <span>{{item.unit}}</span>
+                          <span>{{bottomIndex3.doct_cnt_num}}</span>
+                          <span>人</span>
                         </p>
                       </div>
-                    </dev>
+                      <div class = "dev_gua">
+                        <p><span>每万人口拥有床位数</span></p>
+                        <p>
+                          <span>{{bottomIndex3.bed_digit_num}}</span>
+                          <span>张</span>
+                        </p>
+                      </div>
+                      <div class = "dev_gua">
+                        <p><span>新农合参保率</span></p>
+                        <p>
+                          <span>{{bottomIndex3.insud_rate_num}}</span>
+                          <span>%</span>
+                        </p>
+                      </div>
+                      <div class = "dev_gua">
+                        <p><span>人均卫生总费用</span></p>
+                        <p>
+                          <span>{{bottomIndex3.total_fee}}</span>
+                          <span>元/人</span>
+                        </p>
+                      </div>
+                      <div class = "dev_gua">
+                        <p><span>人均受教育年限</span></p>
+                        <p>
+                          <span>{{bottomIndex3.year_num}}</span>
+                          <span>年</span>
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </el-col>
               </el-row>
@@ -246,30 +286,7 @@
       data(){
         return{
           tableData:[
-            {region:'海口市',rate:'90%',num:1},
-            {region:'三亚市',rate:'89%',num:2},
-            {region:'三沙市',rate:'87%',num:3},
-            {region:'儋州市',rate:'86%',num:4},
-            {region:'五指山市',rate:'85%',num:5},
-            {region:'文昌市',rate:'85%',num:6},
-            {region:'琼海市',rate:'84%',num:7},
-            {region:'万宁市',rate:'83%',num:8},
-            {region:'东方市',rate:'82%',num:9},
-            {region:'定安县',rate:'79%',num:10},
-            {region:'屯昌县',rate:'78%',num:11},
-            {region:'澄迈县',rate:'77%',num:12},
-            {region:'临高县',rate:'76%',num:13},
-            {region:'白沙黎族自治县',rate:'75%',num:14},
-            {region:'昌江黎族自治县',rate:'74%',num:15},
-            {region:'乐东黎族自治县',rate:'73%',num:16},
-            {region:'陵水黎族自治县',rate:'73%',num:17},
-            {region:'保亭黎族自治县',rate:'72%',num:18},
-            {region:'琼中黎族自治县',rate:'71%',num:19}
-          ],
-          tableData2:[
-            {name:'人均住房面积',city:30,countryside:50},
-            {name:'固定资产投资完成率',city:80,countryside:75},
-            {name:'恩格尔系数',city:4.5,countryside:5.5}
+            {"areaCode":"469001000000","areaName":"五指山市","dateStat":"201907","qltyFstNm":"1","unit":"名次"}
           ],
           tableData3:[
             {name:'人口密度',value:500},
@@ -277,13 +294,23 @@
             {name:'人均日生活用水量',value:10},
             {name:'人均生活能源消耗量',value:666}
           ],
-          tableData4:[
-            {name:'每万人口拥有医生数',value:300,unit:'人'},
-            {name:'每万人口拥有床位数',value:30,unit:'张'},
-            {name:'新农合参保率',value:86,unit:'%'},
-            {name:'人均卫生总费用',value:5000,unit:'元/人'},
-            {name:'人均受教育年限',value:16.9,unit:'年'}
-          ],
+          leftIndex:{
+          "egr_yty_growth": "-3.66",
+            "gdp": "4819.65",
+            "gdp_yty_growth": "9.26",
+            "yty_growth_01": "0.9",
+            "old_yty_growth1": "90.15",
+            "yty_growth_02": "0",
+            "egr_coef": "39.5",
+            "old_yty_growth2": "12.76",
+            "age_yty_growth2": "5.55",
+            "totl_yty_growth1": "0.41",
+            "age_yty_growth1": "19.41",
+            "totl_yty_growth2": "-2.39"
+        },
+          bottomIndex1:{"coef2":"37","coef1":"42","acreage1":"30","acreage2":"31"},
+          bottomIndex2:{"watr_qty":"0.237","consm_qty":"253","popu_denst":"260","green_area":"11"},
+          bottomIndex3:{},
           pop_month: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
           pop_hou_bar:[190,118,172,176,223,84,111,90,94,241,100,110],
           pop_hou_line:[164,218,72,76,180,184,86,190,94,222,100,110],
@@ -299,17 +326,97 @@
       },
 
       mounted () {
-
-        this.top_chart1()
+        this.left_index()
+        this.tableDatas()
+        this.top_chart1Data()
+        this.bottom1Index()
+        this.bottom2Index()
+        this.bottom3Index()
       },
       methods: {
-        top_chart1(){
-          var tData = ['1999','2000','2001','2002','2003','2004','2005','2006','2007','2008','2009',
-            '2010','2011','2012','2013','2014','2015','2016','2017','2018']
+        left_index(){
+          this.$http({
+            url: this.$http.adornUrl("/t07qltyfstnm/leftIndex"),
+            method: 'get',
+            params: this.$http.adornParams({
+            })
+          }).then(({data}) => {
+            //alert(JSON.stringify(data.page))
+            this.leftIndex = data.page[0];
+          })
+        },
+        bottom1Index(){
+          this.$http({
+            url: this.$http.adornUrl("/t07qltyfstnm/bottomIndex1"),
+            method: 'get',
+            params: this.$http.adornParams({
+            })
+          }).then(({data}) => {
+            this.bottomIndex1 = data.page[0];
+          })
+        },
+        bottom2Index(){
+          this.$http({
+            url: this.$http.adornUrl("/t07qltyfstnm/bottomIndex2"),
+            method: 'get',
+            params: this.$http.adornParams({
+            })
+          }).then(({data}) => {
+            this.bottomIndex2 = data.page[0];
+          })
+        },
+        bottom3Index(){
+          this.$http({
+            url: this.$http.adornUrl("/t07qltyfstnm/bottomIndex3"),
+            method: 'get',
+            params: this.$http.adornParams({
+            })
+          }).then(({data}) => {
+            this.bottomIndex3 = data.page[0];
+          })
+        },
+        tableDatas(){
+          this.$http({
+            url: this.$http.adornUrl("/t07qltyfstnm/select"),
+            method: 'get',
+            params: this.$http.adornParams({
+            })
+          }).then(({data}) => {
+            //alert(JSON.stringify(data.page))
+            this.tableData = data.page;
+          })
+        },
+        top_chart1Data(){
+          this.$http({
+            url: this.$http.adornUrl("/t07persrecveduyrspersgdprel/select"),
+            method: 'get',
+            params: this.$http.adornParams({
+            })
+          }).then(({data}) => {
+            this.top_chart1(data.page);
+          })
+        },
+        top_chart1(data){
+          var tData = []
 
 
           var itemStyle = {
             normal: {
+              color:new echarts.graphic.LinearGradient(
+                0, 0, 0, 1, [{
+                  offset: 0,
+                  color: '#00feff'
+                },
+                  {
+                    offset: 0.5,
+                    color: '#027eff'
+                  },
+                  {
+                    offset: 1,
+                    color: '#00feff'
+                  }
+                ]
+              ),
               opacity: 0.65,
               shadowBlur: 10,
               shadowOffsetX: 0,
@@ -318,30 +425,24 @@
             }
           };
           var opt = [];
-          for (var i = 0; i <= tData.length; i++) {
+          for (var i = 0; i < data.length; i++) {
+            tData.push(data[i].dateStat)
             var dat = []
-            for (var j = 0; j < 15; j++) {
-              var d = [];
-              d.push(Math.random()*10*2.5,Math.random()*10*i,Math.random()*10,'海口')
-              dat.push(d)
-            }
+            var d = [];
+            d.push(data[i].ytyGrowth,data[i].eduYrsNum,'海口')
+            dat.push(d)
             opt.push({
-              title: {
-                text: "大小：执行时长",
-                textStyle: {
-                  color: "#707aa0",
-                  fontStyle: "normal",
-                  fontSize: '14px',
-                  fontFamily: "微软雅黑",
-                },
-                right: "4%"
-              },
               series: {
-                //name: data.timeline[n],
+                name: data[i].dateStat,
                 type: 'scatter',
+                symbolSize: function (val) {
+                  if(val[0]/1000*1.5<20){
+                    return 20
+                  }
+                  return val[0]/1000*1.5
+                },
                 data: dat,
-                //itemStyle: itemStyle,
-                symbolSize: 20
+                itemStyle: itemStyle
               }
             });
           }
@@ -351,61 +452,87 @@
             baseOption: {
               timeline: {
                 axisType: 'category',
-                autoPlay: true,
                 orient: 'vertical',
-                playInterval: 3000,
-                symbol: 'circle',
-                inverse: false,
-                rewind: true,
-                symbolSize: config().fontSize,
-                checkpointStyle: {
-                  symbol: 'circle',
-                  symbolSize: config().fontSize*1.5,
-                  color: '#aed2ff',
-                  borderColor: "#aed2ff"
-                },
-                right: "3%",
-                width: '5%',
-                height: '90%',
-                lineStyle: {
-                  color: "#454e72"
-                },
+                autoPlay: true,
+                inverse: true,
+                playInterval: 2000,
+                left: null,
+                  right: "3%",
+                  width: '5%',
+                  height: '90%',
                 label: {
                   normal: {
                     textStyle: config().textStyle
                   },
-                  position: 15,
-                  // formatter: function(value, index) {
-                  //   return value.replace(/-/g, ".");
-                  // }
+                  emphasis: {
+                    textStyle: {
+                      fontSize:config().fontSize,
+                      color:'#00ddff'
+                    }
+                  }
+                },
+                symbol: 'circle',
+                lineStyle: {
+                  color: '#ddd'
+                },
+                itemStyle: {
+                  normal: {
+                    symbolSize: config().fontSize,
+                    color: '#04a5f1'
+                  },
+                  emphasis: {
+                    color: '#04a5f1'
+                  }
+                },
+                checkpointStyle: {
+                    symbol: 'circle',
+                    symbolSize: config().fontSize*1.5,
+                    color: '#aed2ff',
+                    borderColor: 'rgba(4, 165, 261, .5)'
+                  },
+                controlStyle: {
+                  showNextBtn: false,
+                  showPrevBtn: false,
+                  normal: {
+                    color: '#666',
+                    borderColor: '#666'
+                  },
+                  emphasis: {
+                    color: '#aaa',
+                    borderColor: '#aaa'
+                  }
                 },
                 data: tData
               },
               calculable: true,
               grid: {
-                left: '1.5%',
+                left: '8%',
                 right: '15%',
-                bottom: '5%',
+                bottom: '10%',
                 containLabel: true
               },
               tooltip: {
                 //backgroundColor:'rgba(255,202,103,0.4)',
                 backgroundColor: 'rgba(7,14,28,0.9)',
                 textStyle: config().textStyle,
-                formatter: function(value, index) {
-                  //判断是否为数组，若是数组则鼠标滑过的是散点图 若不是则不显示tooltip
-                  if(Object.prototype.toString.call(value.data)=='[object Array]'){
-                    var tooltip = '';
-                    tooltip = "<div style='width:185px;height:90px;border-radius:8px;'>" + "<span style='display:block;padding:16px 10px 0 10px;font-size:14px;font-weight:700;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;'>" + value.data[3] + " " + value.data[4] + "运行情况" + "</span>" + "<span style='display:block;padding:2px 10px 0 10px;font-size:12px;font-weight:600;;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:" + value.color + "'>" + "Job数量:" + value.data[2] + "个" + "</span>" + "<span style='display:block;padding:0px 10px 0 10px;font-size:12px;font-weight:600;;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#707aa0'>" + "执行时长：" + value.data[1] + "分钟" + "</span>" + "</div>";
-                    return tooltip;
+                formatter: function(value) {
+                  var str = '';
+                  if(value.componentType == 'series'){
+                    str = value.seriesName+'<br/>'+value.data[2]+'<br/>人均受教育年限：'+value.data[1]+
+                      '年<br/>人均地区GDP：'+value.data[0]+'元';
                   }else{
-                    return;
+                    str = value.name
                   }
-
+                  return str
                 }
               },
               xAxis: [{
+                name: '人均地区GDP',
+                nameGap:config().fontSize*4,
+                nameLocation:'center',
+                nameTextStyle: config().textStyle,
                 boundaryGap: true,
+                max:60000,
                 axisLine: {
                   show: false
                 },
@@ -423,11 +550,11 @@
                 }
               }],
               yAxis: [{
-                name: '单位（分钟）',
+                name: '人均受教育年限',
                 nameGap:20,
                 nameTextStyle: config().textStyle,
                 type: 'value',
-
+                max:15,
                 axisLine: {
                   show: false
                 },
@@ -445,51 +572,7 @@
                 }
               }],
 
-              // visualMap: [{
-              //   show: false,
-              //   type: 'piecewise',
-              //   dimension: 3,
-              //   orient: 'horizontal',
-              //   right: "17%",
-              //   top: 0,
-              //   categories: Job_scatter_data.namelist,
-              //   calculable: true,
-              //   //precision: 0.1,
-              //   textGap: 2,
-              //   itemGap: 16,
-              //   textStyle: {
-              //     color: [],
-              //     fontSize: 14
-              //   },
-              //   inRange: {
-              //     color: colorsJob,
-              //     symbol: 'circle'
-              //   },
-              //   outOfRange: {
-              //     color: '#555'
-              //   }
-              // }],
-              // animation: true,
-              // animationDurationUpdate: 1000,
-              // animationEasingUpdate: 'quinticInOut',
-              series: [{
-                type: 'scatter',
-                itemStyle: itemStyle,
-                data:[
-                  [22.24, 13, 90, "default", "2017-03-16"],
-                  [10.7, 6, 3, "a", "2017-03-16"],
-                  [10, 20, 1, "a", "2017-03-16"],
-                  [18.5, 0, 1, "a", "2017-03-16"],
-                  [11.0, 8, 19, "default", "2017-03-16"],
-                  [6.6, 2, 87, "default", "2017-03-16"],
-                  [18.9, 3, 90, "default", "2017-03-16"],
-                  [23.8, 2, 97, "default", "2017-03-16"],
-                  [12.8, 20, 77, "default", "2017-03-16"],
-                  [9.9, 2, 5, "adminyarn_default", "2017-03-16"],
-                  [7.9, 2, 10, "adminyarn_default", "2017-03-16"],
-                  [6.9, 0, 5, "adminyarn", "2017-03-16"],
-                ]
-              }],
+              series: [opt[data.length-1].series],
             },
             options: opt
           };
