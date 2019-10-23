@@ -97,8 +97,8 @@
           pop_hou_bar:[190,118,172,176,223,84,111,90,94,241,100,110],
           pop_hou_line:[164,218,72,76,180,184,86,190,94,222,100,110],
           nameB: ['城乡居民人均可支配收入','6岁及以上人口人均受教育年限','劳动生产率','每千人口医院床位数'],
-          nameL: ['增长率','文盲率',]
-
+          nameL: ['增长率','文盲率',],
+          xName: []
         }
       },
       mounted () {
@@ -137,7 +137,6 @@
               'areaCode':'460000000000'
             }, false)
           }).then(({data}) => {
-            console.log(data)
             if (data.code == 0) {
               data.list.forEach(x=>{
                 dataX.push(x.dateStat);
@@ -161,7 +160,6 @@
               'areaCode':'460000000000'
             }, false)
           }).then(({data}) => {
-            console.log(data)
             if (data.code == 0) {
               data.list.forEach(x=>{
                 dataX.push(x.dateStat);
@@ -190,8 +188,8 @@
             },
             legend: {
               show:true,
-              x:'center',
-              y:'0',
+              left:10,
+              top:0,
               icon: 'stack',
               itemWidth:10,
               itemHeight:10,
@@ -333,7 +331,6 @@
               'areaCode':'460000000000'
             }, false)
           }).then(({data}) => {
-            console.log(data)
             if (data.code == 0) {
               data.list.forEach(x=>{
                 dataX.push(x.dateStat);
@@ -357,7 +354,6 @@
               'areaCode':'460000000000'
             }, false)
           }).then(({data}) => {
-            console.log(data)
             if (data.code == 0) {
               data.list.forEach(x=>{
                 dataX.push(x.dateStat);
@@ -381,7 +377,6 @@
               'areaCode':'460000000000'
             }, false)
           }).then(({data}) => {
-            console.log(data)
             if (data.code == 0) {
               data.list.forEach(x=>{
                 dataX.push(x.dateStat);
@@ -404,7 +399,7 @@
               textStyle:{
                 color:'#1bb4f6',
               },
-              right:'4%',
+              left:10,
               icon: 'circle'
             },
             barWidth:'15',
@@ -520,7 +515,6 @@
               'areaCode':'460000000000'
             }, false)
           }).then(({data}) => {
-            console.log(data)
             if (data.code == 0) {
               data.list.forEach(x=>{
                 dataX.push(x.dateStat);
@@ -543,7 +537,7 @@
               textStyle:{
                 color:'#1bb4f6',
               },
-              right:'4%',
+              left:10,
               icon: 'circle'
             },
             xAxis: {
@@ -658,7 +652,6 @@
               'areaCode':'460000000000'
             }, false)
           }).then(({data}) => {
-            console.log(data)
             if (data.code == 0) {
               data.list.forEach(x=>{
                 dataX.push(x.dateStat);
@@ -679,7 +672,6 @@
               'areaCode':'460000000000'
             }, false)
           }).then(({data}) => {
-            console.log(data)
             if (data.code == 0) {
               data.list.forEach(x=>{
                 dataX.push(x.dateStat);
@@ -694,7 +686,7 @@
           var option = {
             legend:{
               show:true,
-              right:20,
+              left:10,
               textStyle:{
                 color:'#1bb4f6'
               },
@@ -803,6 +795,7 @@
           var dataX = [];
           var dataY1 = [];
           var dataY2 = [];
+          this.xName = []
           _this.$http({
             url: _this.$http.adornUrl('/t05familyegrcoef/list'),
             method: 'get',
@@ -810,10 +803,10 @@
               'areaCode':'460000000000'
             }, false)
           }).then(({data}) => {
-            console.log(data)
             if (data.code == 0) {
               data.list.forEach(x=>{
                 dataX.push(x.dateStat);
+                this.xName.push({'name': x.dateStat})
                 dataY1.push(x.counEgrCoef);
                 dataY2.push(x.cityEgrCoef);
                 _this.chart_radar('chart_radar_1',dataX,dataY1,dataY2,'城镇居民家庭恩格尔系数','农村居民家庭恩格尔系数');
@@ -824,11 +817,16 @@
         chart_radar(id,dataX,dataY1,dataY2,name1,name2){
           var chart_radar=echarts.init(document.getElementById(id));
           var option = {
+            tooltip: {
+              show: true,
+              trigger: "item",
+              right:20,
+            },
             color: ['#3D91F7', '#61BE67'],
             legend: {
               show: true,
               icon: "circle",
-              right:0,
+              left:10,
               top:0,
               itemWidth: 14,
               itemHeight: 14,
@@ -849,8 +847,8 @@
                   padding: [3, 5]
                 }
               },
-              indicator: dataX,
-              max:100,
+              indicator: this.xName,
+
               splitArea: { // 坐标轴在 grid 区域中的分隔区域，默认不显示。
                 show: true,
                 areaStyle: { // 分隔区域的样式设置。
@@ -880,10 +878,10 @@
 
               data: [{
                 value: dataY1,
-                name: 'a',
+                name:name1,
                 areaStyle: {
                   normal: {
-                    color: '#366BAF'
+                    color: 'rgba(54,107,175,.3)'
                   },
                 },
 
@@ -891,10 +889,10 @@
               },
                 {
                   value:dataY2,
-                  name: 'b',
+                  name: name2,
                   areaStyle: {
                     normal: {
-                      color: '#4B8659'
+                      color: 'rgba(75,134,89,.3)'
                     },
                   },
                 }
