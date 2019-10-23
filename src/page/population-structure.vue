@@ -122,33 +122,113 @@
           {region: '保亭黎族自治县', rate: 26, num: 18, coor: [109.706931, 18.647458]},
           {region: '琼中黎族自治县', rate: 25, num: 19, coor: [109.846811, 19.038617]}
         ],
+        tableData1: [
+          {region: '海口市', rate: 50, num: 1, coor: [110.346837, 20.031624]},
+          {region: '三亚市', rate: 58, num: 2, coor: [109.544255, 18.256929]},
+          {region: '三沙市', rate: 57, num: 3, coor: [112.361689, 16.838364]},
+          {region: '儋州市', rate: 56, num: 4, coor: [109.575074, 19.533091]},
+          {region: '五指山市', rate: 55, num: 5, coor: [109.54483, 18.780731]},
+          {region: '文昌市', rate: 55, num: 6, coor: [110.952715, 19.616634]},
+          {region: '琼海市', rate: 54, num: 7, coor: [110.500832, 19.255009]},
+          {region: '万宁市', rate: 53, num: 8, coor: [110.406559, 18.802845]},
+          {region: '东方市', rate: 52, num: 9, coor: [108.67629, 19.100448]},
+          {region: '定安县', rate: 52, num: 10, coor: [110.379209, 19.683308]},
+          {region: '屯昌县', rate: 51, num: 11, coor: [110.128546, 19.357035]},
+          {region: '澄迈县', rate: 50, num: 12, coor: [110.030062, 19.744893]},
+          {region: '临高县', rate: 59, num: 13, coor: [109.708244, 19.916212]},
+          {region: '白沙黎族自治县', rate: 49, num: 14, coor: [109.475171, 19.233017]},
+          {region: '昌江黎族自治县', rate: 49, num: 15, coor: [109.083039, 19.30236]},
+          {region: '乐东黎族自治县', rate: 18, num: 16, coor: [109.199933, 18.756966]},
+          {region: '陵水黎族自治县', rate: 17, num: 17, coor: [110.062739, 18.512332]},
+          {region: '保亭黎族自治县', rate: 16, num: 18, coor: [109.726931, 18.647458]},
+          {region: '琼中黎族自治县', rate: 15, num: 19, coor: [109.866811, 19.038617]}
+        ],
         familyData:''
       }
     },
     components: {},
     mounted() {
+      this.chart_left1Data();
+      this.chart_left2Data();
+      this.chart_left3Data();
+      this.chart_right1Data();
+      this.chart_right2Data();
       this.chart_right3Data();
-      this.chart_left1();
-      this.chart_left2();
-      this.chart_left3();
-      this.chart_center2();
-      this.chart_right1();
-      this.chart_right2();
+      this.chart_center2Data();
       this.chart_center1();
     },
     methods: {
-      chart_right3Data(){
+      chart_left1Data(){
         this.$http({
-          url: this.$http.adornUrl("/t03familymtntysitu5yrchg/findAll"),
+          url: this.$http.adornUrl("/t03prmnpopuagestru5yrchg/findAll"),
           method: 'get',
           params: this.$http.adornParams({
           })
         }).then(({data}) => {
-          debugger
-          this.chart_right3(data);
+          this.chart_left1(data);
         })
       },
-      chart_left1() {
+      chart_left2Data(){
+        this.$http({
+          url: this.$http.adornUrl("/t03labrpopustruchg/findAll"),
+          method: 'get',
+          params: this.$http.adornParams({
+          })
+        }).then(({data}) => {
+          this.chart_left2(data);
+        })
+      },
+      chart_left3Data(){
+        this.$http({
+          url: this.$http.adornUrl("/t03popugenderstru/findAll"),
+          method: 'get',
+          params: this.$http.adornParams({
+          })
+        }).then(({data}) => {
+          this.chart_left3(data);
+        })
+      },
+      chart_center2Data(){
+        this.$http({
+          url: this.$http.adornUrl("/t03recvedudegrstruchg/findAll"),
+          method: 'get',
+          params: this.$http.adornParams({
+          })
+        }).then(({data}) => {
+          this.chart_center2(data);
+        })
+      },
+      chart_right1Data(){
+        this.$http({
+          url: this.$http.adornUrl("/t03zoneflowoutcibutepct/findAll"),
+          method: 'get',
+          params: this.$http.adornParams({
+          })
+        }).then(({data}) => {
+          this.chart_right1(data);
+        })
+      },
+      chart_right2Data(){
+        this.$http({
+          url: this.$http.adornUrl("/t03zoneflowincibutepct/findAll"),
+          method: 'get',
+          params: this.$http.adornParams({
+          })
+        }).then(({data}) => {
+          this.chart_right2(data);
+        })
+      },
+      chart_right3Data(){
+    this.$http({
+      url: this.$http.adornUrl("/t03familymtntysitu5yrchg/findAll"),
+      method: 'get',
+      params: this.$http.adornParams({
+      })
+    }).then(({data}) => {
+      this.chart_right3(data);
+    })
+  },
+      chart_left1(data) {
         var myChart = echarts.init(document.getElementById("chart_left1"));
         var option = {
 
@@ -156,7 +236,7 @@
             trigger: 'axis',
             textStyle: {
               color: "#fff",
-              fontSize: 7,
+              fontSize: config().fontSize,
             },
           },
           grid: {
@@ -168,14 +248,14 @@
           },
           legend: {
             data: ['2014年年龄组占比', '2018年年龄组占比'],
-            right: '8%',
+            right: '10%',
             top: '1%',
             textStyle: {
               color: "#fff",
-              fontSize: 7,
+              fontSize: config().fontSize,
             },
-            itemWidth: 7,
-            itemHeight: 5,
+            itemWidth: config().fontSize,
+            itemHeight: config().fontSize,
             // itemGap: 35
           },
           xAxis: {
@@ -194,7 +274,7 @@
               textStyle: {
                 fontFamily: 'Microsoft YaHei',
                 color: "#FFF",
-                fontSize: 7,
+                fontSize: config().fontSize,
               },
             },
             axisTick: {
@@ -207,8 +287,8 @@
             name: '%',
             nameTextStyle: {
               color: '#fff',
-              fontSize: 7,
-              padding: [0, 0, -10, 0],
+              fontSize: config().fontSize,
+              padding: [0, 0, -config().fontSize/2, -config().fontSize*2.5],
             },
             axisLine: {
               show: false,
@@ -221,13 +301,14 @@
               textStyle: {
                 fontFamily: 'Microsoft YaHei',
                 color: "#FFF",
-                fontSize: 7,
+                fontSize: config().fontSize,
               }
             },
             splitLine: {
               show: true,
               lineStyle: {
-                color: 'rgba(255,255,255,0.3)'
+                color: 'rgba(255,255,255,0.3)',
+                width:config().lineStyle.width/3
               }
             },
 
@@ -243,14 +324,14 @@
               normal: {
                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                   offset: 0,
-                  color: '#D94076'
+                  color: '#20e19f'
                 }, {
                   offset: 1,
-                  color: '#B83664'
+                  color: '#2CA26E'
                 }]),
               },
             },
-            data: [20, 17, 5, 6, 9, 10, 17, 15, 14, 13, 16, 19, 10, 1, 12, 14, 13]
+            data: data.page['2015']
           },
             {
               name: '2018年年龄组占比',
@@ -268,39 +349,40 @@
                 }
 
               },
-              data: [5, 12, 8, 16, 19, 10, 7, 5, 4, 3, 6, 9, 0, 11, 12, 14, 13]
+              data: data.page['2019']
             }]
         };
         myChart.setOption(option);
         window.onresize = myChart.resize;
       },
-      chart_left2() {
+      chart_left2(data) {
         var myChart = echarts.init(document.getElementById("chart_left2"));
         // 指定图表的配置项和数据
-        var data1 = [20, 30, 20, 30, 20, 30, 20, 30, 20, 30];
-        var data2 = [9, 30, 9, 60, 70, 20, 59, 20, 49, 20];
-        var data3 = [20, 30, 20, 30, 20, 30, 20, 30, 20, 30];
-        var data4 = [9, 30, 9, 60, 70, 20, 59, 20, 49, 20];
-        var datacity = ['2010年', '2011年', '2012年', '2013年', '2014年', '2015年', '2016年', '2017年', '2018年', '2019年'];
+        var data1 = data.labr['one'];
+        var data2 = data.labr['two'];
+        var data3 = data.labr['three'];
+        var datacity = ['2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'];
         var option = {
-          color: ['#3157B0', '#B34836', '#fff', '#152135', '#FFD52E'],
+          color: ['#842af0', '#4478fc', '#03baff'],
           tooltip: {
             trigger: 'axis',
             textStyle: {
               color: "#fff",
-              fontSize: 7,
+              fontSize: config().fontSize,
             },
           },
           legend: {
+            right: '10%',
+            top: '1%',
             textStyle: {
               color: "#fff",
-              fontSize: 7,
+              fontSize: config().fontSize,
             },
-            itemWidth: 7,
-            itemHeight: 5,
+            itemWidth: config().fontSize,
+            itemHeight: config().fontSize,
             right: '8%',
             top: '1%',
-            data: ['0-14岁人口占比', '15-64岁人口占比', '65-80岁人口占比', '80岁以上人口占比'],
+            data: ['0-14岁人口占比', '15-64岁人口占比', '65+人口占比'],
           },
           grid: {
             left: '5%',
@@ -314,8 +396,8 @@
             name: '%',
             nameTextStyle: {
               color: '#fff',
-              fontSize: 7,
-              padding: [0, 0, -10, 0],
+              fontSize: config().fontSize,
+              padding: [0, 0, -config().fontSize/2, -config().fontSize*3],
             },
             axisLabel: {
               show: true,
@@ -323,7 +405,7 @@
               formatter: '{value} ',
               textStyle: {
                 color: '#fff',
-                fontSize: 7
+                fontSize: config().fontSize
               }
             },
             splitLine: {
@@ -348,7 +430,8 @@
               show: true,
               splitNumber: 15,
               textStyle: {
-                fontSize: 7,
+                fontSize: config().fontSize,
+                fontSize: config().fontSize,
                 color: '#fff'
               },
 
@@ -380,257 +463,176 @@
 
             },
             {
-              name: '65-80岁人口占比',
+              name: '65+人口占比',
               type: 'bar',
               stack: 'sum',
               barWidth: '10',
               barCategoryGap: '5%',
               data: data3
 
-            },
-            {
-              name: '80岁以上人口占比',
-              type: 'bar',
-              stack: 'sum',
-              barWidth: '10',
-              barCategoryGap: '5%',
-              data: data3
-
-            },
-
+            }
           ]
         };
         myChart.setOption(option);
       },
-      chart_left3() {
+      chart_left3(data) {
         var myChart = echarts.init(document.getElementById("chart_left3"));
-        var labelData = ["0-4", "10-14", "20-24", "30-34", "40-44", "50-54", "60-64", "70-74", "80-84", "86+"];
-        var manData = [50, 28, 80, 65, 68, 60, 35, 52, 77, 23];
-        var womanData = [-50, -28, -40, -45, -38, -58, -26, -45, -34, -12];
+        var xData = ['0-4岁', '5-9岁', '10-14岁', '15-19岁', '20-24岁', '25-29岁', '30-34岁', '35-39岁', '40-44岁', '45-49岁', '50-54岁', '55-59岁', '60-64岁', '65岁+'];
+        var data1 = data.sexData['man'];
+        var data2 = data.sexData['woman'];
         var option = {
-          legend: {
-            textStyle: {
-              color: "#fff",
-              fontSize: 7,
-            },
-            itemWidth: 7,
-            itemHeight: 5,
-            right: '8%',
-            top: '1%',
-            data: [
-              {
-                name: '男',
-                textStyle: {
-                  color: '#fff'
-                  // color:'#cccccc'
-                }
-              },
-              {
-                name: '女',
-                textStyle: {
-                  color: '#fff'
-                },
-              }
-            ]
-
-          },
-          // tooltip（提示框组件）
           tooltip: {
-            //trigger(触发类型)，可选'item','axis','none'
             trigger: 'axis',
-            axisPointer: {
-              //指示器类型,可选'line','shadow','cross'
-              type: 'line'
-            },
-            textStyle: {
-              fontSize: 7
-            },
-            // 自定义提示内容
-            formatter: function (a) {
-              var v = a[0];
-              return v.name + '<br/>' + v.marker + v.seriesName + '：' + Math.abs(v.value);
+            textStyle:{
+              fontSize:config().fontSize,
+              color:config().lineStyle.color
             }
           },
-          xAxis: [{
-            type: 'value',
-            min: -100, max: 0,
-            gridIndex: 0,
-            axisTick: {show: false, inside: false},
-            axisLabel: {show: false},
-            axisLine: {// Y轴轴线样式
-              show: false,
-              lineStyle: {
-                color: '#000',
-              }
-            },
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            top:'15%',
+            containLabel: true
+          },
+          xAxis: {
+            data: xData,
             splitLine: {
               show: false
-            }
-          }, {
-            type: 'value',
-            gridIndex: 1, min: 0, max: 100,
-            axisTick: {show: false}, //是否显示刻度
-            axisLine: {// Y轴轴线样式
-              show: false, // 是否显示X轴
-              lineStyle: {
-                color: '#000',
-              }
-            },
-            axisLabel: {
-              show: false //是否显示X轴内容
-            },
-            splitLine: {
+            }, //去除网格线
+            splitArea: {
               show: false
-            }
-          }],
-          yAxis: [{
-            type: 'category',
-            gridIndex: 0,
-            inverse: true,
-            data: labelData,
-            axisTick: {show: false},
-            axisLabel: {show: false, color: '#fff', fontSize: '7',},
-            axisLine: {// Y轴轴线样式
-              show: true,
-              lineStyle: {
-                color: 'gray',
-              }
-            }
-          }, {
-            type: 'category',
-            gridIndex: 1,
-            inverse: true,
-            data: labelData,
-            axisTick: {show: false},
-            axisLabel: {
-              color: '#fff',
-              fontSize: '7'
+            }, //保留网格区域
+            axisTick: {
+              show: false
             },
             axisLine: {
-              show: false //是否显示轴线
-            }
-          }
-          ],
-          grid: [{
-            left: '5%',
-            right: '50%',
-            bottom: '5%',
-            top: '10%',
-            containLabel: true, gridIndex: 0,
-          }, {
-            left: '50%',
-            right: '5%',
-            bottom: '5%',
-            top: '15%',
-            containLabel: true, gridIndex: 1,
-          }],
-          color: ['#2FACFA', '#F5A623'],
-          series: [
-            {
-              name: '男',
-              type: 'bar',
-              barWidth: '40%',
-              gridIndex: 0,
-              label: {
-                normal: {
-                  show: false,
-                  position: 'left',
-                  formatter: "{c}%",
-                  color: '#fff'
-                }
-              },
-              itemStyle: {
-                normal: {
-                  show: true,
-                  color: new echarts.graphic.LinearGradient(
-                    0, 0, 1, 0,
-                    [{
-                      offset: 0,
-                      color: '#67C2EF' /*#0085FA*/
-                    }, {
-                      offset: 0.7,
-                      color: '#4877BD' /*#00BBFD*/
-                    }]),
-                  borderWidth: 0,
-                  borderColor: '#333',
-                  label: {
-                    show: true, position: 'left',
-                    formatter: function (v) {
-                      return (v.value * -1);
-                    }
-                  }
-                }
-              },
-              data: womanData
+              onZero: false,
+              show: false,
+              lineStyle: {
+                color: "#fff",
+                width: config().lineStyle.width //这里是为了突出显示加上的
+              }
+              // symbol: ['none', 'arrow'],
+              // symbolSize: [6, 12],
+              // symbolOffset: [0, 8]
             },
-            {
-              name: '女',
-              type: 'bar',
-              barWidth: '40%',
-              xAxisIndex: 1,
-              yAxisIndex: 1,
-              label: {
-                fontsize: 7,
-                normal: {
-                  show: false,
-                  position: 'right',
-                  formatter: "{c}%",
-
-                  color: '#fff'
-                }
-              },
-              itemStyle: {
-                normal: {
-                  show: true,
-                  color: new echarts.graphic.LinearGradient(
-                    0, 0, 1, 0,
-                    [{
-                      offset: 0,
-                      color: '#B83664' /*#0085FA*/
-                    }, {
-                      offset: 0.7,
-                      color: '#D94076' /*#00BBFD*/
-                    }]),
-                  borderWidth: 0,
-                  borderColor: '#333',
-                  label: {
-                    show: true, position: 'right',
-                    formatter: function (v) {
-                      return v.value;
-                    }
-                  }
-                }
-              },
-              data: manData
+            axisLabel: {
+              //interval: 0, //隔几个显示
+              //rotate: 30,
+              interval:0,
+              rotate:40,
+              showMinLabel: true,
+              textStyle: {
+                fontSize: config().fontSize,
+                color:'#fff',
+              }
             }
-
-          ]
+          },
+          yAxis:   {
+            name:'%',
+            type : 'value',
+            nameTextStyle: {
+              color: '#fff',
+              fontSize: config().fontSize,
+              padding: [0, 0, -config().fontSize/2, -config().fontSize*2.5],
+            },
+            show:true,
+            //minInterval:100,//设置左侧Y轴最小刻度
+            splitLine: {
+              show: false,
+              lineStyle: {
+                type: 'dashed',
+                color: 'rgba(135,140,147,0.8)'
+              }
+            },//设置横线样式
+            axisLabel: {
+              textStyle: {
+                fontSize: config().fontSize,
+                color:'#fff'
+              }
+            },
+            axisLine:{
+              show:false
+            },
+            axisTick:{
+              show:false
+            }
+          },
+          color: ['#e54035'],
+          series: [{
+            name: '男',
+            barWidth:'80%',
+            type: 'pictorialBar',
+            barCategoryGap: '-50%',
+            // symbol: 'path://M0,10 L10,10 L5,0 L0,10 z',
+            symbol: 'path://M0,10 L10,10 C5.5,10 5.5,5 5,0 C4.5,5 4.5,10 0,10 z',
+            itemStyle: {
+              normal: {
+                //barBorderRadius: 5,
+                //渐变色
+                color: new echarts.graphic.LinearGradient(
+                  0, 0, 0, 1,
+                  [
+                    {offset: 0, color: '#1D95F6'},{offset: 1, color: '#38DDF9'}
+                  ]
+                )
+              }
+            },
+            data: data1,
+            z: 10
+          },{
+            name: '女',
+            type: 'pictorialBar',
+            barWidth:'80%',
+            barGap:'-50%',
+            barCategoryGap: '-20%',
+            //barCategoryGap: '50%',
+            // symbol: 'path://M0,10 L10,10 L5,0 L0,10 z',
+            symbol: 'path://M0,10 L10,10 C5.5,10 5.5,5 5,0 C4.5,5 4.5,10 0,10 z',
+            itemStyle: {
+              normal: {
+                //barBorderRadius: 5,
+                //渐变色
+                color: new echarts.graphic.LinearGradient(
+                  0, 0, 0, 1,
+                  [
+                    {offset: 0, color: '#931038'},{offset: 1, color: '#E5487F'}
+                  ]
+                )
+              }
+            },
+            data: data2,
+            z: 10
+          }]
         };
         myChart.setOption(option);
       },
-      chart_center2() {
+      chart_center2(data) {
         var myChart = echarts.init(document.getElementById("chart_center2"));
         var option = {
           tooltip: {
             trigger: 'axis',
             textStyle: {
-              fontSize: 7
+              fontSize: config().fontSize,
+              color:config().lineStyle.color
             },
             axisPointer: {
               type: 'shadow'
             }
           },
           legend: {
-            data: ['2014年', '2015年', '2016年', '2017年', '2018年'],
+            data: ['2013', '2014', '2015', '2016', '2017'],
             left: 'center',
             align: 'left',
-            top: '2%',
+            right: '10%',
+            top: '1%',
             textStyle: {
               color: "#fff",
-              fontSize: 7,
+              fontSize: config().fontSize,
             },
-            itemWidth: 7,
-            itemHeight: 7,
+            itemWidth: config().fontSize,
+            itemHeight: config().fontSize,
           },
           grid: {
             left: '10%',
@@ -641,19 +643,12 @@
           },
           xAxis: [{
             type: 'category',
-            data: ['小学',
-              '初中',
-              '高中',
-              '中职',
-              '专科',
-              '本科',
-              '研究生'
-            ],
+            data: ['小学','中学', '高中', '专科', '本科', '研究生'],
             axisLine: {
               show: true,
               lineStyle: {
                 color: "#15233C",
-                width: 1,
+                width: config().lineStyle.width,
                 type: "solid"
               }
             },
@@ -664,21 +659,22 @@
               show: true,
               textStyle: {
                 color: "#fff",
-                fontSize: 7,
+                fontSize: config().fontSize,
               }
             },
           }],
           yAxis: [{
             type: 'value',
-            name: '人',
+            name: '%',
             nameTextStyle: {
               color: '#fff',
-              fontSize: 7,
+              fontSize: config().fontSize,
+              padding: [0, 0, -config().fontSize/2, -config().fontSize*2.5],
             },
             axisLabel: {
               formatter: '{value}',
               color: '#fff',
-              fontSize: 7,
+              fontSize: config().fontSize,
             },
             axisTick: {
               show: false,
@@ -687,216 +683,378 @@
               show: false,
               lineStyle: {
                 color: "#00c7ff",
-                width: 1,
+                width: config().lineStyle.width,
                 type: "solid"
               },
             },
             splitLine: {
               lineStyle: {
                 color: "gray",
+                width:config().lineStyle.width/3
               }
             }
           }],
-          series: [{
-            name: '2014年',
+          series: [
+            {
+              name: '2013',
+              type: 'bar',
+              data: data.edu['2013'],
+              barWidth: '10%', //柱子宽度
+              barGap: '20%', //柱子之间间距
+              itemStyle: {
+                normal: {
+                  color: '#4478fc',
+                  opacity: 1,
+                }
+              }
+            },{
+            name: '2014',
             type: 'bar',
-            data: [220, 120, 240, 266, 210, 246, 260],
-            barWidth: 5, //柱子宽度
-            barGap: 1, //柱子之间间距
+            data: data.edu['2014'],
+              barWidth: '10%', //柱子宽度
+              barGap: '20%', //柱子之间间距
             itemStyle: {
               normal: {
-                color: '#1E7C32',
+                color: '#842af0',
                 opacity: 1,
               }
             }
           }, {
-            name: '2015年',
+            name: '2015',
             type: 'bar',
-            data: [130, 150, 220, 245, 136, 256, 260],
-            barWidth: 5,
-            barGap: 1,
+            data: data.edu['2015'],
+              barWidth: '10%', //柱子宽度
+              barGap: '20%', //柱子之间间距
             itemStyle: {
               normal: {
-                color: '#93514F',
+                color: '#03baff',
                 opacity: 1,
               }
             }
           }, {
-            name: '2016年',
+            name: '2016',
             type: 'bar',
-            data: [350, 270, 460, 511, 346, 502, 50],
-            barWidth: 5,
-            barGap: 1,
+            data: data.edu['2016'],
+              barWidth: '10%', //柱子宽度
+              barGap: '20%', //柱子之间间距
             itemStyle: {
               normal: {
-                color: '#8E919B',
+                color: '#20e19f',
                 opacity: 1,
               }
             }
           }, {
-            name: '2017年',
+            name: '2017',
             type: 'bar',
-            data: [220, 120, 240, 266, 210, 246, 260],
-            barWidth: 5, //柱子宽度
-            barGap: 1, //柱子之间间距
+            data: data.edu['2017'],
+            barWidth: '10%', //柱子宽度
+              barGap: '20%', //柱子之间间距
             itemStyle: {
               normal: {
-                color: '#32589E',
+                color: '#f8c300',
                 opacity: 1,
               }
             }
-          }, {
-            name: '2018年',
-            type: 'bar',
-            data: [220, 120, 240, 266, 210, 246, 260],
-            barWidth: 5, //柱子宽度
-            barGap: 1, //柱子之间间距
-            itemStyle: {
-              normal: {
-                color: '#7F61A4',
-                opacity: 1,
-              }
-            }
-          },]
+          }]
         };
         myChart.setOption(option);
       },
-      chart_right1() {
+      chart_right1(data) {
         var myChart = echarts.init(document.getElementById("chart_right1"));
-        var labels = ['定安县', '屯昌县', '澄迈县', '临高县', '白沙黎族自治县', '昌江黎族自治县', '乐东黎族自治', '陵水黎族自治县', '保亭黎族苗族自治县', '琼中黎族苗族自治县'];
         var option = {
           tooltip: {
-            textStyle: {
-              fontSize: 7
+            trigger: 'axis',
+            axisPointer: {
+              type: 'line'
             },
-            formatter: function (params) {
-              var results = '';
-              for (var i = 0; i < labels.length; i++) {
-                results += labels[i] + '：' + params.value[i] + '%<br>';
-              }
-              return results;
+            textStyle:{
+              color:config().lineStyle.color,
+              fontSize:config().fontSize
             }
           },
-          radar: {
-            nameGap: 2,
-            name: {
-              textStyle: {
-                color: '#fff',
-                fontSize: 7
-              }
+          legend: {
+            data: ['2016', '2017'],
+            top:'1%',
+            right:'1%',
+            textStyle: {
+              color: "#fff",
+              fontSize:config().fontSize
             },
-            indicator: [{name: '定安县', max: 100},
-              {name: '屯昌县', max: 100},
-              {name: '澄迈县', max: 100},
-              {name: '临高县', max: 100},
-              {name: '白沙黎族自治县', max: 100},
-              {name: '昌江黎族自治县', max: 100},
-              {name: '乐东黎族自治', max: 100},
-              {name: '陵水黎族自治县', max: 100},
-              {name: '保亭黎族苗族自治县', max: 100},
-              {name: '琼中黎族苗族自治县', max: 100}]
+            itemWidth: config().fontSize,
+            itemHeight: config().fontSize,
+            itemGap: config().fontSize
           },
-          series: [{
-            type: 'radar',
-            label: {
-              distance: 3
-            },
-            data: [{
-              value: [5, 10, 20, 30, 5, 0, 12, 24, 30, 25],
-            },],
-            areaStyle: {
-              normal: {
-                color: 'blue',
-                opacity: 0
-              },
-
-            },
-            lineStyle: {
-              normal: {
-                color: 'blue'
+          grid: {
+            left: '3%',
+            right: '10%',
+            bottom: '3%',
+            top:'15%',
+            containLabel: true
+          },
+          xAxis: [{
+            type: 'category',
+            data: ['琼海市', '文昌市', '万宁市', '东方市', '定安县', '屯昌县', '澄迈县', '临高县', '白沙县', '昌江县', '乐东县', '陵水县', '保亭县', '琼中县'],
+            axisLine: {
+              show: false,
+              lineStyle: {
+                color: "#fff",
+                width: config().lineStyle.width,
+                type: "solid"
               }
             },
-            itemStyle: {
-              normal: {
-                color: 'blue'
-              }
+            axisTick: {
+              show: false,
             },
-            label: {
+            axisLabel: {
               show: true,
-              position: '',
+              interval:0,
+              rotate:40,
+              textStyle: {
+                color: "#fff",
+                fontSize:config().fontSize
+              }
+            },
+          }],
+          yAxis: [{
+            type: 'value',
+            name:'%',
+            nameTextStyle: {
               color: '#fff',
-              fontSize: '40%'
+              fontSize: config().fontSize,
+              padding: [0, 0, -config().fontSize/2, -config().fontSize*2.5],
+            },
+            axisLabel: {
+              textStyle:{
+                fontSize:config().fontSize
+              },
+              formatter: '{value}'
+            },
+            axisTick: {
+              show: false,
+            },
+            axisLine: {
+              show: false,
+              lineStyle: {
+                color: "#fff",
+                width: config().lineStyle.width,
+                type: "solid"
+              },
+            },
+            splitLine: {
+              show:false,
+              lineStyle: {
+                color: "#0F55B9",
+              }
             }
           }],
+          series: [{
+            name: '2016',
+            type: 'bar',
+            data: data.flowOut['2016'],
+            barWidth: '30%', //柱子宽度
+            barGap: '10%', //柱子之间间距
+            itemStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  offset: 0,
+                  color: '#00C7E1'
+                }, {
+                  offset: 1,
+                  color: '#005193'
+                }]),
+                opacity: 1,
+                barBorderRadius: 12,
+              }
+            }
+          }, {
+            name: '2017',
+            type: 'bar',
+            data: data.flowOut['2017'],
+            barWidth: '30%', //柱子宽度
+            barGap: '10%', //柱子之间间距
+            itemStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  offset: 0,
+                  color: '#00da9c'
+                }, {
+                  offset: 1,
+                  color: '#007a55'
+                }]),
+                opacity: 1,
+                barBorderRadius: 12,
+              }
+            }
+          }
+          ]
         };
         myChart.setOption(option);
       },
-      chart_right2() {
+      chart_right2(data) {
         var myChart = echarts.init(document.getElementById("chart_right2"));
-        var labels = ['海口市', '三亚市', '三沙市', '儋州市', '五指山市', '文昌市', '琼海市', '万宁市', '东方市'];
-        var option = {
-          tooltip: {
-            textStyle: {
-              fontSize: 7
-            },
-            formatter: function (params) {
-              var results = '';
-              for (var i = 0; i < labels.length; i++) {
-                results += labels[i] + '：' + params.value[i] + '%<br>';
-              }
-              return results;
-            }
-          },
-          radar: {
-            nameGap: 2,
-            name: {
-              textStyle: {
-                color: '#fff',
-                fontSize: 7
-              }
-            },
-            indicator: [{name: '海口市', max: 100},
-              {name: '三亚市', max: 100},
-              {name: '三沙市', max: 100},
-              {name: '儋州市', max: 100},
-              {name: '五指山市', max: 100},
-              {name: '文昌市', max: 100},
-              {name: '琼海市', max: 100},
-              {name: '万宁市', max: 100},
-              {name: '东方市', max: 100},]
-          },
-          series: [{
-            type: 'radar',
-            label: {
-              distance: 3
-            },
-            data: [{
-              value: [50, 70, 20, 30, 65, 60, 28, 89, 92, 15],
-            },],
-            areaStyle: {
-              normal: {
-                color: 'blue',
-                opacity: 0
-              },
 
-            },
-            lineStyle: {
-              normal: {
-                color: 'blue'
-              }
-            },
-            itemStyle: {
-              normal: {
-                color: 'blue'
-              }
-            },
-            label: {
-              show: true,
-              position: '',
-              color: '#fff',
-              fontSize: '40%'
+        var fontColor = 'rgba(255,255,255,0.5)';
+        var data=[
+          {
+            name:'2016',
+            list:data.flowIn['2016']
+
+          },
+          {name:'2017',
+            list:data.flowIn['2017']},
+        ];
+        let datelist = [];
+        let safeList = [];
+        let danger = [];
+        data[0].list.forEach(function(value,index){
+          datelist.push(data[0].list[index].enName);
+          safeList.push(data[0].list[index].value);
+          danger.push(data[1].list[index].value);
+        });
+        var option ={
+
+          grid: {
+            left: '2%',
+            right: '10%',
+            top:'15%',
+            bottom: '2%',
+            containLabel: true
+          },
+          tooltip : {
+            trigger: 'axis',
+            padding: [0, 0, 0, 0],
+            textStyle: {
+              color: '#FFFFFF',
+              fontSize:config().fontSize
             }
-          }],
+          },
+          legend: {
+            right:'1%',
+            top:'1%',
+            itemWidth:config().fontSize,
+            itemHeight:config().fontSize,
+            textStyle:{
+              color:'rgba(255,255,255,1)' ,
+              fontSize:config().fontSize
+            },
+            nameTextStyle :{
+              color:'rgba(255,255,255,1)'
+            },
+            data:[data[0].name,data[1].name]
+          },
+          xAxis : [
+            {
+              type : 'category',
+              boundaryGap : false,
+              axisLabel:{
+                color: '#FFF',
+                fontSize:config().fontSize
+              },
+              axisLine:{
+                show:false,
+                lineStyle:{
+                  color:'#0B6472',
+                }
+              },
+              axisTick:{
+                show:false,
+              },
+              splitLine :{    //网格线
+                lineStyle:{
+                  type:'solid' ,   //设置网格线类型 dotted：虚线   solid:实线
+                  color:'#0B6472'
+                },
+                show:false //隐藏或显示
+              },
+              data :datelist
+            }
+          ],
+          yAxis : [
+            {
+              type : 'value',
+              name : '%',
+              nameTextStyle: {
+                color: '#fff',
+                fontSize: config().fontSize,
+                padding: [0, 0, -config().fontSize/2, -config().fontSize*2.5],
+              },
+              show:true,
+              axisLabel : {
+                formatter: '{value}',
+                textStyle:{
+                  color:'#fff',
+                  fontSize:config().fontSize
+                }
+              },
+              axisLine:{
+                show:false,
+                lineStyle:{
+                  color:'rgba(255,255,255,0.1)',
+                }
+              },
+              axisTick:{
+                show:false,
+              },
+              splitLine:{
+                show:false,
+                lineStyle:{
+                  color:'rgba(255,255,255,0.05)',
+                }
+              }
+            }
+          ],
+          series : [
+            {
+              name:data[0].name,
+              type:'line',
+              smooth: true , //true 为平滑曲线，false为直线
+              // smooth:true,  //这个是把线变成曲线
+              itemStyle: {
+                normal: {
+                  color:'#0092f6',
+                  lineStyle: {
+                    color: "#0092f6",
+                    width:config().lineStyle.width
+                  },
+                  areaStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [{
+                      offset: 0,
+                      color: 'rgba(0,255,255,0)'
+                    }, {
+                      offset: 1,
+                      color: 'rgba(0,255,255,1)'
+                    }]),
+                  }
+                }
+              },
+              data:safeList
+            },
+            {
+              name:data[1].name,
+              type:'line',
+              smooth: true , //true 为平滑曲线，false为直线
+              itemStyle: {
+                normal: {
+                  color:'rgba(251,14,68,0.7)',
+                  lineStyle: {
+                    color: "rgba(251,14,68,0.8)",
+                    width:config().lineStyle.width
+                  },
+                  areaStyle: {
+                    //color: '#94C9EC'
+                    color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [{
+                      offset: 0,
+                      color: 'rgba(251,14,68,0)'
+                    }, {
+                      offset: 1,
+                      color: 'rgba(251,14,68,0.9)'
+                    }]),
+                  }
+                }
+              },
+              data:danger
+            }
+          ]
         };
         myChart.setOption(option);
       },
@@ -911,14 +1069,13 @@
           },
           legend: {
             name: [],
-            align: 'left',
             right: '10%',
-            top: '10%',
-            itemWidth: 10,
-            itemHeight: 7,
+            top: '1%',
+            itemWidth: config().fontSize,
+            itemHeight: config().fontSize,
             textStyle: {
               color: '#fff',
-              fontSize: '40%',
+              fontSize: config().fontSize,
             },
           },
           // tooltip（提示框组件）
@@ -930,17 +1087,23 @@
               type: 'line'
             },
             textStyle: {
-              fontSize: '40%'
+              fontSize: config().fontSize,
             }
           },
           xAxis: {
             type: 'value',
+            name:'%',
+            nameTextStyle: {
+              color: '#fff',
+              fontSize: config().fontSize,
+              padding: [0,0, -config().fontSize/0.45, -config().fontSize/4,],
+            },
             max: 300,
             position: 'bottom',
             axisLabel: {
               show: true,
               color: '#fff',
-              fontSize: '40%',
+              fontSize: config().fontSize,
             },
             splitLine: {
               show: true,
@@ -978,7 +1141,7 @@
             axisLabel: {
               show: true,
               color: '#fff',
-              fontSize: '40%'
+              fontSize: config().fontSize,
             },
 
           },],
@@ -989,7 +1152,7 @@
             data: data.page['one'],
             barWidth: '40%',
             itemStyle: {
-              color: '#4699FF',
+              color: '#842af0',
             },
 
           },
@@ -1002,7 +1165,7 @@
               data: data.page['two'],
               barWidth: '40%',
               itemStyle: {
-                color: '#FF5B35',
+                color: '#4478fc',
               },
             },
             {
@@ -1014,7 +1177,7 @@
               data: data.page['three'],
               barWidth: '40%',
               itemStyle: {
-                color: '#47D1FF',
+                color: '#03baff',
               },
             }
           ]
@@ -1024,36 +1187,105 @@
       },
       chart_center1() {
         var myChart = echarts.init(document.getElementById("chart_center1"));
-        //取得json的样式，读取json文件
-        echarts.registerMap('hainan', hainan)
-        var pd = []
-        for (var i = 0; i < this.tableData.length; i++) {
-          var tmp = {}
-          var d = []
-          tmp.name = this.tableData[i].region
-          d.push(this.tableData[i].coor[0], this.tableData[i].coor[1], this.tableData[i].region, this.tableData[i].rate, i + 1)
-          tmp.value = d
-          pd.push(tmp)
+        echarts.registerMap('ls', hainan);
+        var geoCoordMap = {
+          '五指山市':[109.52009,18.781815],
+          '琼海市':[110.497792,19.2476],
+          '东方市':[108.697661,19.095913],
+          '屯昌县':[110.109727,19.357102],
+          '临高县':[109.696293,19.919747],
+          '乐东县':[109.18683,18.749572],
+          '陵水县':[110.040028,18.541886],
+          '琼中县':[109.950762,18.701291],
+          '海口市':[110.355422,20.023402],
+          '三亚市':[109.499588,18.302402],
+          '三沙市':[112.344722,16.837188],
+          '儋州市':[109.620805,19.529053],
         }
+        var geoCoordMap1 = {
+          '五指山市':[109.54009,18.781815],
+          '琼海市':[110.517792,19.2476],
+          '东方市':[108.717661,19.095913],
+          '屯昌县':[110.129727,19.357102],
+          '临高县':[109.716293,19.919747],
+          '乐东县':[109.20683,18.749572],
+          '陵水县':[110.060028,18.541886],
+          '琼中县':[109.970762,18.701291],
+          '海口市':[110.375422,20.023402],
+          '三亚市':[109.519588,18.302402],
+          '三沙市':[112.364722,16.837188],
+          '儋州市':[109.640805,19.529053],
+        }
+        var data = [
+          {name:'五指山市',value:21},
+          {name:'琼海市',value:22},
+          {name:'东方市',value:12},
+          {name:'屯昌县',value:13},
+          {name:'临高县',value:15},
+          {name:'乐东县',value:16},
+          {name:'陵水县',value:18},
+          {name:'琼中县',value:19},
+          {name:'海口市',value:17},
+          {name:'三亚市',value:12},
+          {name:'三沙市',value:12},
+          {name:'儋州市',value:11},
+
+        ];
+        var data1 = [
+          {name:'五指山市',value:21},
+          {name:'琼海市',value:29},
+          {name:'东方市',value:21},
+          {name:'屯昌县',value:31},
+          {name:'临高县',value:19},
+          {name:'乐东县',value:19},
+          {name:'陵水县',value:21},
+          {name:'琼中县',value:24},
+          {name:'海口市',value:27},
+          {name:'三亚市',value:22},
+          {name:'三沙市',value:22},
+          {name:'儋州市',value:27},
+
+        ];
+        var convertData = function (data) {
+          var res = [];
+          for (var i = 0; i < data.length; i++) {
+            var geoCoord = geoCoordMap[data[i].name];
+            if (geoCoord) {
+              res.push({
+                name: data[i].name,
+                value: geoCoord.concat(data[i].value)
+              });
+            }
+          }
+          return res;
+        };
+        var convertData1 = function (data1) {
+          var res = [];
+          for (var i = 0; i < data1.length; i++) {
+            var geoCoord1 = geoCoordMap1[data1[i].name];
+            if (geoCoord1) {
+              res.push({
+                name: data1[i].name,
+                value: geoCoord1.concat(data1[i].value)
+              });
+            }
+          }
+          return res;
+        };
         var option = {
           tooltip: {
-            trigger: 'item',
-            textStyle: config().textStyle,
-            formatter: function (params) {
-              var st = params.value[2] + '</br>老年人口占比：' + params.value[3] + ' %</br>排名：' + params.value[4]
-              return st
+            formatter : function(e){
+              if (e.seriesName == "流入人口") {
+                return '流入人口<br>'+e.name + ':' + e.value[2] + '人';
+              }else{
+                return '流出人口<br>'+e.name + ':' + e.value[2] + '人';
+              }
+
             }
-          },
-          legend: {
-            orient: 'vertical',
-            y: 'bottom',
-            x: 'right',
-            data: ['pm2.5'],
-            textStyle: config().textStyle,
           },
           geo: {
             show: true,
-            map: 'hainan',
+            map: 'ls',
             layoutSize: "500%",
             zoom: 9,
             center: [109.76112, 19.2472],
@@ -1068,11 +1300,11 @@
               }
             },
             roam: true,
-            itemStyle: {
+            itemStyle: { //地图区域样式
               normal: {
                 areaColor: 'transparent',
-                borderColor: '#3fdaff',
-                borderWidth: 2,
+                borderColor: '#3fdaff', //区域边框颜色
+                borderWidth: 1,
                 shadowColor: 'rgba(63, 218, 255, 0.5)',
                 shadowBlur: 30
               },
@@ -1081,75 +1313,108 @@
               }
             }
           },
-          visualMap: {
-            show: false,
-            max: 19,
-            min: 1,
-            dimension: 4,
-            seriesIndex: 0,
-            calculable: true,
-            inRange: {
-              color: ['#ff3800', '#ff4f00', '#ff8c00', '#ffc900', '#e8ff00', '#6dff00', '#00ff23']
-            }
+          series: [{
+            type: 'map',
+            map: 'ls',
+            geoIndex: 1,
+            aspectScale: 0.75, //长宽比
+            zoom:1.2,
+            label: {
+              normal: {
+                formatter: '{b}',
+                show: true,
+                textStyle:{
+                  color:'#fff'
+                }
+              },
+              emphasis: {
+                show: false,
+                textStyle: {
+                  color: '#05C3F9'
+                }
+              }
+            },
+            roam: false,
+            itemStyle: {
+              normal: {
+                areaColor: 'transparent',
+                borderColor: '#3B5077',
+                borderWidth: 1
+              },
+              emphasis: {
+                areaColor: '#070d18',
+                shadowColor: '#1773c3',
+                shadowBlur: 20
+              }
+            },
+            data: data,
           },
-          series: [
-            { //城市点位
-              name: 'city',
+            {
+              name: '流入人口',
               type: 'effectScatter',
               coordinateSystem: 'geo',
               symbol: 'circle',
               symbolSize: function (val) {
-                return config().fontSize * val[3] / 18 //val[3]*1.5-18
-              },
-              itemStyle: {
-                normal: {
-                  color: 'red'
-                }
-              },
-              zlevel: 9,
-              data: pd,
-            },
-            { //城市点位
-              name: 'city',
-              type: 'scatter',
-              coordinateSystem: 'geo',
-              symbol: 'pin',
-              symbolSize: function (val) {
-                if (val[4] <= 10) {
-                  return config().fontSize * 3
-                }
-              },
-              itemStyle: {
-                normal: {
-                  color: '#0000ff'
-                }
+                return val[2] / 2;
               },
               label: {
                 normal: {
-                  formatter: function (val) {
-                    if (val.data.value[4] <= 10) {
-                      return val.data.value[4]
-                    } else {
-                      return '';
-                    }
+                  show: true,
+                  formatter: function(value){
+                    return value.value[2]
                   },
-                  //position: 'top',
-                  textStyle: config().textStyle,
-                  show: true
+                  textStyle: {
+                    color: '#fff',
+                    fontSize: config().fontSize,
+                  }
                 }
               },
-              zlevel: 10,
-              data: pd,
+              itemStyle: {
+                normal: {
+                  color: 'red', //标志颜色
+                }
+              },
+              zlevel: 6,
+              data: convertData(data),
+            }
+            ,
+            {
+              name: '流出人口',
+              type: 'effectScatter',
+              coordinateSystem: 'geo',
+              symbol: 'circle',
+              symbolSize: function (val) {
+                return val[2] / 2;
+              },
+              label: {
+                normal: {
+                  show: true,
+                  formatter: function(value){
+                    return value.value[2]
+                  },
+                  textStyle: {
+                    color: '#fff',
+                    fontSize: config().fontSize,
+                  }
+                }
+              },
+              itemStyle: {
+                normal: {
+                  color: 'blue', //标志颜色
+                }
+              },
+              zlevel: 6,
+              data: convertData1(data1),
             }
           ]
         };
         myChart.setOption(option)
-        myChart.on('click', function (params) {
+        /*myChart.on('click', function (params) {
           var t_ind = params.data.value[4] * 1
           $('.act_tb').css('background-color', 'transparent')
           $('.act_tb:nth-child(' + t_ind + ')').css('background-color', '#465177')
           //alert( this.t_ind)
-        })
+        })*/
         window.onresize = myChart.resize;
       },
     }
