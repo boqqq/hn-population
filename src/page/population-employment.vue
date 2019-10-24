@@ -146,6 +146,8 @@
             itemHeight: config().fontSize, // 图例标记的图形高度。
             itemGap: config().fontSize, // 图例每项之间的间隔。
             textStyle: config().textStyle,
+            top: '3%',//图例离底部的距离
+            right:"8%"
           },
           tooltip : {
             trigger: 'axis',
@@ -160,7 +162,7 @@
               show:false,
             },
             axisLabel: {
-              rotate:45,//斜体字可不用
+              // rotate:45,//斜体字可不用
               textStyle: config().textStyle
             },
             axisTick:{
@@ -192,6 +194,12 @@
             },
             {
               type: "value",
+              name:'%',
+              nameTextStyle:{
+                color:config().textStyle.color,
+                fontSize:config().textStyle.fontSize,
+                padding:[0,-32,0,0]
+              },
               splitLine: {
                 show: false
               },
@@ -202,7 +210,7 @@
                 show: false
               },
               axisLabel: {
-                show: false
+                textStyle: config().textStyle
               },
             }
           ],
@@ -228,11 +236,11 @@
                   color: new echarts.graphic.LinearGradient(
                     0, 0, 0, 1, [{
                       offset: 0,
-                      color: '#4575D2'
+                      color: '#62b8fd'
                     },
                       {
                         offset: 1,
-                        color: '#2444A0'
+                        color: '#4478fc'
                       }
                     ])
                 }
@@ -241,10 +249,18 @@
             {
               data: dataY2,
               type: 'line',
-              symbol: "none",
+              showAllSymbol: true, //显示所有图形。
+              symbol: "circle", //标记的图形为实心圆
+              //symbolSize: 10, //标记的大小
+              itemStyle: {
+                //折线拐点标志的样式
+                color: "#fff"
+              },
+              lineStyle: {
+                color: "#02faa9"
+              },
               yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
               name: '从业人员劳动力人口比例',
-              color:'#02faa9'
             }
           ]
         };
@@ -286,6 +302,8 @@
             itemHeight: config().fontSize, // 图例标记的图形高度。
             itemGap: config().fontSize, // 图例每项之间的间隔。
             textStyle: config().textStyle,
+            top: '3%',//图例离底部的距离
+            right:"5%"
           },
           tooltip : {
             trigger: 'axis',
@@ -346,16 +364,32 @@
             {
               data: dataY1,
               type: 'line',
-              symbol: "none",
               name: '劳动力人口',
-              color:'#4478fc'
+              showAllSymbol: true, //显示所有图形。
+              symbol: "circle", //标记的图形为实心圆
+              symbolSize: 8, //标记的大小
+              itemStyle: {
+                //折线拐点标志的样式
+                color: "#4478fc"
+              },
+              lineStyle: {
+                color: "#4478fc"
+              },
             },
             {
               data: dataY2,
               type: 'line',
-              symbol: "none",
               name: '从业人口',
-              color:'#02faa9'
+              showAllSymbol: true, //显示所有图形。
+              symbol: "circle", //标记的图形为实心圆
+              symbolSize: 8, //标记的大小
+              itemStyle: {
+                //折线拐点标志的样式
+                color: "#02faa9"
+              },
+              lineStyle: {
+                color: "#02faa9"
+              },
             }
           ]
         };
@@ -407,6 +441,8 @@
             itemHeight: config().fontSize, // 图例标记的图形高度。
             itemGap: config().fontSize, // 图例每项之间的间隔。
             textStyle: config().textStyle,
+            top: '3%',//图例离底部的距离
+            right:"5%"
           },
           grid: {
             left: '3%',
@@ -420,7 +456,7 @@
               type : 'category',
               axisLabel: {
                 margin:config().fontSize,
-                rotate:45,//斜体字可不用
+                // rotate:45,//斜体字可不用
                 textStyle:config().textStyle
               },
               axisTick:{
@@ -489,6 +525,7 @@
         var dataX = [];
         var dataY = [];
         var dataS = [];
+        var unit = '';
         _this.$http({
           url: _this.$http.adornUrl('/t04indsworkpersmemqtychgtrnd/list'),
           method: 'get',
@@ -500,12 +537,13 @@
             dataX = data.result.year;
             dataY = data.result.desc;
             dataS = data.result.lists;
-            _this.various_industries(dataX,dataY, dataS);
+            unit = data.result.unit;
+            _this.various_industries(dataX,dataY,dataS,unit);
           }
         })
 
       },
-      various_industries (dataX,dataY, dataS){
+      various_industries (dataX,dataY,dataS,unit){
         var various_industries = echarts.init(document.getElementById('various_industries'));
         var hours = dataX;
         var days = dataY;
@@ -590,7 +628,7 @@
             position: 'top',
             textStyle: config().textStyle,
             formatter: function (params) {
-              return hours[params.value[0]] + "<br>" + days[params.value[1]] + '：' + params.value[2];
+              return hours[params.value[0]] + "<br>" + days[params.value[1]] + '：' + params.value[2] + " " + unit;
             }
           },
           grid: {
@@ -642,7 +680,7 @@
               start: 0,
               end: 30,
               right: '1%',
-              width: config().fontSize,
+              width: config().fontSize*1.5,
               backgroundColor: '#041257',
               borderColor: 'transparent',
               fillerColor: '#059DFA',
@@ -659,7 +697,7 @@
             //   start: 0,
             //   end: 60,
             //   bottom: '5%',
-            //   height: config().fontSize,
+            //   height: config().fontSize*1.5,
             //   backgroundColor: '#041257',
             //   borderColor: 'transparent',
             //   fillerColor: '#059DFA',
@@ -744,6 +782,8 @@
             itemHeight: config().fontSize, // 图例标记的图形高度。
             itemGap: config().fontSize, // 图例每项之间的间隔。
             textStyle: config().textStyle,
+            top: '3%',//图例离底部的距离
+            right:"5%"
           },
           grid: {
             left: '4%',
@@ -905,6 +945,8 @@
             itemHeight: config().fontSize, // 图例标记的图形高度。
             itemGap: config().fontSize, // 图例每项之间的间隔。
             textStyle: config().textStyle,
+            top: '3%',//图例离底部的距离
+            right:"5%"
           },
           xAxis: {
             type: 'category',
@@ -931,7 +973,7 @@
           //     start: 0,
           //     end: 60,
           //     bottom: '5%',
-          //     height: config().fontSize,
+          //     height: config().fontSize*1.5,
           //     backgroundColor: '#041257',
           //     borderColor: 'transparent',
           //     fillerColor: '#059DFA',
