@@ -146,6 +146,8 @@
             itemHeight: config().fontSize, // 图例标记的图形高度。
             itemGap: config().fontSize, // 图例每项之间的间隔。
             textStyle: config().textStyle,
+            top: '3%',//图例离底部的距离
+            right:"8%"
           },
           tooltip : {
             trigger: 'axis',
@@ -300,6 +302,8 @@
             itemHeight: config().fontSize, // 图例标记的图形高度。
             itemGap: config().fontSize, // 图例每项之间的间隔。
             textStyle: config().textStyle,
+            top: '3%',//图例离底部的距离
+            right:"5%"
           },
           tooltip : {
             trigger: 'axis',
@@ -437,6 +441,8 @@
             itemHeight: config().fontSize, // 图例标记的图形高度。
             itemGap: config().fontSize, // 图例每项之间的间隔。
             textStyle: config().textStyle,
+            top: '3%',//图例离底部的距离
+            right:"5%"
           },
           grid: {
             left: '3%',
@@ -776,6 +782,8 @@
             itemHeight: config().fontSize, // 图例标记的图形高度。
             itemGap: config().fontSize, // 图例每项之间的间隔。
             textStyle: config().textStyle,
+            top: '3%',//图例离底部的距离
+            right:"5%"
           },
           grid: {
             left: '4%',
@@ -937,6 +945,8 @@
             itemHeight: config().fontSize, // 图例标记的图形高度。
             itemGap: config().fontSize, // 图例每项之间的间隔。
             textStyle: config().textStyle,
+            top: '3%',//图例离底部的距离
+            right:"5%"
           },
           xAxis: {
             type: 'category',
