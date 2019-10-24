@@ -269,7 +269,7 @@
             formatter: function(params) {
               var result = params[2].name
               result += '<br/>'+params[2].seriesName + '：' + params[2].data+
-                "</br>" + params[3].seriesName + '：' + params[3].data+' %';
+                "万人</br>" + params[3].seriesName + '：' + params[3].data+' %';
               return result
             }
               },
@@ -332,6 +332,7 @@
               show: false
             },
             axisLabel: {
+              formatter: "{value} %",
               textStyle:config().textStyle
             }
           }],
@@ -422,7 +423,7 @@
             formatter: function(params) {
               var result = params[0].name
               result += '<br/>'+params[0].seriesName + '：' + params[0].data+
-                "</br>" + params[1].seriesName + '：' + params[1].data+' %';
+                "万人</br>" + params[1].seriesName + '：' + params[1].data+' %';
               return result
             }
           },
@@ -485,6 +486,7 @@
               show: false
             },
             axisLabel: {
+              formatter: "{value} %",
               textStyle:config().textStyle
             }
           }],
@@ -558,7 +560,7 @@
               //alert(JSON.stringify(params))
               var result = params[0].name
               result += '<br/>'+params[0].seriesName + '：' + params[0].data+
-                "</br>" + params[2].seriesName + '：' + params[2].data+' %';
+                "万人</br>" + params[2].seriesName + '：' + params[2].data+' %';
               return result
             }
           },
@@ -621,6 +623,7 @@
               show: false
             },
             axisLabel: {
+              formatter: "{value} %",
               textStyle:config().textStyle
             }
           }],
@@ -723,7 +726,7 @@
             }
           },
           visualMap: {
-            show:true,
+            show:false,
             type: "continuous",
             text: ["高", "低"],
             showLabel: true,

@@ -50,7 +50,7 @@
                       <div class="tltleBox" style="z-index: 9999;margin-top: 1vh;"><span>排名</span><span>地区</span><span>老年人口占比</span></div>
                       <div  style="height: 51vh;overflow: hidden; position:relative">
                         <div>
-                          <div class="textBox act_tb" v-for="(item,index) in tableData1"  :key="index" ><span>{{item.rankNo}}</span><span>{{item.areaName}}</span><span>{{item.unitCnt}}</span></div>
+                          <div class="textBox act_tb" v-for="(item,index) in tableData1" :class="{'center_active':index%2 != 1}"  :key="index" ><span>{{item.rankNo}}</span><span>{{item.areaName}}</span><span>{{item.unitCnt}}</span></div>
                         </div>
                       </div>
                     </div>
@@ -224,6 +224,7 @@
                   show: false
                 },
                 axisLabel: {
+                  formatter: "{value} %",
                   textStyle: config().textStyle
                 },
               }
@@ -358,21 +359,7 @@
                   show: false
                 },//设置横线样式
                 axisLabel: {
-                  textStyle: config().textStyle
-                },
-              },
-              {
-                type: "value",
-                splitLine: {
-                  show: false
-                },
-                axisTick: {
-                  show: false
-                },
-                axisLine: {
-                  show: false
-                },
-                axisLabel: {
+                  formatter: "{value} %",
                   textStyle: config().textStyle
                 },
               }
@@ -398,7 +385,7 @@
               {
                 name: "死亡率",
                 type: "line",
-                yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
+                //yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
                 smooth: true, //平滑曲线显示
                 showAllSymbol: true, //显示所有图形。
                 symbol: "circle", //标记的图形为实心圆
@@ -479,7 +466,26 @@
                 show: true,
                 trigger: 'axis',
                 textStyle: config().textStyle,
-                formatter: '{b}<br/>{a}: {c}',
+                formatter:function (val) {
+                  var s = 0
+                  for (var k = 0;k < data.length; k++) {
+                    if (data[k].unitType != '中位数') {
+                      if (data[k].dateStat == val[0].seriesName&& data[k].unitType == val[0].name) {
+                       s = k
+                      }
+                    }
+                  }
+                  var str = ''
+                  if(val[0].seriesName == legengData[1]){
+                    s = s- data.length/2
+                    str = val[0].name +'占比<br/>'+legengData[0]+': '+val[0].value+
+                      ' %<br/>'+legengData[1]+': '+dat1[s]+' %'
+                  }else{
+                    str = val[0].name +'<br/>'+legengData[0]+': '+dat2[s]+
+                      ' %<br/>'+legengData[1]+': '+val[0].value+' %'
+                  }
+                  return str;
+                } ,//'{a}<br/>{b}: {c}%',
                 axisPointer: {
                   type: 'shadow'
                 }
@@ -615,10 +621,6 @@
           }
           option.baseOption.timeline.data.push(timeLineData[0])
           option.options.push({
-            tooltip: {
-              trigger: 'axis',
-              formatter: '{b}<br/>{a}: {c} '
-            },
             series: [{
               name: legengData[0],
               type: 'bar',
@@ -639,20 +641,6 @@
                 barWidth: '40%',
                 xAxisIndex: 2,
                 yAxisIndex: 2,
-                // label: {
-                //   normal: {
-                //     show: true,
-                //     position: 'right',
-                //     formatter: function(params) {
-                //       return params.value + "字"
-                //     },
-                //     offset: [0, 0],
-                //     textStyle: {
-                //       color: '#000',
-                //       fontSize: 14
-                //     }
-                //   }
-                // },
                 itemStyle: {
                   normal: {
                     color: '#00d484',
@@ -852,23 +840,10 @@
 //数据处理
           var datas = [];
           Line.map((item,index)=>{
+            //alert(data1[index])
             datas.push(
               {
-                symbolSize: 150,
-                symbol: img[index],
-                name: item,
-                type: "line",
-               // yAxisIndex: 1,
-                data: data1[index] ,
-                itemStyle: {
-                  normal: {
-                    borderWidth: 5,
-                    color: color[index],
-                  }
-                }
-              },
-              {
-                symbolSize: 150,
+                symbolSize: config().fontSize*9,
                 symbol: img[index],
                 name: item,
                 type: "line",
@@ -883,8 +858,17 @@
               }
             )
           })
-
           var option = {
+            tooltip: {
+              show: true,
+              trigger: "axis",
+              textStyle: config().textStyle,
+              formatter: function(params) {
+                var str = params[0].name+'<br/>常住人口年龄中位数：'+params[0].value+'<br/>户籍人口年龄中位数：'+
+                  params[1].value+'';
+                return str;
+              }
+            },
             grid: {
               left: '5%',
               top: '10%',
@@ -936,7 +920,6 @@
                 splitLine: {
                   show: false
                 },
-                //-----
                 data: XName,
               },
             ],
@@ -960,9 +943,9 @@
           var data1 = [];
           var data2 = [];
           for (var i = 0;i < data.length; i++) {
-            xData.push(data[i].dateStat)
-            data1.push(data[i].ytyGrowth/0.8)
-            data2.push(data[i].ytyGrowth)
+            xData.push(data[i].date_stat)
+            data1.push(data[i].yty_growth1)
+            data2.push(data[i].yty_growth2)
           }
 
           var chart_center1 = echarts.init(document.getElementById('bottom_chart2'));
@@ -973,6 +956,10 @@
               textStyle: config().textStyle,
               axisPointer : {            // 坐标轴指示器，坐标轴触发有效
                 type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+              },
+              formatter:function (val) {
+                return val[0].name+'<br/>'+val[0].seriesName+': '+val[0].value+
+                  ' %<br/>'+val[1].seriesName+': '+val[1].value+' %'
               }
             },
             legend: { //图例的设置
@@ -1014,6 +1001,7 @@
                   }
                 },//设置横线样式
                 axisLabel: {
+                  formatter: "{value} %",
                   textStyle: config().textStyle
                 },
               },
@@ -1029,6 +1017,7 @@
                   show: false
                 },
                 axisLabel: {
+                  formatter: "{value} %",
                   textStyle: config().textStyle
                 },
               }
@@ -1099,11 +1088,14 @@
     .tltleBox{
       top: 0;
     }
+    .center_active{
+      background-color: #0D2E72;
+    }
     .tltleBox,.textBox{
       width: 100%;
       display: flex;
       align-items: center;
-      padding: 0.51vh 0;
+      padding: 0.52vh 0;
       font-size: 1.5vh;
       line-height: 1.6vh;
       color: #fff;
