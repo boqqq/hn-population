@@ -786,7 +786,6 @@
           chart_lgLine.setOption(option);
           window.onresize = chart_lgLine.resize;
         },
-
         init_egr_coef(){
           let _this = this;
           // var dataX = [];
