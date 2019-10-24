@@ -796,9 +796,9 @@
             }
           }],
           series: [{
-            name: '2016',
+            name: data.flowOut['years'][0],
             type: 'bar',
-            data: data.flowOut['2016'],
+            data: data.flowOut[data.flowOut['years'][0]],
             barWidth: '30%', //柱子宽度
             barGap: '10%', //柱子之间间距
             itemStyle: {
@@ -815,9 +815,9 @@
               }
             }
           }, {
-            name: '2017',
+            name: data.flowOut['years'][1],
             type: 'bar',
-            data: data.flowOut['2017'],
+            data: data.flowOut[data.flowOut['years'][1]],
             barWidth: '30%', //柱子宽度
             barGap: '10%', //柱子之间间距
             itemStyle: {
@@ -998,6 +998,21 @@
       },
       chart_right3(data) {
         var myChart = echarts.init(document.getElementById("chart_right3"));
+        var types = data.page['types'];
+        var colorList = ['#842af0','#4478fc','#03baff','$fff','red'];
+        var series = [];
+        for(var i=0; i<types.length;i++){
+          var tmp = {};
+          var itemStyle = {};
+          itemStyle.color = colorList[i];
+          tmp.type = "bar";
+          tmp.stack = "费用";
+          tmp.barWidth = "40%";
+          tmp.name = types[i];
+          tmp.data = data.page[types[i]].reverse();
+          tmp.itemStyle = itemStyle;
+          series.push(tmp);
+        }
         var option = {
           grid:{
             top:'20%',
@@ -1076,7 +1091,7 @@
             },
 
           },],
-          series: [{
+          series: series/*[{
             name: '一孩率',
             type: 'bar',
             stack: '费用',
@@ -1111,7 +1126,7 @@
                 color: '#03baff',
               },
             }
-          ]
+          ]*/
         };
         myChart.setOption(option);
         window.onresize = chart_right3.resize;
