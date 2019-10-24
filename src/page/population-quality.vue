@@ -168,9 +168,11 @@
               containLabel: true
             },
             tooltip : {
-              show: true,
+              trigger: 'axis',
               textStyle: config().textStyle,
-              trigger: 'item'
+              axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+              }
             },
             legend: {
               show:true,
@@ -373,9 +375,11 @@
           var chart_bar=echarts.init(document.getElementById(id));
           var option = {
             tooltip : {
-              show: true,
+              trigger: 'axis',
               textStyle: config().textStyle,
-              trigger: 'item'
+              axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+              }
             },
             legend: {
               textStyle: config().textStyle,
@@ -516,9 +520,11 @@
           var chart_bar=echarts.init(document.getElementById(id));
           var option = {
             tooltip : {
-              show: true,
+              trigger: 'axis',
               textStyle: config().textStyle,
-              trigger: 'item'
+              axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+              }
             },
             legend: {
               textStyle: config().textStyle,
@@ -681,13 +687,11 @@
               itemHeight: config().fontSize,
               textStyle: config().textStyle,
             },
-            tooltip: {
+            tooltip : {
               trigger: 'axis',
               textStyle: config().textStyle,
-              axisPointer: {
-                lineStyle: {
-                  color: '#57617B'
-                }
+              axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
               }
             },
             grid:{
@@ -782,7 +786,6 @@
           chart_lgLine.setOption(option);
           window.onresize = chart_lgLine.resize;
         },
-
         init_egr_coef(){
           let _this = this;
           // var dataX = [];
@@ -810,11 +813,12 @@
         chart_radar(id,dataY1,dataY2,name1,name2){
           var chart_radar=echarts.init(document.getElementById(id));
           var option = {
-            tooltip: {
-              show: true,
+            tooltip : {
+              trigger: 'axis',
               textStyle: config().textStyle,
-              trigger: "item",
-              right:20,
+              axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+              }
             },
             color: ['#3D91F7', '#61BE67'],
             legend: {
