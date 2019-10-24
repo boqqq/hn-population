@@ -88,6 +88,7 @@
 
 <script>
   var echarts = require('echarts');
+  import {config} from '../../static/js/config/chartConfig.js';
     export default {
         name: "population-quality",
 
@@ -163,11 +164,12 @@
               left: '5%',
               right: '5%',
               top:'20%',
-              bottom: '10%',
+              bottom: '5%',
               containLabel: true
             },
             tooltip : {
               show: true,
+              textStyle: config().textStyle,
               trigger: 'item'
             },
             legend: {
@@ -175,11 +177,9 @@
               left:10,
               top:0,
               icon: 'stack',
-              itemWidth: this.itemWidth,
-              itemHeight: this.itemHeight,
-              textStyle:{
-                color:'#1bb4f6'
-              },
+              itemWidth: config().fontSize,
+              itemHeight: config().fontSize,
+              textStyle: config().textStyle,
               data:[name1,name2]
             },
             xAxis : [
@@ -187,7 +187,7 @@
                 type : 'category',
                 boundaryGap : false,
                 axisLabel:{
-                  color:'rgba(255,255,255,.6)'
+                  textStyle: config().textStyle,
                 },
                 axisLine:{
                   show:true,
@@ -212,9 +212,7 @@
                 type : 'value',
                 axisLabel : {
                   formatter: '{value}',
-                  textStyle:{
-                    color:'rgba(255,255,255,.6)'
-                  }
+                  textStyle: config().textStyle,
                 },
                 axisLine:{
                   lineStyle:{
@@ -302,7 +300,6 @@
           chart_line.setOption(option);
           window.onresize = chart_line.resize;
         },
-
         init_gover_incom(){
           let _this = this;
           var dataX = [];
@@ -377,18 +374,16 @@
           var option = {
             tooltip : {
               show: true,
+              textStyle: config().textStyle,
               trigger: 'item'
             },
             legend: {
-              textStyle:{
-                color:'#1bb4f6',
-              },
+              textStyle: config().textStyle,
               left:10,
               icon: 'circle',
-              itemWidth: this.itemWidth,
-              itemHeight: this.itemHeight,
+              itemWidth: config().fontSize,
+              itemHeight: config().fontSize,
             },
-            barWidth:'15',
             xAxis: {
               axisTick:{
                 show:false
@@ -399,8 +394,9 @@
                   color:'rgba(255,255,255,.6)'
                 }
               },
-              textStyle:{
-                color:'#fff'
+              axisLabel: {
+                show: true,
+                textStyle: config().textStyle,
               },
               data: dataX
             },
@@ -413,6 +409,11 @@
                 show:false
               },
               type: 'value',
+                axisLabel: {
+                  show: true,
+                  formatter: "{value}", //右侧Y轴文字显示
+                  textStyle: config().textStyle,
+                },
               axisLine:{
                 show:false,
                 lineStyle:{
@@ -441,9 +442,7 @@
                 axisLabel: {
                   show: true,
                   formatter: "{value} %", //右侧Y轴文字显示
-                  textStyle: {
-                    color:'rgba(255,255,255,.6)'
-                  }
+                  textStyle: config().textStyle,
                 }
               },
             ],
@@ -451,7 +450,7 @@
               top:'20%',
               left: '5%',
               right: '5%',
-              bottom: '10%',
+              bottom: '5%',
               containLabel: true
             },
             series: [
@@ -460,6 +459,7 @@
                 yAxisIndex: 0,
                 type: 'bar',
                 name: name1,
+                barWidth:'40%',
                 itemStyle: {
                   normal: {
                     barBorderRadius: 0,//圆角
@@ -489,7 +489,6 @@
           chart_bar.setOption(option);
           window.onresize = chart_bar.resize;
         },
-
         init_hlth_serv(){
           let _this = this;
           var dataX = [];
@@ -518,16 +517,15 @@
           var option = {
             tooltip : {
               show: true,
+              textStyle: config().textStyle,
               trigger: 'item'
             },
             legend: {
-              textStyle:{
-                color:'#1bb4f6',
-              },
+              textStyle: config().textStyle,
               left:10,
               icon: 'circle',
-              itemWidth: this.itemWidth,
-              itemHeight: this.itemHeight,
+              itemWidth: config().fontSize,
+              itemHeight: config().fontSize,
             },
             xAxis: {
               axisTick:{
@@ -539,8 +537,9 @@
                   color:'rgba(255,255,255,.6)'
                 }
               },
-              textStyle:{
-                color:'#fff'
+              axisLabel: {
+                show: true,
+                textStyle: config().textStyle,
               },
               data: dataX
             },
@@ -550,6 +549,11 @@
               },
               splitLine: {
                 show:false
+              },
+              axisLabel: {
+                show: true,
+                formatter: "{value}", //右侧Y轴文字显示
+                textStyle: config().textStyle,
               },
               type: 'value',
               axisLine:{
@@ -580,9 +584,7 @@
                 axisLabel: {
                   show: true,
                   formatter: "{value} %", //右侧Y轴文字显示
-                  textStyle: {
-                    color:'rgba(255,255,255,.6)'
-                  }
+                  textStyle: config().textStyle,
                 }
               },
             ],
@@ -590,7 +592,7 @@
               top:'20%',
               left: '5%',
               right: '5%',
-              bottom: '10%',
+              bottom: '5%',
               containLabel: true
             },
             series: [
@@ -629,7 +631,6 @@
           chart_bar.setOption(option);
           window.onresize = chart_bar.resize;
         },
-
         init_pub_cult(){
           let _this = this;
           var dataX = [];
@@ -676,14 +677,13 @@
             legend:{
               show:true,
               left:10,
-              itemWidth: this.itemWidth,
-              itemHeight: this.itemHeight,
-              textStyle:{
-                color:'#1bb4f6'
-              },
+              itemWidth: config().fontSize,
+              itemHeight: config().fontSize,
+              textStyle: config().textStyle,
             },
             tooltip: {
               trigger: 'axis',
+              textStyle: config().textStyle,
               axisPointer: {
                 lineStyle: {
                   color: '#57617B'
@@ -694,7 +694,7 @@
               top:'20%',
               left: '5%',
               right: '5%',
-              bottom: '10%',
+              bottom: '5%',
               containLabel: true
             },
             xAxis: [{
@@ -704,6 +704,10 @@
                 lineStyle: {
                   color: 'rgba(255,255,255,.5)'
                 }
+              },
+              axisLabel: {
+                margin: config().fontSize,
+                textStyle: config().textStyle,
               },
               data:dataX
             }],
@@ -719,10 +723,8 @@
                 }
               },
               axisLabel: {
-                margin: 5,
-                textStyle: {
-                  fontSize: 12
-                }
+                margin: config().fontSize,
+                textStyle: config().textStyle,
               },
               splitLine: {
                 lineStyle: {
@@ -739,7 +741,7 @@
               showSymbol: false,
               lineStyle: {
                 normal: {
-                  width: 3
+                  width: 2
                 }
               },
               areaStyle: {
@@ -810,6 +812,7 @@
           var option = {
             tooltip: {
               show: true,
+              textStyle: config().textStyle,
               trigger: "item",
               right:20,
             },
@@ -819,22 +822,20 @@
               icon: "circle",
               left:10,
               top:0,
-              itemWidth: this.itemWidth,
-              itemHeight: this.itemHeight,
+              itemWidth: config().fontSize,
+              itemHeight: config().fontSize,
               itemGap: 21,
               orient: "horizontal",
               data: [name1, name2],
-              textStyle: {
-                fontSize: 12,
-                color: '#1bb4f6'
-              },
+              textStyle: config().textStyle,
             },
             radar: {
               // shape: 'circle',
               name: {
                 textStyle: {
-                  color: 'rgba(255,255,255,.5)',
-                  borderRadius: 3,
+                  color: '#fff',
+                  fontSize:config().fontSize,
+                  borderRadius:config().fontSize,
                   padding: [3, 5]
                 }
               },

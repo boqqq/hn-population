@@ -46,7 +46,7 @@
                     <el-radio  :label="2" style="margin-top: 2vh;color:wheat ">常住外来人口</el-radio>
                   </el-radio-group>
                 </div>
-                <div id = "chart6" style="height: 92%;"></div>
+                <div id = "chart6" style="height: 55vh;"></div>
               </div>
             </el-col>
             <el-col :span="24">
@@ -57,7 +57,7 @@
                     <div class="chart_title">
                       <i class="tit_icon icon-tit-line"></i>
                       <h3>各地区户籍人口增量变化</h3></div>
-                    <div id="chart4" style="height: 97%"></div>
+                    <div id="chart4" class = "bottom_char"></div>
                   </div>
                 </el-col>
                 <el-col :span="12">
@@ -65,7 +65,7 @@
                     <div class="chart_title">
                       <i class="tit_icon icon-tit-line"></i>
                       <h3>各地区常住外来人口增量变化</h3></div>
-                    <div id="chart5" style="height: 98%;"></div>
+                    <div id="chart5" class = "bottom_char"></div>
                   </div>
                 </el-col>
 
@@ -83,7 +83,6 @@
     import 'font-awesome/css/font-awesome.min.css';
     import {config} from '../../static/js/config/chartConfig.js';
     var echarts = require('echarts');
-    import '../../static/js/map/china.js';
     import '../../static/js/map/hainan.js';
     import jq from 'jquery';
     import hainan from '../../static/js/json/hainan.json';
@@ -136,25 +135,25 @@
                     let option = {
 
                         tooltip: {
-                            trigger: 'axis',
-                            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                            }
+                          trigger: 'axis',
+                          textStyle: config().textStyle,
+                          axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                          }
                         },
                         legend: {
                             top: '3%',
                             right: '4%',
-                            textStyle: {
-                                color : 'white',
-                            },
+                          textStyle: config().textStyle,
+                          itemWidth: config().fontSize,
+                          itemHeight: config().fontSize,
                             data: ['户籍人口', '常住外来人口']
                         },
                         grid: {
                             left: '3%',
                             right: '4%',
-                            bottom: '15%',
-                            width:'93%',
-                            height:'70%',
+                            bottom: '5%',
+                            top:'20%',
                             containLabel: true
                         },
                         xAxis: [
@@ -162,8 +161,7 @@
                                 type: 'category',
                                 axisLabel: {
                                     interval: 0,
-                                    color:'#fff',
-                                    margin: 20
+                                  textStyle: config().textStyle,
                                 },
                                 //data: ['2010年', '2011年', '2012年', '2013年', '2014年', '2015年', '2016年', '2017年', '2018年', '2019年']
                                 data:xData
@@ -174,9 +172,7 @@
                                 type: 'value',
                                 splitLine: false,
                                 axisLabel: {
-                                    interval: 0,
-                                    color:'#fff',
-                                    margin: 20
+                                  textStyle: config().textStyle,
                                 },
                             },
                         ],
@@ -184,6 +180,7 @@
                             {
                                 name: '户籍人口',
                                 type: 'bar',
+                              barWidth:'50%',
                                 stack: '人口',
                                 color: '#10a2ff',
                                 data: hjData//[1030, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, ]
@@ -191,6 +188,7 @@
                             {
                                 name: '常住外来人口',
                                 type: 'bar',
+                              barWidth:'50%',
                                 stack: '人口',
                                 color: '#01fea8',
                                 data:czData //[400, 400, 500, 600, 700, 600, 700, 800, 900, 1000, ]
@@ -222,21 +220,21 @@
                 let option = {
 
                     tooltip: {
-                        trigger: 'axis'
+                        trigger: 'axis',
+                      textStyle: config().textStyle,
                     },
                     legend: {
                         top: '3%',
                         right: '4%',
-                        textStyle: {
-                            color : 'white',
-                        },
+                      itemWidth: config().fontSize,
+                      itemHeight: config().fontSize,
+                      textStyle: config().textStyle,
                         data:['常住人口增长率','常住外来人口增长率']                    },
                     grid: {
                         left: '3%',
                         right: '4%',
-                        bottom: '15%',
-                        width:'93%',
-                        height:'70%',
+                      bottom: '5%',
+                      top:'20%',
                         containLabel: true
                     },
                     xAxis: {
@@ -252,17 +250,16 @@
                         },
                         axisLabel: {
                             interval: 0,
-                            color:'#fff',
-                            margin: 20
+                          textStyle: config().textStyle,
+                            margin: config().fontSize
                         },
                         data: xData//['2010年','2011年','2012年','2013年','2014年','2015年','2016年','2017年','2018年','2019年']
                     },
                     yAxis: {
                         type: 'value',
                         axisLabel: {
-                            interval: 0,
-                            color:'#fff',
-                            margin: 20
+                          margin:config().fontSize,
+                          textStyle: config().textStyle,
                         },
                         splitLine:{
                             show:false,
@@ -313,22 +310,22 @@
                 let option = {
 
                     tooltip: {
-                        trigger: 'axis'
+                        trigger: 'axis',
+                      textStyle: config().textStyle,
                     },
                     legend: {
                         top: '3%',
                         right: '4%',
-                        textStyle: {
-                            color : 'white',
-                        },
+                      textStyle: config().textStyle,
+                      itemWidth: config().fontSize,
+                      itemHeight: config().fontSize,
                         data:['0-14岁增长率','15-64岁增长率','65岁增长率']
                     },
                     grid: {
                         left: '3%',
                         right: '4%',
-                        bottom: '15%',
-                        width:'93%',
-                        height:'70%',
+                      bottom: '5%',
+                        top:'20%',
                         containLabel: true
                     },
 
@@ -339,6 +336,10 @@
                                 color:'#ffffff',
                             },
                         },
+                      axisLabel: {
+                          margin:config().fontSize,
+                        textStyle: config().textStyle,
+                      },
                         boundaryGap: false,
                         color:'blue',
                         data:xData //['2010年','2011年','2012年','2013年','2014年','2015年','2016年','2017年','2018年','2019年']
@@ -347,9 +348,7 @@
                         type: 'value',
                         show:true,
                         axisLabel: {
-                            interval: 0,
-                            color:'#fff',
-                            margin: 20
+                          textStyle: config().textStyle,
                         },
                         splitLine:{
                             show:false,
@@ -409,7 +408,8 @@
                     let chart4 = echarts.init(jq('#chart4')[0], 'macarons');
                     let option = {
                         tooltip: {
-                            trigger: 'axis'
+                            trigger: 'axis',
+                            textStyle: config().textStyle,
                         },
                         xAxis: {
                             type: 'category',
@@ -419,8 +419,8 @@
                                 //'保亭黎族苗族自治县', '琼中苗族黎族自治县'],
                             axisLabel: {
                                 interval: 0,
-                                color: '#fff',
-                                margin: 20,
+                              textStyle: config().textStyle,
+                                margin: config().fontSize,
                                 rotate: 30
                             },
                             axisLine: {}
@@ -428,12 +428,12 @@
                         },
                         yAxis: {
                             name: '万人',
+                          nameTextStyle: config().textStyle,
                             type: 'value',
                             show: true,
                             axisLabel: {
-                                interval: 0,
-                                color: '#fff',
-                                margin: 20
+                              textStyle: config().textStyle,
+                                margin: config().fontSize
                             },
                             splitLine: {
                                 show: false,
@@ -447,9 +447,8 @@
                         grid: {
                             left: '3%',
                             right: '4%',
-                            bottom: '13%',
-                            width: '95%',
-                            height: '74%',
+                          bottom: '3%',
+                           top:'18%',
                             containLabel: true
                         },
                         series: [{
@@ -493,7 +492,8 @@
                     let chart5 = echarts.init(jq('#chart5')[0], 'macarons');
                     let option = {
                         tooltip: {
-                            trigger: 'axis'
+                            trigger: 'axis',
+                          textStyle: config().textStyle,
                         },
                         xAxis: {
                             type: 'category',
@@ -503,8 +503,8 @@
                                 //'保亭黎族苗族自治县', '琼中苗族黎族自治县'],
                             axisLabel: {
                                 interval: 0,
-                                color: '#fff',
-                                margin: 20,
+                              textStyle: config().textStyle,
+                              margin:config().fontSize,
                                 rotate: 30
                             },
                             axisLine: {}
@@ -512,12 +512,12 @@
                         },
                         yAxis: {
                             name: '万人',
+                          nameTextStyle: config().textStyle,
                             type: 'value',
                             show: true,
                             axisLabel: {
-                                interval: 0,
-                                color: '#fff',
-                                margin: 20
+                              textStyle: config().textStyle,
+                              margin:config().fontSize,
                             },
                             splitLine: {
                                 show: false,
@@ -531,9 +531,8 @@
                         grid: {
                             left: '3%',
                             right: '4%',
-                            bottom: '13%',
-                            width: '93%',
-                            height: '74%',
+                            bottom: '3%',
+                            top:'18%',
                             containLabel: true
                         },
                         series: [{
@@ -660,20 +659,11 @@
                         },
                         tooltip: {
                             trigger: 'item',
-                            formatter: '{b}: 增量{c}人'
+                            formatter: '{b}: 增量{c}人',
+                          textStyle: config().textStyle,
                         },
                     },
                     options: [{
-                        backgroundColor: "#051835",
-                        // title: {
-                        //     text: '海南省人口',
-                        //     left: 'center',
-                        //     top: "10",
-                        //     textStyle: {
-                        //         color: '#ffffff',
-                        //         fontSize: 24,
-                        //     }
-                        // },
                         visualMap: {
                             min: min,
                             max: max,
@@ -684,10 +674,7 @@
                             inRange: {
                                 color: ['#9EA3FF', '#6966FF', '#0300FF']
                             },
-                            textStyle: {
-                                color: '#ffffff',
-                                fontSize: 14
-                            },
+                          textStyle: config().textStyle,
                             itemWidth: 20,
                             itemHeight: 150,
                         },
@@ -730,7 +717,7 @@
                                 label: {
                                     normal: {
                                         formatter: '{b}',
-                                        fontSize: 10,
+                                      textStyle: config().textStyle,
                                         show: true
                                     },
                                     emphasis: {
@@ -781,6 +768,9 @@
 
 <style lang="scss" scoped>
   #total{
+    .el-radio__label{
+      font-size: 1.5vh !important;
+    }
     .chart_title{
       color: #a9b2d4;
       padding-left: 5vh;
@@ -798,7 +788,7 @@
       background-size: 100% 29.6vh;
       .left_chart{
         width: 100%;
-        height: 25.6vh;
+        height: 24.6vh;
       }
     }
 
@@ -820,6 +810,9 @@
       background-image:url('../../static/img/ind_right.png');
       background-repeat: no-repeat;
       background-size: 100% 60.3vh;
+    }
+    .bottom_char{
+      height: 24.6vh;
     }
     /*.tit_icon {*/
     /*  width: 3.6vh;*/

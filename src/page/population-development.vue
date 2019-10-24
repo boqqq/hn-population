@@ -195,29 +195,30 @@
                       <i class="tit_icon icon-tit-line"></i>
                       <h3>人与资源环境</h3>
                     </div>
-                    <el-row>
+
+                    <el-row style="margin: 0 2vh;margin-top: 2vh">
                       <el-col :span="5">
                         <div class = "dev_pe">
-                          <p>人口密度</p>
-                          <p><span>{{bottomIndex2.watr_qty}}</span><span>人/m²</span></p>
+                          <div><div class = "rkmd"></div><div>人口密度</div></div>
+                          <div class = "rkmd_span"><span style="margin-left: -4vh">{{bottomIndex2.watr_qty}}</span><span>人/m²</span></div>
                         </div>
                       </el-col>
                       <el-col :span="6">
                         <div class = "dev_pe">
-                          <p>人均公园绿地面积</p>
-                          <p><span>{{bottomIndex2.consm_qty}}</span><span>m²/人</span></p>
+                          <div><div class = "rjgy"></div><div>人均公园绿地面积</div></div>
+                          <div class = "rjgy_span"><span>{{bottomIndex2.consm_qty}}</span><span>m²/人</span></div>
                         </div>
                       </el-col>
                       <el-col :span="6">
                         <div class = "dev_pe">
-                          <p>人均日生活用水量</p>
-                          <p><span>{{bottomIndex2.popu_denst}}</span><span>吨/人</span></p>
+                          <div><div class = "rjsl"></div><div>人均日生活用水量</div></div>
+                          <div class = "rjsl_span"><span>{{bottomIndex2.popu_denst}}</span><span>吨/人</span></div>
                         </div>
                       </el-col>
                       <el-col :span="7">
                         <div class = "dev_pe">
-                          <p>人均生活能源消耗量</p>
-                          <p><span>{{bottomIndex2.green_area}}</span><span>千克标准煤</span></p>
+                          <div><div class = "rjny"></div><div>人均生活能源消耗量</div></div>
+                          <div class = "rjny_span"><span>{{bottomIndex2.green_area}}</span><span>千克标准煤</span></div>
                         </div>
                       </el-col>
                     </el-row>
@@ -229,7 +230,7 @@
                       <i class="tit_icon icon-tit-line"></i>
                       <h3>人与社会保障</h3>
                     </div>
-                    <div>
+                    <div class = "gua_tab">
                       <div class = "dev_gua">
                         <p><span>每万人口拥有医生数</span></p>
                         <p>
@@ -644,27 +645,30 @@
       background-repeat: no-repeat;
       background-size: 100% 29.6vh;
       .bottom_chart{
-        width: 100%;
-        height: 24.6vh;
+        width: 89.8%;
+        height: 23vh;
+        margin: 0 5%;
+        border: 2px #1D4375 solid;
+        border-radius: 1vh;
       }
     }
     .dev_diff{
       width: 100%;
-      height: 6.5vh;
+      height: 6vh;
       text-align: center;
       color: #fff;
       font-size: 1.5vh;
       div{
-        width: 32%;
+        width: 30%;
         height: 100%;
         float: left;
-        line-height: 6.5vh;
+        line-height: 6vh;
       }
-      .diff1,.diff2{
-        border-right: 1px #fff solid;
-      }
+      /*.diff1,.diff2{*/
+        /*border-right: 1px #fff solid;*/
+      /*}*/
       div:nth-child(1){
-        width: 35%;
+        width: 39%;
         height: 100%;
         text-align: left;
       }
@@ -683,32 +687,93 @@
       }
     }
     .dev_diff:nth-child(1){
-      height: 4vh;
-      border-bottom: 1px #fff solid;
+      height: 5vh;
       div{
-        line-height: 4vh;
+        line-height: 5vh;
       }
+    }
+    .dev_diff:nth-child(2),.dev_diff:nth-child(4){
+      background:-moz-linear-gradient(left,#0E2266,#1D3389,#0E2266);/*火狐*/
+      background: -webkit-linear-gradient(left,#0E2266,#1D3389,#0E2266); /*Safari5.1 Chrome 10+*/
     }
     .dev_pe{
       width: 100%;
-      height: 25.6vh;
-      text-align: center;
+      height: 22.6vh;
+
       color: #fff;
       font-size: 1.5vh;
-      p:nth-child(1){
+      div:nth-child(1){
         height: 10vh;
         line-height: 10vh;
+        div{
+          float: left;
+        }
+        div:nth-child(2){
+          margin-left: 0.5vh;
+        }
       }
-      p:nth-child(2){
-        height: 15vh;
-        line-height: 13vh;
+      div:nth-child(2){
+        height: 10vh;
+        line-height: 10vh;
         span:nth-child(1){
-           font-size: 4vh;
+           font-size: 3vh;
          }
         span:nth-child(2){
           margin-left: 1vh;
         }
       }
+      .rkmd{
+        height: 3vh;
+        width: 3vh;
+        margin-left: 4vh;
+        margin-top: 3.1vh;
+        background-image:url('../../static/img/rkfz/rkmd.png');
+        background-repeat: no-repeat;
+        background-size: 100%;
+      }
+      .rjgy{
+        height: 3vh;
+        width: 3vh;
+        margin-left: 4vh;
+        margin-top: 3.1vh;
+        background-image:url('../../static/img/rkfz/rjgy.png');
+        background-repeat: no-repeat;
+        background-size: 100%;
+      }
+      .rjsl{
+        height: 3vh;
+        width: 3vh;
+        margin-left: 4vh;
+        margin-top: 3.1vh;
+        background-image:url('../../static/img/rkfz/rjsl.png');
+        background-repeat: no-repeat;
+        background-size: 100%;
+      }
+      .rjny{
+        height: 3vh;
+        width: 3vh;
+        margin-left: 4vh;
+        margin-top: 3.1vh;
+        background-image:url('../../static/img/rkfz/rjny.png');
+        background-repeat: no-repeat;
+        background-size: 100%;
+      }
+    }
+    .rkmd_span span{
+      color: #3054A9;
+    }
+    .rjgy_span span{
+      color: #A34072;
+    }
+    .rjsl_span span{
+      color: #D4B035;
+    }
+    .rjny_span span{
+      color: #0390C9;
+    }
+
+    .gua_tab{
+      margin: 0 2vh;
     }
     .dev_gua{
       height: 4vh;

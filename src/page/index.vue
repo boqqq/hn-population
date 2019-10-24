@@ -723,7 +723,7 @@
             }
           },
           visualMap: {
-            show:false,
+            show:true,
             type: "continuous",
             text: ["高", "低"],
             showLabel: true,
@@ -732,7 +732,7 @@
             // calculable: true,
             max: 200,
             inRange: {
-              color: ['#04c1f0', '#1eaed2', '#4177ed']
+              color: [' #07e7ff', '#034dfe']
             },
             textStyle: config().textStyle,
             bottom: '-5',
@@ -759,7 +759,7 @@
             itemStyle: {
               normal: {
                 areaColor: 'transparent',
-                borderColor: '#0c1752',
+                borderColor: '#02308d',
                 borderWidth: 1,
                 shadowColor: 'rgba(63, 218, 255, 0.5)',
                 shadowBlur: 30

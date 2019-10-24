@@ -92,7 +92,6 @@
 <script>
   import 'font-awesome/css/font-awesome.min.css';
   var echarts = require('echarts');
-  import '../../static/js/map/china.js';
   import '../../static/js/map/hainan.js';
   import hainan from '../../static/js/json/hainan.json';
   import {config} from '../../static/js/config/chartConfig.js';
@@ -219,41 +218,35 @@
         })
       },
       chart_right3Data(){
-    this.$http({
-      url: this.$http.adornUrl("/t03familymtntysitu5yrchg/findAll"),
-      method: 'get',
-      params: this.$http.adornParams({
-      })
-    }).then(({data}) => {
-      this.chart_right3(data);
-    })
-  },
+        this.$http({
+          url: this.$http.adornUrl("/t03familymtntysitu5yrchg/findAll"),
+          method: 'get',
+          params: this.$http.adornParams({
+          })
+        }).then(({data}) => {
+          this.chart_right3(data);
+        })
+      },
       chart_left1(data) {
         var myChart = echarts.init(document.getElementById("chart_left1"));
         var option = {
 
           tooltip: {
             trigger: 'axis',
-            textStyle: {
-              color: "#fff",
-              fontSize: config().fontSize,
-            },
+            textStyle: config().textStyle,
           },
           grid: {
             left: '5%',
             right: '5%',
             bottom: '5%',
-            top: '15%',
+            top: '20%',
             containLabel: true
           },
           legend: {
             data: ['2014年年龄组占比', '2018年年龄组占比'],
             right: '10%',
-            top: '1%',
-            textStyle: {
-              color: "#fff",
-              fontSize: config().fontSize,
-            },
+            top: '2%',
+            textStyle: config().textStyle,
             itemWidth: config().fontSize,
             itemHeight: config().fontSize,
             // itemGap: 35
@@ -271,11 +264,7 @@
             axisLabel: {
               interval: 0,
               rotate: 40,
-              textStyle: {
-                fontFamily: 'Microsoft YaHei',
-                color: "#FFF",
-                fontSize: config().fontSize,
-              },
+              textStyle: config().textStyle,
             },
             axisTick: {
               show: false
@@ -298,11 +287,7 @@
             },
             axisLabel: {
               show: true,
-              textStyle: {
-                fontFamily: 'Microsoft YaHei',
-                color: "#FFF",
-                fontSize: config().fontSize,
-              }
+              textStyle: config().textStyle,
             },
             splitLine: {
               show: true,
@@ -366,29 +351,21 @@
           color: ['#842af0', '#4478fc', '#03baff'],
           tooltip: {
             trigger: 'axis',
-            textStyle: {
-              color: "#fff",
-              fontSize: config().fontSize,
-            },
+            textStyle: config().textStyle,
           },
           legend: {
             right: '10%',
-            top: '1%',
-            textStyle: {
-              color: "#fff",
-              fontSize: config().fontSize,
-            },
+            top: '2%',
+            textStyle: config().textStyle,
             itemWidth: config().fontSize,
             itemHeight: config().fontSize,
-            right: '8%',
-            top: '1%',
             data: ['0-14岁人口占比', '15-64岁人口占比', '65+人口占比'],
           },
           grid: {
             left: '5%',
             right: '5%',
             bottom: '5%',
-            top: '15%',
+            top: '20%',
             containLabel: true
           },
           yAxis: [{
@@ -403,10 +380,7 @@
               show: true,
               interval: 'auto',
               formatter: '{value} ',
-              textStyle: {
-                color: '#fff',
-                fontSize: config().fontSize
-              }
+              textStyle: config().textStyle,
             },
             splitLine: {
               show: false,
@@ -429,11 +403,7 @@
               interval: 0,
               show: true,
               splitNumber: 15,
-              textStyle: {
-                fontSize: config().fontSize,
-                fontSize: config().fontSize,
-                color: '#fff'
-              },
+              textStyle: config().textStyle,
 
             },
             axisLine: {
@@ -483,16 +453,13 @@
         var option = {
           tooltip: {
             trigger: 'axis',
-            textStyle:{
-              fontSize:config().fontSize,
-              color:config().lineStyle.color
-            }
+            textStyle: config().textStyle,
           },
           grid: {
             left: '3%',
             right: '4%',
             bottom: '3%',
-            top:'15%',
+            top: '20%',
             containLabel: true
           },
           xAxis: {
@@ -507,7 +474,6 @@
               show: false
             },
             axisLine: {
-              onZero: false,
               show: false,
               lineStyle: {
                 color: "#fff",
@@ -522,11 +488,8 @@
               //rotate: 30,
               interval:0,
               rotate:40,
-              showMinLabel: true,
-              textStyle: {
-                fontSize: config().fontSize,
-                color:'#fff',
-              }
+              //showMinLabel: true,
+              textStyle: config().textStyle,
             }
           },
           yAxis:   {
@@ -547,10 +510,7 @@
               }
             },//设置横线样式
             axisLabel: {
-              textStyle: {
-                fontSize: config().fontSize,
-                color:'#fff'
-              }
+              textStyle: config().textStyle,
             },
             axisLine:{
               show:false
@@ -613,24 +573,17 @@
         var option = {
           tooltip: {
             trigger: 'axis',
-            textStyle: {
-              fontSize: config().fontSize,
-              color:config().lineStyle.color
-            },
+            textStyle: config().textStyle,
             axisPointer: {
               type: 'shadow'
             }
           },
           legend: {
             data: ['2013', '2014', '2015', '2016', '2017'],
-            left: 'center',
             align: 'left',
             right: '10%',
-            top: '1%',
-            textStyle: {
-              color: "#fff",
-              fontSize: config().fontSize,
-            },
+            top: '2%',
+            textStyle: config().textStyle,
             itemWidth: config().fontSize,
             itemHeight: config().fontSize,
           },
@@ -657,10 +610,7 @@
             },
             axisLabel: {
               show: true,
-              textStyle: {
-                color: "#fff",
-                fontSize: config().fontSize,
-              }
+              textStyle: config().textStyle,
             },
           }],
           yAxis: [{
@@ -673,8 +623,7 @@
             },
             axisLabel: {
               formatter: '{value}',
-              color: '#fff',
-              fontSize: config().fontSize,
+              textStyle: config().textStyle,
             },
             axisTick: {
               show: false,
@@ -767,19 +716,13 @@
             axisPointer: {
               type: 'line'
             },
-            textStyle:{
-              color:config().lineStyle.color,
-              fontSize:config().fontSize
-            }
+            textStyle: config().textStyle,
           },
           legend: {
             data: ['2016', '2017'],
-            top:'1%',
-            right:'1%',
-            textStyle: {
-              color: "#fff",
-              fontSize:config().fontSize
-            },
+            top:'2%',
+            right:'10%',
+            textStyle: config().textStyle,
             itemWidth: config().fontSize,
             itemHeight: config().fontSize,
             itemGap: config().fontSize
@@ -788,7 +731,7 @@
             left: '3%',
             right: '10%',
             bottom: '3%',
-            top:'15%',
+            top: '20%',
             containLabel: true
           },
           xAxis: [{
@@ -809,10 +752,7 @@
               show: true,
               interval:0,
               rotate:40,
-              textStyle: {
-                color: "#fff",
-                fontSize:config().fontSize
-              }
+              textStyle: config().textStyle,
             },
           }],
           yAxis: [{
@@ -824,9 +764,7 @@
               padding: [0, 0, -config().fontSize/2, -config().fontSize*2.5],
             },
             axisLabel: {
-              textStyle:{
-                fontSize:config().fontSize
-              },
+              textStyle: config().textStyle,
               formatter: '{value}'
             },
             axisTick: {
@@ -916,27 +854,21 @@
           grid: {
             left: '2%',
             right: '10%',
-            top:'15%',
-            bottom: '2%',
+            top: '20%',
+            bottom: '5%',
             containLabel: true
           },
           tooltip : {
             trigger: 'axis',
             padding: [0, 0, 0, 0],
-            textStyle: {
-              color: '#FFFFFF',
-              fontSize:config().fontSize
-            }
+            textStyle: config().textStyle,
           },
           legend: {
-            right:'1%',
-            top:'1%',
+            right:'10%',
+            top:'2%',
             itemWidth:config().fontSize,
             itemHeight:config().fontSize,
-            textStyle:{
-              color:'rgba(255,255,255,1)' ,
-              fontSize:config().fontSize
-            },
+            textStyle: config().textStyle,
             nameTextStyle :{
               color:'rgba(255,255,255,1)'
             },
@@ -947,8 +879,7 @@
               type : 'category',
               boundaryGap : false,
               axisLabel:{
-                color: '#FFF',
-                fontSize:config().fontSize
+                textStyle: config().textStyle,
               },
               axisLine:{
                 show:false,
@@ -981,10 +912,7 @@
               show:true,
               axisLabel : {
                 formatter: '{value}',
-                textStyle:{
-                  color:'#fff',
-                  fontSize:config().fontSize
-                }
+                textStyle: config().textStyle,
               },
               axisLine:{
                 show:false,
@@ -1063,20 +991,18 @@
         var option = {
           grid:{
             top:'20%',
-            bottom:'10%',
+            bottom:'5%',
             right:'10%',
+            left:'5%',
             containLabel:true
           },
           legend: {
             name: [],
             right: '10%',
-            top: '1%',
+            top: '2%',
             itemWidth: config().fontSize,
             itemHeight: config().fontSize,
-            textStyle: {
-              color: '#fff',
-              fontSize: config().fontSize,
-            },
+            textStyle: config().textStyle,
           },
           // tooltip（提示框组件）
           tooltip: {
@@ -1086,9 +1012,7 @@
               //指示器类型,可选'line','shadow','cross'
               type: 'line'
             },
-            textStyle: {
-              fontSize: config().fontSize,
-            }
+            textStyle: config().textStyle,
           },
           xAxis: {
             type: 'value',
@@ -1102,8 +1026,7 @@
             position: 'bottom',
             axisLabel: {
               show: true,
-              color: '#fff',
-              fontSize: config().fontSize,
+              textStyle: config().textStyle,
             },
             splitLine: {
               show: true,
@@ -1140,8 +1063,7 @@
             //axisLabel 坐标轴刻度标签的相关设置
             axisLabel: {
               show: true,
-              color: '#fff',
-              fontSize: config().fontSize,
+              textStyle: config().textStyle,
             },
 
           },],
@@ -1334,57 +1256,37 @@
 <style lang="scss" scoped>
   #index{
     .quality_col {
-      height:29.6vh;
+      height:29.3vh;
       margin-top: 1vh;
     }
     .quality_col1 {
-      height:60.5vh;
+      height:59.8vh;
       margin-top: 1vh;
     }
     .chart_col_center{
       background: #0c1752;
       border:1px solid #162f58;
       border-radius: 1vh;
-      margin-left: 2vh;
-      margin-right: 2vh;
+      margin-left: 1vh;
+      margin-right: 1vh;
     }
     .chart_col_left{
       background: #0c1752;
       border:1px solid #162f58;
       border-radius: 1vh;
-      margin-left: 2vh;
+      margin-left: 1vh;
     }
     .chart_col_right{
       background: #0c1752;
       border:1px solid #162f58;
       border-radius: 1vh;
-      margin-right: 2vh;
-    }
-    .pop_col_tit {
-      padding:2vh 5vh;
-      position: relative;
-      height: 3.6vh;
-      h3 {
-        font-size: 2vh;
-        color: #fff;
-        font-weight: 400;
-        line-height: 3.6vh;
-      }
-      .tit_icon {
-        width: 3.6vh;
-        height: 3.6vh;
-        display: inline-block;
-        position: absolute;
-        top:2vh;
-        left: 1vh;
-        z-index: 1;
-      }
+      margin-right: 1vh;
     }
     .quality_chart_box {
-      height: 22vh;
+      height: 24.3vh;
     }
     .quality_chart_box1 {
-      height: 52.9vh;
+      height: 54.9vh;
     }
     .icon-tit-line { background: url("../../static/img/icon-tit-line.svg") no-repeat 100%;}
   }
