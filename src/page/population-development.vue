@@ -7,7 +7,7 @@
             <el-col :span="24">
               <div class = "dev_left">
                 <div class="pop_type_item">
-                  <div class="pop_type_icon fa_bg_1"><i class="fa fa-user fa-fw"></i></div>
+                  <div class="pop_type_icon fa_bg_1"></div>
                   <h3 class="pop_type_title">人均地区GDP</h3>
                   <el-row>
                     <el-col :span="10">
@@ -145,11 +145,11 @@
                       <i class="tit_icon icon-tit-line"></i>
                       <h3>空气质量排名（2019年9月）</h3>
                     </div>
-                    <div class = "top_chart">
+                    <div class = "top_chart" style="margin: 0 4%;width: 92%">
                       <div class="tltleBox" style="z-index: 9999;margin-top: 1vh;"><span>地区</span><span>空气质量优良天数</span><span>排名</span></div>
                       <div  style="height: 51vh;overflow: hidden; position:relative">
                         <div>
-                          <div class="textBox" v-for="(item,index) in tableData" :class="{'active':index%2 != 1}" :key="index" ><span>{{item.areaName}}</span><span>{{item.practitionerNum}}天</span><span>{{item.qltyFstNm}}</span></div>
+                          <div class="textBox" v-for="(item,index) in tableData" :class="{'top_active':index%2 != 1}" :key="index" ><span>{{item.areaName}}</span><span>{{item.practitionerNum}}天</span><span>{{item.qltyFstNm}}</span></div>
                         </div>
                       </div>
                     </div>
@@ -177,9 +177,9 @@
                         <div class = "diff3"><span>{{bottomIndex1.acreage1}}</span><span>m²</span></div>
                       </div>
                       <div class = "dev_diff">
-                        <div class = "diff1"><span>固定资产投资完成率</span></div>
-                        <div class = "diff2"><span>{{80}}</span><span>%</span></div>
-                        <div class = "diff3"><span>{{75}}</span><span>%</span></div>
+                        <div class = "diff1"><span>除吃住外消费结构占比</span></div>
+                        <div class = "diff2"><span>{{bottomIndex1.yty1}}</span><span>%</span></div>
+                        <div class = "diff3"><span>{{bottomIndex1.yty2}}</span><span>%</span></div>
                       </div>
                       <div class = "dev_diff">
                         <div class = "diff1"><span>恩格尔系数</span></div>
@@ -234,36 +234,25 @@
                       <div class = "dev_gua">
                         <p><span>每万人口拥有医生数</span></p>
                         <p>
-                          <span>{{bottomIndex3.doct_cnt_num}}</span>
-                          <span>人</span>
+                          {{bottomIndex3.doct_cnt_num}} 人
                         </p>
                       </div>
                       <div class = "dev_gua">
                         <p><span>每万人口拥有床位数</span></p>
                         <p>
-                          <span>{{bottomIndex3.bed_digit_num}}</span>
-                          <span>张</span>
-                        </p>
-                      </div>
-                      <div class = "dev_gua">
-                        <p><span>新农合参保率</span></p>
-                        <p>
-                          <span>{{bottomIndex3.insud_rate_num}}</span>
-                          <span>%</span>
+                          {{bottomIndex3.bed_digit_num}} 张
                         </p>
                       </div>
                       <div class = "dev_gua">
                         <p><span>人均卫生总费用</span></p>
                         <p>
-                          <span>{{bottomIndex3.total_fee}}</span>
-                          <span>元/人</span>
+                          {{bottomIndex3.total_fee}} 元/人
                         </p>
                       </div>
                       <div class = "dev_gua">
                         <p><span>人均受教育年限</span></p>
                         <p>
-                          <span>{{bottomIndex3.year_num}}</span>
-                          <span>年</span>
+                          {{bottomIndex3.year_num}} 年
                         </p>
                       </div>
                     </div>
@@ -309,7 +298,7 @@
             "age_yty_growth1": "19.41",
             "totl_yty_growth2": "-2.39"
         },
-          bottomIndex1:{"coef2":"37","coef1":"42","acreage1":"30","acreage2":"31"},
+          bottomIndex1:{"coef2":"37","coef1":"42","acreage1":"30","acreage2":"31","yty1":"40","yty2":"36"},
           bottomIndex2:{"watr_qty":"0.237","consm_qty":"253","popu_denst":"260","green_area":"11"},
           bottomIndex3:{},
           pop_month: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
@@ -353,6 +342,7 @@
             params: this.$http.adornParams({
             })
           }).then(({data}) => {
+            //alert(JSON.stringify(data.page))
             this.bottomIndex1 = data.page[0];
           })
         },
@@ -437,10 +427,10 @@
                 name: data[i].dateStat,
                 type: 'scatter',
                 symbolSize: function (val) {
-                  if(val[0]/1000*1.5<20){
+                  if(val[0]/1000*3<20){
                     return 20
                   }
-                  return val[0]/1000*1.5
+                  return val[0]/1000*3
                 },
                 data: dat,
                 itemStyle: itemStyle
@@ -603,19 +593,17 @@
       background-size: 100% 60.3vh;
       .top_chart{
         width: 100%;
-        height: 55.3vh;
+        height: 54.3vh;
       }
     }
     .tltleBox{
       top: 0;
-      border-top: 1px #fff solid;
-      border-bottom: 1px #fff solid;
     }
     .tltleBox,.textBox{
       width: 100%;
       display: flex;
       align-items: center;
-      padding: 0.51vh 0;
+      padding: 0.55vh 0;
       font-size: 1.5vh;
       line-height: 1.6vh;
       color: #0475C3;
@@ -635,6 +623,9 @@
     }
     .tltleBox:hover,.textBox:hover{
       background: #465177;
+    }
+    .top_active{
+      background-color: #0D2E72;
     }
 
     .dev_bottom{
@@ -774,31 +765,29 @@
 
     .gua_tab{
       margin: 0 2vh;
+      margin-top: 2vh;
     }
     .dev_gua{
-      height: 4vh;
+      height: 5vh;
       line-height: 4vh;
       color: #fff;
       font-size: 1.5vh;
       text-align: left;
+      background-image:url('../../static/img/rkfz/ku_max.png');
+      background-repeat: no-repeat;
+      background-size: 100%;
       p{
         float: left;
       }
       p:nth-child(1){
-        width: 50%;
+        width: 61%;
         span{
           margin-left: 40%;
         }
       }
       p:nth-child(2){
-        width: 50%;
-       span:nth-child(1){
-         margin-left: 30%;
-         font-size: 3vh;
-       }
-        span:nth-child(2){
-          margin-left: 0.5vh;
-        }
+        text-align: center;
+        width: 39%;
       }
     }
     .dev_gua:nth-child(1){
@@ -821,12 +810,36 @@
         text-align: center;
         .fa { color: #fff;}
       }
-      .fa_bg_1 { background: linear-gradient(#8343ff, #7f26ff)}
-      .fa_bg_2 { background: linear-gradient(#facb17, #de8b13)}
-      .fa_bg_3 { background: linear-gradient(#25fa91, #08d28c)}
-      .fa_bg_4 { background: linear-gradient(#dd5246, #cf281c)}
-      .fa_bg_5 { background: linear-gradient(#4accfd, #02aeee)}
-      .fa_bg_6 { background: linear-gradient(#842af0, #9350e9)}
+      .fa_bg_1 {
+        background-image:url('../../static/img/rkfz/gdp.png');
+        background-repeat: no-repeat;
+        background-size: 100% ;
+      }
+      .fa_bg_2 {
+        background-image:url('../../static/img/rkfz/egr.png');
+        background-repeat: no-repeat;
+        background-size: 100% ;
+      }
+      .fa_bg_3 {
+        background-image:url('../../static/img/rkfz/rkzzl.png');
+        background-repeat: no-repeat;
+        background-size: 100% ;
+      }
+      .fa_bg_4 {
+        background-image:url('../../static/img/rkfz/lnxs.png');
+        background-repeat: no-repeat;
+        background-size: 100% ;
+      }
+      .fa_bg_5 {
+        background-image:url('../../static/img/rkfz/lsb.png');
+        background-repeat: no-repeat;
+        background-size: 100% ;
+      }
+      .fa_bg_6 {
+        background-image:url('../../static/img/rkfz/zfyb.png');
+        background-repeat: no-repeat;
+        background-size: 100% ;
+      }
 
       .pop_type_title {
         font-size: 1.4vh;

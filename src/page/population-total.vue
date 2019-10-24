@@ -126,7 +126,7 @@
                     let xData=[];
                     let hjData=[];
                     let czData=[];
-                    for(let i = 0;i < dts.length; i++){
+                    for(let i = dts.length-1;i >=0; i--){
                         xData.push(dts[i]["dateStat"].substr(0,4));
                         hjData.push(Number.parseInt(dts[i]["hjPopu"]));
                         czData.push(Number.parseInt(dts[i]["wlPopu"]));
@@ -211,7 +211,7 @@
                         let xData=[];
                         let czGrowth=[];
                         let wlGrowth=[];
-                        for(let i = 0;i < dts.length; i++){
+                        for(let i = dts.length-1;i >=0; i--){
                             xData.push(dts[i]["dateStat"].substr(0,4));
                             czGrowth.push(Number.parseFloat(dts[i]["czGrowth"]));
                             wlGrowth.push(Number.parseFloat(dts[i]["wlGrowth"]));
@@ -300,7 +300,7 @@
                         let ytyGrowth01=[];
                         let ytyGrowth02=[];
                         let ytyGrowth03=[];
-                        for(let i = 0;i < dts.length; i++){
+                        for(let i = dts.length-1;i >=0; i--){
                             xData.push(dts[i]["dateStat"].substr(0,4));
                             ytyGrowth01.push(dts[i]["ytyGrowth01"]);
                             ytyGrowth02.push(dts[i]["ytyGrowth02"]);

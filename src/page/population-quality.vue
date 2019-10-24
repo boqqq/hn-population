@@ -120,7 +120,8 @@
             url: _this.$http.adornUrl('/t05chrnbrsitu/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -143,7 +144,8 @@
             url: _this.$http.adornUrl('/t05perscapinvst/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -168,14 +170,16 @@
               containLabel: true
             },
             tooltip : {
-              show: true,
+              trigger: 'axis',
               textStyle: config().textStyle,
-              trigger: 'item'
+              axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+              }
             },
             legend: {
               show:true,
-              left:10,
-              top:0,
+              right:'5%',
+              top:'3%',
               icon: 'stack',
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
@@ -309,7 +313,8 @@
             url: _this.$http.adornUrl('/t05rsdntgoverincom/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -332,7 +337,8 @@
             url: _this.$http.adornUrl('/t05popurecvedusitu/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -355,7 +361,8 @@
             url: _this.$http.adornUrl('/t05populabrwork/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -373,13 +380,16 @@
           var chart_bar=echarts.init(document.getElementById(id));
           var option = {
             tooltip : {
-              show: true,
+              trigger: 'axis',
               textStyle: config().textStyle,
-              trigger: 'item'
+              axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+              }
             },
             legend: {
               textStyle: config().textStyle,
-              left:10,
+              right:'5%',
+              top:'3%',
               icon: 'circle',
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
@@ -498,7 +508,8 @@
             url: _this.$http.adornUrl('/t05mdclhlthserv/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -516,13 +527,16 @@
           var chart_bar=echarts.init(document.getElementById(id));
           var option = {
             tooltip : {
-              show: true,
+              trigger: 'axis',
               textStyle: config().textStyle,
-              trigger: 'item'
+              axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+              }
             },
             legend: {
               textStyle: config().textStyle,
-              left:10,
+              right:'5%',
+              top:'3%',
               icon: 'circle',
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
@@ -639,7 +653,8 @@
             url: _this.$http.adornUrl('/t05basicpubcult/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -659,7 +674,8 @@
             url: _this.$http.adornUrl('/t05reseaachiesitu/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -676,18 +692,17 @@
           var option = {
             legend:{
               show:true,
-              left:10,
+              right:'5%',
+              top:'3%',
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
               textStyle: config().textStyle,
             },
-            tooltip: {
+            tooltip : {
               trigger: 'axis',
               textStyle: config().textStyle,
-              axisPointer: {
-                lineStyle: {
-                  color: '#57617B'
-                }
+              axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
               }
             },
             grid:{
@@ -782,7 +797,6 @@
           chart_lgLine.setOption(option);
           window.onresize = chart_lgLine.resize;
         },
-
         init_egr_coef(){
           let _this = this;
           // var dataX = [];
@@ -793,7 +807,8 @@
             url: _this.$http.adornUrl('/t05familyegrcoef/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -820,8 +835,8 @@
             legend: {
               show: true,
               icon: "circle",
-              left:10,
-              top:0,
+              right:'5%',
+              top:'3%',
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
               itemGap: 21,
