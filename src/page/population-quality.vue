@@ -178,7 +178,7 @@
             },
             legend: {
               show:true,
-              left:10,
+              right:10,
               top:0,
               icon: 'stack',
               itemWidth: config().fontSize,
@@ -388,7 +388,7 @@
             },
             legend: {
               textStyle: config().textStyle,
-              left:10,
+              right:10,
               icon: 'circle',
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
@@ -534,7 +534,7 @@
             },
             legend: {
               textStyle: config().textStyle,
-              left:10,
+              right:10,
               icon: 'circle',
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
@@ -690,7 +690,7 @@
           var option = {
             legend:{
               show:true,
-              left:10,
+              right:10,
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
               textStyle: config().textStyle,
@@ -832,7 +832,7 @@
             legend: {
               show: true,
               icon: "circle",
-              left:10,
+              right:10,
               top:0,
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
