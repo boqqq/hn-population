@@ -120,7 +120,8 @@
             url: _this.$http.adornUrl('/t05chrnbrsitu/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -143,7 +144,8 @@
             url: _this.$http.adornUrl('/t05perscapinvst/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -176,7 +178,7 @@
             },
             legend: {
               show:true,
-              left:10,
+              right:10,
               top:0,
               icon: 'stack',
               itemWidth: config().fontSize,
@@ -311,7 +313,8 @@
             url: _this.$http.adornUrl('/t05rsdntgoverincom/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -334,7 +337,8 @@
             url: _this.$http.adornUrl('/t05popurecvedusitu/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -357,7 +361,8 @@
             url: _this.$http.adornUrl('/t05populabrwork/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -383,7 +388,7 @@
             },
             legend: {
               textStyle: config().textStyle,
-              left:10,
+              right:10,
               icon: 'circle',
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
@@ -502,7 +507,8 @@
             url: _this.$http.adornUrl('/t05mdclhlthserv/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -528,7 +534,7 @@
             },
             legend: {
               textStyle: config().textStyle,
-              left:10,
+              right:10,
               icon: 'circle',
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
@@ -645,7 +651,8 @@
             url: _this.$http.adornUrl('/t05basicpubcult/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -665,7 +672,8 @@
             url: _this.$http.adornUrl('/t05reseaachiesitu/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -682,7 +690,7 @@
           var option = {
             legend:{
               show:true,
-              left:10,
+              right:10,
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
               textStyle: config().textStyle,
@@ -796,7 +804,8 @@
             url: _this.$http.adornUrl('/t05familyegrcoef/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -823,7 +832,7 @@
             legend: {
               show: true,
               icon: "circle",
-              left:10,
+              right:10,
               top:0,
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
