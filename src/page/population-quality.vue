@@ -178,8 +178,8 @@
             },
             legend: {
               show:true,
-              right:10,
-              top:0,
+              right:'5%',
+              top:'3%',
               icon: 'stack',
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
@@ -388,7 +388,8 @@
             },
             legend: {
               textStyle: config().textStyle,
-              right:10,
+              right:'5%',
+              top:'3%',
               icon: 'circle',
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
@@ -534,7 +535,8 @@
             },
             legend: {
               textStyle: config().textStyle,
-              right:10,
+              right:'5%',
+              top:'3%',
               icon: 'circle',
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
@@ -690,7 +692,8 @@
           var option = {
             legend:{
               show:true,
-              right:10,
+              right:'5%',
+              top:'3%',
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
               textStyle: config().textStyle,
@@ -832,8 +835,8 @@
             legend: {
               show: true,
               icon: "circle",
-              right:10,
-              top:0,
+              right:'5%',
+              top:'3%',
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
               itemGap: 21,
