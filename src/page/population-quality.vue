@@ -786,6 +786,7 @@
           chart_lgLine.setOption(option);
           window.onresize = chart_lgLine.resize;
         },
+
         init_egr_coef(){
           let _this = this;
           // var dataX = [];
@@ -813,12 +814,11 @@
         chart_radar(id,dataY1,dataY2,name1,name2){
           var chart_radar=echarts.init(document.getElementById(id));
           var option = {
-            tooltip : {
-              trigger: 'axis',
+            tooltip: {
+              show: true,
               textStyle: config().textStyle,
-              axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-              }
+              trigger: "item",
+              right:20,
             },
             color: ['#3D91F7', '#61BE67'],
             legend: {
