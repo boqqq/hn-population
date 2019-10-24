@@ -120,7 +120,8 @@
             url: _this.$http.adornUrl('/t05chrnbrsitu/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -143,7 +144,8 @@
             url: _this.$http.adornUrl('/t05perscapinvst/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -311,7 +313,8 @@
             url: _this.$http.adornUrl('/t05rsdntgoverincom/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -334,7 +337,8 @@
             url: _this.$http.adornUrl('/t05popurecvedusitu/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -357,7 +361,8 @@
             url: _this.$http.adornUrl('/t05populabrwork/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -502,7 +507,8 @@
             url: _this.$http.adornUrl('/t05mdclhlthserv/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -645,7 +651,8 @@
             url: _this.$http.adornUrl('/t05basicpubcult/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -665,7 +672,8 @@
             url: _this.$http.adornUrl('/t05reseaachiesitu/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
@@ -796,7 +804,8 @@
             url: _this.$http.adornUrl('/t05familyegrcoef/list'),
             method: 'get',
             params: _this.$http.adornParams({
-              'areaCode':'460000000000'
+              'areaCode':'460000000000',
+              'order':'date_stat'
             }, false)
           }).then(({data}) => {
             if (data.code == 0) {
