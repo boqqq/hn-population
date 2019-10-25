@@ -49,7 +49,7 @@
                 <h3>各行业从业人员数量变化趋势</h3>
               </div>
             </div>
-            <div id="various_industries" class="bar-comtent2">
+            <div id="various_industries" class="bar-comtent2" style="width: 98%">
 
             </div>
           </div>
@@ -961,6 +961,7 @@
           tooltip : {
             trigger: 'axis',
             textStyle: config().textStyle,
+<<<<<<< HEAD
             formatter:function(params)
             {
               var relVal = params[0].name;
@@ -972,6 +973,11 @@
             axisPointer : {            // 坐标轴指示器，坐标轴触发有效
               type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
             }
+=======
+            // axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            //   type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            // }
+>>>>>>> 6b35e5a54e39d56eb34e452e07b893811b11e8c7
           },
           grid: {
             left: '6%',

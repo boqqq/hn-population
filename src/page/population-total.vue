@@ -46,7 +46,7 @@
                     <el-radio  :label="2" style="margin-top: 2vh;color:wheat ">常住外来人口</el-radio>
                   </el-radio-group>
                 </div>
-                <div id = "chart6" style="height: 55vh;"></div>
+                <div id = "chart6" style="height: 55vh;width: 99%"></div>
               </div>
             </el-col>
             <el-col :span="24">
@@ -787,7 +787,6 @@
       background-repeat: no-repeat;
       background-size: 100% 29.6vh;
       .left_chart{
-        width: 100%;
         height: 24.6vh;
       }
     }
@@ -814,18 +813,5 @@
     .bottom_char{
       height: 24.6vh;
     }
-    /*.tit_icon {*/
-    /*  width: 3.6vh;*/
-    /*  height: 3.6vh;*/
-    /*  display: inline-block;*/
-    /*  position: absolute;*/
-    /*  top:2vh;*/
-    /*  left: 1vh;*/
-    /*  z-index: 1;*/
-    /*}*/
-    /*.icon-tit-line {*/
-    /*  background: url("../../static/img/icon-tit-line.svg") no-repeat 100%;*/
-    /*}*/
-
   }
 </style>

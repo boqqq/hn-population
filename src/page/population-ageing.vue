@@ -47,7 +47,7 @@
                   </el-col>
                   <el-col :span="7">
                     <div class = "top_chart" style="margin-top: 4vh">
-                      <div class="tltleBox" style="z-index: 9999;margin-top: 1vh;"><span>排名</span><span>地区</span><span>老年人口占比</span></div>
+                      <div class="tltleBox" style="z-index: 9999;margin-top: 1vh;"><span>排名</span><span>地区</span><span>老年人口数</span></div>
                       <div  style="height: 51vh;overflow: hidden; position:relative">
                         <div>
                           <div class="textBox act_tb" v-for="(item,index) in tableData1" :class="{'center_active':index%2 != 1}"  :key="index" ><span>{{item.rankNo}}</span><span>{{item.areaName}}</span><span>{{item.unitCnt}}</span></div>
@@ -315,7 +315,7 @@
           }
           var top_chart  = echarts.init(document.getElementById('left_chart2'));
           var option = {
-            color: ["#ed9d3c",'#4fd7fd'],
+            color: ['#4fd7fd',"#ed9d3c"],
             tooltip : {
               trigger: 'axis',
               textStyle: config().textStyle,
@@ -374,10 +374,10 @@
                 //symbolSize: 10, //标记的大小
                 itemStyle: {
                   //折线拐点标志的样式
-                  color: "#ff00d3"
+                  color: "#11ff00"
                 },
                 lineStyle: {
-                  color: "#ff00d3"
+                  color: "#11ff00"
                 },
                 data: data1,
                 zlevel: 11
@@ -392,11 +392,11 @@
                 //symbolSize: 10, //标记的大小
                 itemStyle: {
                   //折线拐点标志的样式
-                  color: "#11ff00"
+                  color: "#ff00d3"
                 },
                 lineStyle: {
                   type: 'dashed',
-                  color: "#11ff00"
+                  color: "#ff00d3"
                 },
                 data: data2,
                 zlevel: 11
@@ -689,7 +689,7 @@
               trigger: 'item',
               textStyle: config().textStyle,
               formatter: function (params) {
-               var st = params.value[2]+'</br>老年人口占比：'+params.value[3]+' %</br>排名：'+params.value[4]
+               var st = params.value[2]+'</br>老年人口数：'+params.value[3]+' 人</br>排名：'+params.value[4]
               return st
               }
             },

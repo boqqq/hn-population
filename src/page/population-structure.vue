@@ -243,6 +243,16 @@
 
           tooltip: {
             trigger: 'axis',
+            formatter:function(params) {
+              var result = params[0].axisValue+"</br>";
+              var s = "<span style='display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:";
+              var s1 = ";'></span>";
+              params.forEach(function (item) {
+                var maker =s+item.color.colorStops[0].color+s1;
+                result += maker+item.seriesName + " : "+item.value +"%</br>";
+              });
+              return result;
+            },
             textStyle: config().textStyle,
           },
           grid: {
@@ -351,6 +361,7 @@
         window.onresize = myChart.resize;
       },
       chart_left2(data) {
+        debugger
         var myChart = echarts.init(document.getElementById("chart_left2"));
         // 指定图表的配置项和数据
         var data1 = data.labr['one'];
@@ -362,6 +373,13 @@
           tooltip: {
             trigger: 'axis',
             textStyle: config().textStyle,
+            formatter:function(params) {
+              var result = params[0].axisValue+"</br>";
+              params.forEach(function (item) {
+                result += item.marker+item.seriesName + " : "+item.value +"%</br>";
+              });
+              return result;
+            },
           },
           legend: {
             right: '10%',
@@ -369,7 +387,7 @@
             textStyle: config().textStyle,
             itemWidth: config().fontSize,
             itemHeight: config().fontSize,
-            data: data.labr['types'],
+            data: ['0-14岁人口占比','15-64岁人口占比','65+人口占比'],
           },
           grid: {
             left: '5%',
@@ -464,6 +482,16 @@
           tooltip: {
             trigger: 'axis',
             textStyle: config().textStyle,
+            formatter:function(params) {
+              var result = params[0].axisValue+"</br>";
+              var s = "<span style='display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:";
+              var s1 = ";'></span>";
+              params.forEach(function (item) {
+                var maker =s+item.color.colorStops[0].color+s1;
+                result += maker+item.seriesName + " : "+item.value +"%</br>";
+              });
+              return result;
+            },
           },
           grid: {
             left: '3%',
@@ -586,7 +614,15 @@
             textStyle: config().textStyle,
             axisPointer: {
               type: 'shadow'
-            }
+            },
+            formatter:function(params) {
+              var result = params[0].axisValue+"</br>";
+
+              params.forEach(function (item) {
+                result += item.marker+item.seriesName + " : "+item.value +"%</br>";
+              });
+              return result;
+            },
           },
           legend: {
             data: data.edu['years'],
@@ -667,54 +703,54 @@
                 }
               }
             },{
-            name: '2014',
-            type: 'bar',
-            data: data.edu['2014'],
+              name: '2014',
+              type: 'bar',
+              data: data.edu['2014'],
               barWidth: '10%', //柱子宽度
               barGap: '20%', //柱子之间间距
-            itemStyle: {
-              normal: {
-                color: '#842af0',
-                opacity: 1,
+              itemStyle: {
+                normal: {
+                  color: '#842af0',
+                  opacity: 1,
+                }
               }
-            }
-          }, {
-            name: '2015',
-            type: 'bar',
-            data: data.edu['2015'],
+            }, {
+              name: '2015',
+              type: 'bar',
+              data: data.edu['2015'],
               barWidth: '10%', //柱子宽度
               barGap: '20%', //柱子之间间距
-            itemStyle: {
-              normal: {
-                color: '#03baff',
-                opacity: 1,
+              itemStyle: {
+                normal: {
+                  color: '#03baff',
+                  opacity: 1,
+                }
               }
-            }
-          }, {
-            name: '2016',
-            type: 'bar',
-            data: data.edu['2016'],
+            }, {
+              name: '2016',
+              type: 'bar',
+              data: data.edu['2016'],
               barWidth: '10%', //柱子宽度
               barGap: '20%', //柱子之间间距
-            itemStyle: {
-              normal: {
-                color: '#20e19f',
-                opacity: 1,
+              itemStyle: {
+                normal: {
+                  color: '#20e19f',
+                  opacity: 1,
+                }
               }
-            }
-          }, {
-            name: '2017',
-            type: 'bar',
-            data: data.edu['2017'],
-            barWidth: '10%', //柱子宽度
+            }, {
+              name: '2017',
+              type: 'bar',
+              data: data.edu['2017'],
+              barWidth: '10%', //柱子宽度
               barGap: '20%', //柱子之间间距
-            itemStyle: {
-              normal: {
-                color: '#f8c300',
-                opacity: 1,
+              itemStyle: {
+                normal: {
+                  color: '#f8c300',
+                  opacity: 1,
+                }
               }
-            }
-          }]
+            }]
         };
         myChart.setOption(option);
       },
@@ -725,6 +761,16 @@
             trigger: 'axis',
             axisPointer: {
               type: 'line'
+            },
+            formatter:function(params) {
+              var result = params[0].axisValue+"</br>";
+              var s = "<span style='display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:";
+              var s1 = ";'></span>";
+              params.forEach(function (item) {
+                var maker =s+item.color.colorStops[0].color+s1;
+                result += maker+item.seriesName + " : "+item.value +"%</br>";
+              });
+              return result;
             },
             textStyle: config().textStyle,
           },
@@ -872,6 +918,13 @@
             trigger: 'axis',
             padding: [0, 0, 0, 0],
             textStyle: config().textStyle,
+            formatter:function(params) {
+              var result = params[0].axisValue+"</br>";
+              params.forEach(function (item) {
+                result += item.marker+item.seriesName + " : "+item.value +"%</br>";
+              });
+              return result;
+            },
           },
           legend: {
             right:'10%',
@@ -1038,6 +1091,13 @@
               type: 'line'
             },
             textStyle: config().textStyle,
+            formatter:function(params) {
+              var result = params[0].axisValue+"</br>";
+              params.forEach(function (item) {
+                result += item.marker+item.seriesName + " : "+item.value +"%</br>";
+              });
+              return result;
+            },
           },
           xAxis: {
             type: 'value',
@@ -1144,7 +1204,7 @@
           d.push(this.tableData[i].coor[0], this.tableData[i].coor[1], this.tableData[i].region)
           for(var y = 0; y < flowIn.length;y++){
             if (flowIn[y]['areaName'] == tmp.name){
-                d.push(flowIn[y]['popuTotal'])
+              d.push(flowIn[y]['popuTotal'])
             }
           }
           tmp.value = d
@@ -1251,7 +1311,7 @@
                 if(val.length==4){
                   return config().fontSize * 1.5
                 }
-                },
+              },
               itemStyle: {
                 normal: {
                   color: 'blue'
@@ -1284,7 +1344,7 @@
         window.onresize = myChart.resize;
       },
     }
-}
+  }
 
 </script>
 
