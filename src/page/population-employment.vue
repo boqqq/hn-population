@@ -152,6 +152,13 @@
           tooltip : {
             trigger: 'axis',
             textStyle: config().textStyle,
+            formatter:function(params)
+            {
+              var relVal = params[0].name;
+                relVal += '<div class="square" ><span style="background:#4478fc"></span>'+ params[0].seriesName + ' : ' + params[0].value+"百万</div>" +
+                  '<div class="circle" ><span style="background:#02faa9"></span>'+ params[1].seriesName + ' : ' + params[1].value+"%</div>";
+              return relVal;
+            },
             axisPointer : {            // 坐标轴指示器，坐标轴触发有效
               type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
             }
@@ -194,12 +201,12 @@
             },
             {
               type: "value",
-              name:'%',
-              nameTextStyle:{
-                color:config().textStyle.color,
-                fontSize:config().textStyle.fontSize,
-                padding:[0,-32,0,0]
-              },
+              // name:'%',
+              // nameTextStyle:{
+              //   color:config().textStyle.color,
+              //   fontSize:config().textStyle.fontSize,
+              //   padding:[0,-32,0,0]
+              // },
               splitLine: {
                 show: false
               },
@@ -210,7 +217,8 @@
                 show: false
               },
               axisLabel: {
-                textStyle: config().textStyle
+                textStyle: config().textStyle,
+                formatter:'{value}%'
               },
             }
           ],
@@ -308,6 +316,13 @@
           tooltip : {
             trigger: 'axis',
             textStyle: config().textStyle,
+            formatter:function(params)
+            {
+              var relVal = params[0].name;
+              relVal += '<div class="circle" ><span style="background:#4478fc"></span>'+ params[0].seriesName + ' : ' + params[0].value+"%</div>" +
+                '<div class="circle" ><span style="background:#02faa9"></span>'+ params[1].seriesName + ' : ' + params[1].value+"%</div>";
+              return relVal;
+            },
             axisPointer : {            // 坐标轴指示器，坐标轴触发有效
               type : 'line'        // 默认为直线，可选为：'line' | 'shadow'
             }
@@ -328,12 +343,12 @@
           },
           yAxis: {
             show:true,
-            name:'%',
-            nameTextStyle:{
-              color:config().textStyle.color,
-              fontSize:config().textStyle.fontSize,
-              padding:[0,30,0,0]
-            },
+            // name:'%',
+            // nameTextStyle:{
+            //   color:config().textStyle.color,
+            //   fontSize:config().textStyle.fontSize,
+            //   padding:[0,30,0,0]
+            // },
             splitLine: {
               show:true,
               lineStyle: {
@@ -345,7 +360,8 @@
               show:false,
             },
             axisLabel: {
-              textStyle: config().textStyle
+              textStyle: config().textStyle,
+              formatter:'{value}%'
             },
             axisTick:{
               show:false,
@@ -430,6 +446,14 @@
           tooltip : {
             trigger: 'axis',
             textStyle:config().textStyle,
+            formatter:function(params)
+            {
+              var relVal = params[0].name;
+              relVal += '<div class="square" ><span style="background:#4478fc"></span>'+ params[0].seriesName + ' : ' + params[0].value+"万人</div>" +
+                '<div class="square" ><span style="background:#62b8fd"></span>'+ params[1].seriesName + ' : ' + params[1].value+"万人</div>"+
+                '<div class="square" ><span style="background:#7cedfe"></span>'+ params[2].seriesName + ' : ' + params[2].value+"万人</div>";
+              return relVal;
+            },
             axisPointer : {            // 坐标轴指示器，坐标轴触发有效
               type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
             }
@@ -545,6 +569,7 @@
       },
       various_industries (dataX,dataY,dataS,unit){
         var various_industries = echarts.init(document.getElementById('various_industries'));
+        var color = ['#4478fc','#03baff','#7cedfe','#842af0','#20e19f','#f8c300','#ea396a','#3945de','#007eff', '#09c3df', '#5a05c0'];
         var hours = dataX;
         var days = dataY;
         var data = dataS;
@@ -628,7 +653,7 @@
             position: 'top',
             textStyle: config().textStyle,
             formatter: function (params) {
-              return hours[params.value[0]] + "<br>" + days[params.value[1]] + '：' + params.value[2] + " " + unit;
+              return hours[params.value[0]] + '<div class="circle" ><span style="background:' + color[params.value[1]-1] +'"></span>'+ days[params.value[1]] + ' : ' + params.value[2]+unit+"</div>";
             }
           },
           grid: {
@@ -716,7 +741,6 @@
                 normal: {
                   show: true,
                   color: function (params){
-                    var color = ['#4478fc','#03baff','#7cedfe','#842af0','#20e19f','#f8c300','#ea396a','#3945de','#007eff', '#09c3df', '#5a05c0'];
                     return color[params.data[1]-1];
                   }
                 }
@@ -772,6 +796,14 @@
           tooltip : {
             trigger: 'axis',
             textStyle: config().textStyle,
+            formatter:function(params)
+            {
+              var relVal = params[0].name;
+              for (var i = 0; i < params.length; i++) {
+                relVal += '<div class="square" ><span style="background:'+params[i].color+'"></span>'+ params[i].seriesName + ' : ' + params[i].value+"%</div>";
+              }
+              return relVal;
+            },
             axisPointer : {            // 坐标轴指示器，坐标轴触发有效
               type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
             }
@@ -922,12 +954,21 @@
 
       },
       changes_employment (dataX, series,dataS){
+        var color = ['#4478fc', '#03baff', '#20e19f', '#842af0', '#f8c300'];
         var changes_employment = echarts.init(document.getElementById('changes_employment'));
         var option = {
 
           tooltip : {
             trigger: 'axis',
             textStyle: config().textStyle,
+            formatter:function(params)
+            {
+              var relVal = params[0].name;
+              for (var i = 0; i < params.length; i++) {
+                relVal += '<div class="square" ><span style="background:'+params[i].color+'"></span>'+ params[i].seriesName + ' : ' + params[i].value+"%</div>";
+              }
+              return relVal;
+            },
             axisPointer : {            // 坐标轴指示器，坐标轴触发有效
               type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
             }
@@ -986,17 +1027,18 @@
           // ],
           yAxis: {
             type: 'value',
-            name:'%',
-            nameTextStyle:{
-              color:config().textStyle.color,
-              fontSize:config().textStyle.fontSize,
-              padding:[0,30,0,0]
-            },
+            // name:'%',
+            // nameTextStyle:{
+            //   color:config().textStyle.color,
+            //   fontSize:config().textStyle.fontSize,
+            //   padding:[0,30,0,0]
+            // },
             axisLine: {
               show: false,
             },
             axisLabel:{
-              textStyle: config().textStyle
+              textStyle: config().textStyle,
+              formatter:'{value}%'
             },
             splitLine: {
               show: true,
@@ -1042,7 +1084,28 @@
     .bar-comtent2{
       height: 55.3vh;
     }
-
+    .circle{
+      font-size: 1vh;
+    }
+    .circle>span{
+      display: inline-block;
+      height: 1.4vh;
+      width: 1.4vh;
+      margin-right: 5px;
+      vertical-align: middle;
+      border-radius: 1vh;
+    }
+    .square{
+      font-size: 1vh;
+    }
+    .square>span{
+      display: inline-block;
+      height: 1.3vh;
+      width: 1.3vh;
+      margin-right: 5px;
+      vertical-align: middle;
+      border-radius: 0.3vh;
+    }
   }
 
 </style>
