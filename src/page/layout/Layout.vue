@@ -22,7 +22,6 @@ export default {
     data(){
         return{
             nav: [
-                {title: '', path: ''},
                 {title: '人口总览', path: '/index'},
                 {title: '人口质量', path: '/populationQuality'},
                 {title: '人口结构', path: '/populationStructure'},
@@ -39,7 +38,7 @@ export default {
     },
     methods: {
       routerLink(index, path) {
-        if(index != 0 || index != 4){
+        if(index != 3){
           this.navIndex = index;
           this.$router.push(path)
         }
@@ -117,9 +116,14 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       .ind_title{
         width: 10%;
         line-height: 7vh;
+      }
+
+      .ind_title:nth-child(1),.ind_title:nth-child(2),.ind_title:nth-child(3){
+        width: 13.5%;
       }
       .ind_title:hover{
         background-repeat: no-repeat;
@@ -132,7 +136,7 @@ export default {
         background-image:url('../../../static/img/active.png');
       }
 
-      div:nth-child(5){
+      div:nth-child(4){
         width: 16%;
       }
       h4{
@@ -142,7 +146,7 @@ export default {
         color: #9CA5D3;
         text-align: center;
       }
-      div:nth-child(5) h4{
+      div:nth-child(4) h4{
         font-size: 3.5vh;
         color: #fff;
       }
