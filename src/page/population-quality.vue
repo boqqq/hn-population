@@ -1,6 +1,6 @@
 <template>
   <div class="chart_main">
-    <el-row :gutter="7">
+    <el-row :gutter="7" style="margin: 0 !important;">
       <el-col :span="8">
         <div class="quality_col chart_col">
           <div class="pop_col_tit">
@@ -911,7 +911,7 @@
 
 <style scoped lang="scss">
   .quality_col {
-    height:29.6vh;
+    height:29.3vh;
     margin-top: 1vh;
   }
   .chart_col{
@@ -919,28 +919,9 @@
     border:1px solid #162f58;
     border-radius: 1vh;
   }
-  /*.pop_col_tit {*/
-  /*  padding:2vh 5vh;*/
-  /*  position: relative;*/
-  /*  height: 3.6vh;*/
-  /*  h3 {*/
-  /*    font-size: 1.6vh;*/
-  /*    color: #a9b2d4;*/
-  /*    font-weight: 400;*/
-  /*    line-height: 3.6vh;*/
-  /*  }*/
-  /*  .tit_icon {*/
-  /*    width: 3.6vh;*/
-  /*    height: 3.6vh;*/
-  /*    display: inline-block;*/
-  /*    position: absolute;*/
-  /*    top:2vh;*/
-  /*    left: 1vh;*/
-  /*    z-index: 1;*/
-  /*  }*/
-  /*}*/
+
   .quality_chart_box {
-    height: 24.6vh;
+    height: 24.3vh;
   }
   .icon-tit-line { background: url("../../static/img/icon-tit-line.svg") no-repeat 100%;}
 

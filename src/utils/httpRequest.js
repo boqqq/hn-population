@@ -4,9 +4,9 @@ import axios from 'axios'
 import qs from 'qs'
 import merge from 'lodash/merge'
 //import { clearLoginInfo } from './utils'
-var por = 'http://localhost:9002/home';
-// 'http://192.168.13.149:10101/cqyl-ls/bigscreen';
-// 'http://localhost:8081/cqyl-ls/bigscreen';
+var por = 'http://59.212.226.51:9002/home';
+// ''http://59.212.226.51:9002/home';
+// 'http://localhost:9002/home';
 const http = axios.create({
   timeout: 1000 * 30,
   withCredentials: true,
