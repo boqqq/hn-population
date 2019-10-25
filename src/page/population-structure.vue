@@ -356,7 +356,7 @@
         var data1 = data.labr['one'];
         var data2 = data.labr['two'];
         var data3 = data.labr['three'];
-        var datacity = ['2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'];
+        var datacity = data.labr['years'];
         var option = {
           color: ['#842af0', '#4478fc', '#03baff'],
           tooltip: {
@@ -369,7 +369,7 @@
             textStyle: config().textStyle,
             itemWidth: config().fontSize,
             itemHeight: config().fontSize,
-            data: ['0-14岁人口占比', '15-64岁人口占比', '65+人口占比'],
+            data: data.labr['types'],
           },
           grid: {
             left: '5%',
@@ -589,7 +589,7 @@
             }
           },
           legend: {
-            data: ['2013', '2014', '2015', '2016', '2017'],
+            data: data.edu['years'],
             align: 'left',
             right: '10%',
             top: '2%',
@@ -606,7 +606,7 @@
           },
           xAxis: [{
             type: 'category',
-            data: ['小学','中学', '高中', '专科', '本科', '研究生'],
+            data: data.edu['edus'],
             axisLine: {
               show: true,
               lineStyle: {
@@ -729,7 +729,7 @@
             textStyle: config().textStyle,
           },
           legend: {
-            data: ['2016', '2017'],
+            data: data.flowOut['years'],
             top:'2%',
             right:'10%',
             textStyle: config().textStyle,
@@ -746,7 +746,7 @@
           },
           xAxis: [{
             type: 'category',
-            data: ['琼海市', '文昌市', '万宁市', '东方市', '定安县', '屯昌县', '澄迈县', '临高县', '白沙县', '昌江县', '乐东县', '陵水县', '保亭县', '琼中县'],
+            data: data.flowOut['areas'],
             axisLine: {
               show: false,
               lineStyle: {
@@ -796,9 +796,9 @@
             }
           }],
           series: [{
-            name: '2016',
+            name: data.flowOut['years'][0],
             type: 'bar',
-            data: data.flowOut['2016'],
+            data: data.flowOut[data.flowOut['years'][0]],
             barWidth: '30%', //柱子宽度
             barGap: '10%', //柱子之间间距
             itemStyle: {
@@ -815,9 +815,9 @@
               }
             }
           }, {
-            name: '2017',
+            name: data.flowOut['years'][1],
             type: 'bar',
-            data: data.flowOut['2017'],
+            data: data.flowOut[data.flowOut['years'][1]],
             barWidth: '30%', //柱子宽度
             barGap: '10%', //柱子之间间距
             itemStyle: {
@@ -998,6 +998,21 @@
       },
       chart_right3(data) {
         var myChart = echarts.init(document.getElementById("chart_right3"));
+        var types = data.page['types'];
+        var colorList = ['#842af0','#4478fc','#03baff','$fff','red'];
+        var series = [];
+        for(var i=0; i<types.length;i++){
+          var tmp = {};
+          var itemStyle = {};
+          itemStyle.color = colorList[i];
+          tmp.type = "bar";
+          tmp.stack = "费用";
+          tmp.barWidth = "40%";
+          tmp.name = types[i];
+          tmp.data = data.page[types[i]].reverse();
+          tmp.itemStyle = itemStyle;
+          series.push(tmp);
+        }
         var option = {
           grid:{
             top:'20%',
@@ -1032,7 +1047,6 @@
               fontSize: config().fontSize,
               padding: [0,0, -config().fontSize/0.45, -config().fontSize/4],
             },
-            max: 300,
             position: 'bottom',
             axisLabel: {
               show: true,
@@ -1069,7 +1083,7 @@
                 color: 'gray',
               }
             },
-            data: data.page['years'],
+            data: data.page['years'].reverse(),    //arr.reverse() 数组倒置
             //axisLabel 坐标轴刻度标签的相关设置
             axisLabel: {
               show: true,
@@ -1077,11 +1091,11 @@
             },
 
           },],
-          series: [{
+          series: series/*[{
             name: '一孩率',
             type: 'bar',
             stack: '费用',
-            data: data.page['one'],
+            data: data.page['一孩率'].reverse(),
             barWidth: '40%',
             itemStyle: {
               color: '#842af0',
@@ -1094,7 +1108,7 @@
               type: 'bar',
               //stack 数据堆叠，同个类目轴上系列配置相同的stack值可以堆叠放置。
               stack: '费用',
-              data: data.page['two'],
+              data: data.page['二孩率'].reverse(),
               barWidth: '40%',
               itemStyle: {
                 color: '#4478fc',
@@ -1106,13 +1120,13 @@
               type: 'bar',
               //stack 数据堆叠，同个类目轴上系列配置相同的stack值可以堆叠放置。
               stack: '费用',
-              data: data.page['three'],
+              data: data.page['三孩率'].reverse(),
               barWidth: '40%',
               itemStyle: {
                 color: '#03baff',
               },
             }
-          ]
+          ]*/
         };
         myChart.setOption(option);
         window.onresize = chart_right3.resize;
