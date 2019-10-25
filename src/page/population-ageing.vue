@@ -315,7 +315,7 @@
           }
           var top_chart  = echarts.init(document.getElementById('left_chart2'));
           var option = {
-            color: ["#ed9d3c",'#4fd7fd'],
+            color: ['#4fd7fd',"#ed9d3c"],
             tooltip : {
               trigger: 'axis',
               textStyle: config().textStyle,
@@ -374,10 +374,10 @@
                 //symbolSize: 10, //标记的大小
                 itemStyle: {
                   //折线拐点标志的样式
-                  color: "#ff00d3"
+                  color: "#11ff00"
                 },
                 lineStyle: {
-                  color: "#ff00d3"
+                  color: "#11ff00"
                 },
                 data: data1,
                 zlevel: 11
@@ -392,11 +392,11 @@
                 //symbolSize: 10, //标记的大小
                 itemStyle: {
                   //折线拐点标志的样式
-                  color: "#11ff00"
+                  color: "#ff00d3"
                 },
                 lineStyle: {
                   type: 'dashed',
-                  color: "#11ff00"
+                  color: "#ff00d3"
                 },
                 data: data2,
                 zlevel: 11
