@@ -703,54 +703,54 @@
                 }
               }
             },{
-            name: '2014',
-            type: 'bar',
-            data: data.edu['2014'],
+              name: '2014',
+              type: 'bar',
+              data: data.edu['2014'],
               barWidth: '10%', //柱子宽度
               barGap: '20%', //柱子之间间距
-            itemStyle: {
-              normal: {
-                color: '#842af0',
-                opacity: 1,
+              itemStyle: {
+                normal: {
+                  color: '#842af0',
+                  opacity: 1,
+                }
               }
-            }
-          }, {
-            name: '2015',
-            type: 'bar',
-            data: data.edu['2015'],
+            }, {
+              name: '2015',
+              type: 'bar',
+              data: data.edu['2015'],
               barWidth: '10%', //柱子宽度
               barGap: '20%', //柱子之间间距
-            itemStyle: {
-              normal: {
-                color: '#03baff',
-                opacity: 1,
+              itemStyle: {
+                normal: {
+                  color: '#03baff',
+                  opacity: 1,
+                }
               }
-            }
-          }, {
-            name: '2016',
-            type: 'bar',
-            data: data.edu['2016'],
+            }, {
+              name: '2016',
+              type: 'bar',
+              data: data.edu['2016'],
               barWidth: '10%', //柱子宽度
               barGap: '20%', //柱子之间间距
-            itemStyle: {
-              normal: {
-                color: '#20e19f',
-                opacity: 1,
+              itemStyle: {
+                normal: {
+                  color: '#20e19f',
+                  opacity: 1,
+                }
               }
-            }
-          }, {
-            name: '2017',
-            type: 'bar',
-            data: data.edu['2017'],
-            barWidth: '10%', //柱子宽度
+            }, {
+              name: '2017',
+              type: 'bar',
+              data: data.edu['2017'],
+              barWidth: '10%', //柱子宽度
               barGap: '20%', //柱子之间间距
-            itemStyle: {
-              normal: {
-                color: '#f8c300',
-                opacity: 1,
+              itemStyle: {
+                normal: {
+                  color: '#f8c300',
+                  opacity: 1,
+                }
               }
-            }
-          }]
+            }]
         };
         myChart.setOption(option);
       },
@@ -1204,7 +1204,7 @@
           d.push(this.tableData[i].coor[0], this.tableData[i].coor[1], this.tableData[i].region)
           for(var y = 0; y < flowIn.length;y++){
             if (flowIn[y]['areaName'] == tmp.name){
-                d.push(flowIn[y]['popuTotal'])
+              d.push(flowIn[y]['popuTotal'])
             }
           }
           tmp.value = d
@@ -1311,7 +1311,7 @@
                 if(val.length==4){
                   return config().fontSize * 1.5
                 }
-                },
+              },
               itemStyle: {
                 normal: {
                   color: 'blue'
@@ -1344,7 +1344,7 @@
         window.onresize = myChart.resize;
       },
     }
-}
+  }
 
 </script>
 
