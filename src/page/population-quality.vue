@@ -882,10 +882,10 @@
                 var results = '';
                 for (var i = 0; i < dataX.length; i++) {
                   results +=
-
-                    dataX[i].name + ':' + params.value[i] + '%<br>'
+                    dataX[i].name + ':' +  + params.value[i] + '%<br>'
                 }
-                return results;
+                var sum=params.name + '<br />'+ results;
+                return sum;
               }
             },
             color: ['#3D91F7', '#61BE67'],
