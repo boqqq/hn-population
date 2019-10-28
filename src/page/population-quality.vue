@@ -94,7 +94,6 @@
 
       data(){
         return{
-          xName: [],
           itemWidth:12,
           itemHeight:12,
         }
@@ -848,10 +847,10 @@
         },
         init_egr_coef(){
           let _this = this;
-          // var dataX = [];
+          var dataX = [];
           var dataY1 = [];
           var dataY2 = [];
-          this.xName = []
+          // this.xName = []
           _this.$http({
             url: _this.$http.adornUrl('/t05familyegrcoef/list'),
             method: 'get',
@@ -862,23 +861,32 @@
           }).then(({data}) => {
             if (data.code == 0) {
               data.list.forEach(x=>{
-                // dataX.push(x.dateStat);
-                this.xName.push({'name': x.dateStat})
+                dataX.push({'name': x.dateStat});
+                // this.xName.push({'name': x.dateStat})
                 dataY1.push(x.counEgrCoef);
                 dataY2.push(x.cityEgrCoef);
-                _this.chart_radar('chart_radar_1',dataY1,dataY2,'城镇居民家庭恩格尔系数','农村居民家庭恩格尔系数');
+                _this.chart_radar('chart_radar_1',dataX,dataY1,dataY2,'城镇居民家庭恩格尔系数','农村居民家庭恩格尔系数');
               })
             }
           })
         },
-        chart_radar(id,dataY1,dataY2,name1,name2){
+        chart_radar(id,dataX,dataY1,dataY2,name1,name2){
           var chart_radar=echarts.init(document.getElementById(id));
           var option = {
             tooltip: {
               show: true,
               textStyle: config().textStyle,
-              trigger: "item",
+              trigger: 'item',
               right:20,
+              formatter: function(params) {
+                var results = '';
+                for (var i = 0; i < dataX.length; i++) {
+                  results +=
+
+                    dataX[i].name + ':' + params.value[i] + '%<br>'
+                }
+                return results;
+              }
             },
             color: ['#3D91F7', '#61BE67'],
             legend: {
@@ -903,7 +911,7 @@
                   padding: [3, 5]
                 }
               },
-              indicator: this.xName,
+              indicator:dataX,
 
               splitArea: { // 坐标轴在 grid 区域中的分隔区域，默认不显示。
                 show: true,

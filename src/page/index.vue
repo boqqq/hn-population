@@ -720,7 +720,7 @@
             show: true,
             textStyle: config().textStyle,
             formatter: function(params) {
-              var str = params.name+'<br/>常住人口：'+params.data.value+' 万人<br/>本月增量：'+
+              var str = params.name+'<br/>常住人口：'+params.data.value+' 3人<br/>本月增量：'+
                 params.data.increment+' 万人';
               return str;
             }
