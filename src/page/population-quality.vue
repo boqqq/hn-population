@@ -174,6 +174,13 @@
               textStyle: config().textStyle,
               axisPointer : {            // 坐标轴指示器，坐标轴触发有效
                 type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+              },
+              formatter: function(params) {
+                var result = params[0].name
+                result +=
+                  '<br/>'+params[0].seriesName + '：' + params[0].data+'%' +
+                  '<br/>'+params[1].seriesName + '：' + params[1].data+'%';
+                return result
               }
             },
             legend: {
@@ -213,9 +220,14 @@
             ],
             yAxis : [
               {
+                name:'%',
+                nameTextStyle:{
+                  color:config().textStyle.color,
+                  fontSize:config().textStyle.fontSize,
+                  padding:[0,26,0,0]
+                },
                 type : 'value',
                 axisLabel : {
-                  formatter: '{value}',
                   textStyle: config().textStyle,
                 },
                 axisLine:{
@@ -322,7 +334,7 @@
                 dataX.push(x.dateStat);
                 dataY1.push(x.goverIncom1);
                 dataY2.push(x.ytyGrowth);
-                _this.chart_bar('chart_bar_1',dataX,dataY1,dataY2,'城乡居民人均可支配收入','增长率','#42c7f1','#4478fc','#f8c300');
+                _this.chart_bar('chart_bar_1',dataX,dataY1,dataY2,'城乡居民人均可支配收入','增长率','#42c7f1','#4478fc','#f8c300','元','%');
               })
             }
           })
@@ -346,7 +358,7 @@
                 dataX.push(x.dateStat);
                 dataY1.push(x.educatedYear);
                 dataY2.push(x.illRadio);
-                _this.chart_bar('chart_bar_2',dataX,dataY1,dataY2,'6岁及以上人口人均受教育年限','文盲率','#42c7f1','#4478fc','#f8c300');
+                _this.chart_bar('chart_bar_2',dataX,dataY1,dataY2,'6岁及以上人口人均受教育年限','文盲率','#42c7f1','#4478fc','#f8c300','年','%');
               })
             }
           })
@@ -370,13 +382,13 @@
                 dataX.push(x.dateStat);
                 dataY1.push(x.labrWorkRadio);
                 dataY2.push(x.ytyGrowth);
-                _this.chart_bar('chart_bar_3',dataX,dataY1,dataY2,'劳动生产率','增长率','#20e19f','#20e19f','#03baff');
+                _this.chart_bar('chart_bar_3',dataX,dataY1,dataY2,'劳动生产率','增长率','#20e19f','#20e19f','#03baff','元/人','%');
               })
             }
           })
 
         },
-        chart_bar(id,dataX,dataY1,dataY2,name1,name2,color1,color2,color3){
+        chart_bar(id,dataX,dataY1,dataY2,name1,name2,color1,color2,color3,unit1,unit2){
           var chart_bar=echarts.init(document.getElementById(id));
           var option = {
             tooltip : {
@@ -384,6 +396,13 @@
               textStyle: config().textStyle,
               axisPointer : {            // 坐标轴指示器，坐标轴触发有效
                 type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+              },
+              formatter: function(params) {
+                var result = params[0].name
+                result +=
+                  '<br/>'+params[0].seriesName + '：' + params[0].data+ unit1 +
+                  '<br/>'+params[1].seriesName + '：' + params[1].data+ unit2;
+                return result
               }
             },
             legend: {
@@ -412,6 +431,7 @@
             },
             yAxis: [
               {
+                name:unit1,
               axisTick:{
                 show:false
               },
@@ -419,19 +439,25 @@
                 show:false
               },
               type: 'value',
-                axisLabel: {
-                  show: true,
-                  formatter: "{value}", //右侧Y轴文字显示
-                  textStyle: config().textStyle,
-                },
+              axisLabel: {
+                show: true,
+                formatter: "{value}", //右侧Y轴文字显示
+                textStyle: config().textStyle,
+              },
               axisLine:{
                 show:false,
                 lineStyle:{
                   color:'rgba(255,255,255,.6)'
                 }
               },
+                nameTextStyle:{
+                  color:config().textStyle.color,
+                  fontSize:config().textStyle.fontSize,
+                  padding:[0,26,0,0]
+                },
             },
               {
+                // name:unit2,
                 axisTick:{
                   show:false
                 },
@@ -453,7 +479,7 @@
                   show: true,
                   formatter: "{value} %", //右侧Y轴文字显示
                   textStyle: config().textStyle,
-                }
+                },
               },
             ],
             grid:{
@@ -531,6 +557,12 @@
               textStyle: config().textStyle,
               axisPointer : {            // 坐标轴指示器，坐标轴触发有效
                 type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+              },
+              formatter: function(params) {
+                var result = params[0].name
+                result +=
+                  '<br/>'+params[0].seriesName + '：' + params[0].data+ '张'
+                return result
               }
             },
             legend: {
@@ -558,6 +590,12 @@
               data: dataX
             },
             yAxis: [{
+              name:'张',
+              nameTextStyle:{
+                color:config().textStyle.color,
+                fontSize:config().textStyle.fontSize,
+                padding:[0,26,0,0]
+              },
               axisTick:{
                 show:false
               },
@@ -661,7 +699,7 @@
               data.list.forEach(x=>{
                 dataX.push(x.dateStat);
                 dataY.push(x.pubCultNum);
-                _this.chart_lgLine('chart_lgLine_1',dataX,dataY,'人均拥有公共图书馆藏量','#1986ff','#dd0042');
+                _this.chart_lgLine('chart_lgLine_1',dataX,dataY,'人均拥有公共图书馆藏量','#1986ff','#dd0042','册');
               })
             }
           })
@@ -682,12 +720,12 @@
               data.list.forEach(x=>{
                 dataX.push(x.dateStat);
                 dataY.push(x.ytyGrowth);
-                _this.chart_lgLine('chart_lgLine_2',dataX,dataY,'每万人专利数量','#0e55b7', '#0fd9c7');
+                _this.chart_lgLine('chart_lgLine_2',dataX,dataY,'每万人专利数量','#0e55b7', '#0fd9c7','个');
               })
             }
           })
         },
-        chart_lgLine(id,dataX,dataY,name1,color1,color2){
+        chart_lgLine(id,dataX,dataY,name1,color1,color2,unit1){
           var chart_lgLine=echarts.init(document.getElementById(id));
           var option = {
             legend:{
@@ -703,6 +741,12 @@
               textStyle: config().textStyle,
               axisPointer : {            // 坐标轴指示器，坐标轴触发有效
                 type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+              },
+              formatter: function(params) {
+                var result = params[0].name
+                result +=
+                  '<br/>'+params[0].seriesName + '：' + params[0].data+ unit1
+                return result
               }
             },
             grid:{
@@ -728,7 +772,12 @@
             }],
             yAxis: [{
               type: 'value',
-              name: '',
+              name: unit1,
+              nameTextStyle:{
+                color:config().textStyle.color,
+                fontSize:config().textStyle.fontSize,
+                padding:[0,26,0,0]
+              },
               axisTick: {
                 show: false
               },
