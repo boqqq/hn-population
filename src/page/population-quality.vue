@@ -50,7 +50,7 @@
         <div class="quality_col chart_col">
           <div class="pop_col_tit">
             <i class="tit_icon icon-tit-line"></i>
-            <h3>劳动效率</h3>
+            <h3>劳动收入与负担</h3>
           </div>
           <div id="chart_bar_3" class="quality_chart_box"></div>
         </div>
@@ -322,7 +322,7 @@
                 dataX.push(x.dateStat);
                 dataY1.push(x.goverIncom1);
                 dataY2.push(x.ytyGrowth);
-                _this.chart_bar('chart_bar_1',dataX,dataY1,dataY2,'城乡居民人均可支配收入','增长率','#42c7f1','#4478fc','#f8c300');
+                _this.chart_bar('chart_bar_1',dataX,dataY1,dataY2,'城乡居民人均可支配收入','增长率','#42c7f1','#4478fc','#f8c300','元','%');
               })
             }
           })
@@ -346,7 +346,7 @@
                 dataX.push(x.dateStat);
                 dataY1.push(x.educatedYear);
                 dataY2.push(x.illRadio);
-                _this.chart_bar('chart_bar_2',dataX,dataY1,dataY2,'6岁及以上人口人均受教育年限','文盲率','#42c7f1','#4478fc','#f8c300');
+                _this.chart_bar('chart_bar_2',dataX,dataY1,dataY2,'6岁及以上人口人均受教育年限','文盲率','#42c7f1','#4478fc','#f8c300','年','%');
               })
             }
           })
@@ -368,15 +368,15 @@
             if (data.code == 0) {
               data.list.forEach(x=>{
                 dataX.push(x.dateStat);
-                dataY1.push(x.labrWorkRadio);
-                dataY2.push(x.ytyGrowth);
-                _this.chart_bar('chart_bar_3',dataX,dataY1,dataY2,'劳动生产率','增长率','#20e19f','#20e19f','#03baff');
+                dataY1.push(x.annualIncome);
+                dataY2.push(x.burdenNum);
+                _this.chart_bar('chart_bar_3',dataX,dataY1,dataY2,'平均每一就业者全年实际收入','平均每一就业者负担人数','#20e19f','#20e19f','#03baff','元','人');
               })
             }
           })
 
         },
-        chart_bar(id,dataX,dataY1,dataY2,name1,name2,color1,color2,color3){
+        chart_bar(id,dataX,dataY1,dataY2,name1,name2,color1,color2,color3,unit1,unit2){
           var chart_bar=echarts.init(document.getElementById(id));
           var option = {
             tooltip : {
@@ -389,7 +389,7 @@
             legend: {
               textStyle: config().textStyle,
               right:'5%',
-              top:'3%',
+              top:'2%',
               icon: 'circle',
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
@@ -412,6 +412,12 @@
             },
             yAxis: [
               {
+              name:unit1,
+                nameTextStyle: {
+                  color: '#fff',
+                  fontSize: config().fontSize,
+                  padding: [0, 0, -config().fontSize/2, -config().fontSize*2.5],
+                },
               axisTick:{
                 show:false
               },
@@ -432,6 +438,12 @@
               },
             },
               {
+                name:unit2,
+                nameTextStyle: {
+                  color: '#fff',
+                  fontSize: config().fontSize,
+                  padding: [0, 0, -config().fontSize/2, config().fontSize*2],
+                },
                 axisTick:{
                   show:false
                 },
@@ -451,13 +463,13 @@
                 position: "right",
                 axisLabel: {
                   show: true,
-                  formatter: "{value} %", //右侧Y轴文字显示
+                  formatter: "{value}", //右侧Y轴文字显示
                   textStyle: config().textStyle,
                 }
               },
             ],
             grid:{
-              top:'20%',
+              top:'23%',
               left: '5%',
               right: '5%',
               bottom: '5%',
@@ -517,7 +529,7 @@
                 dataX.push(x.dateStat);
                 dataY1.push(x.bedNum);
                 dataY2.push(x.ytyGrowth);
-                _this.chart_pictorialBar('chart_bar_4',dataX,dataY1,dataY2,'每千人口医院床位数','增长率','#20e19f','#20e19f','#03baff');
+                _this.chart_pictorialBar('chart_bar_4',dataX,dataY1,dataY2,'每万人口拥有床位数','增长率','#20e19f','#20e19f','#03baff');
               })
             }
           })

@@ -146,10 +146,10 @@
                       <h3>空气质量排名（2019年9月）</h3>
                     </div>
                     <div class = "top_chart" style="margin: 0 4%;width: 92%">
-                      <div class="tltleBox" style="z-index: 9999;margin-top: 1vh;"><span>地区</span><span>空气质量优良天数</span><span>排名</span></div>
+                      <div class="tltleBox" style="z-index: 9999;margin-top: 1vh;"><span>地区</span><span>空气质量优良率</span><span>排名</span></div>
                       <div  style="height: 51vh;overflow: hidden; position:relative">
                         <div>
-                          <div class="textBox" v-for="(item,index) in tableData" :class="{'top_active':index%2 != 1}" :key="index" ><span>{{item.areaName}}</span><span>{{item.practitionerNum}}天</span><span>{{item.qltyFstNm}}</span></div>
+                          <div class="textBox" v-for="(item,index) in tableData" :class="{'top_active':index%2 != 1}" :key="index" ><span>{{item.areaName}}</span><span>{{item.practitionerNum}} %</span><span>{{item.qltyFstNm}}</span></div>
                         </div>
                       </div>
                     </div>
@@ -389,8 +389,6 @@
         },
         top_chart1(data){
           var tData = []
-
-
           var itemStyle = {
             normal: {
               color:new echarts.graphic.LinearGradient(
