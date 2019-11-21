@@ -214,7 +214,7 @@
           params: this.$http.adornParams({
           })
         }).then(({data}) => {
-          this.chart_right1(data);
+          this.chart_right1(data.flowOut);
         })
       },
       chart_right2Data(){
@@ -224,7 +224,7 @@
           params: this.$http.adornParams({
           })
         }).then(({data}) => {
-          this.chart_right2(data);
+          this.chart_right2(data.flowIn);
         })
       },
       chart_right3Data(){
@@ -361,7 +361,7 @@
         window.onresize = myChart.resize;
       },
       chart_left2(data) {
-        debugger
+        //debugger
         var myChart = echarts.init(document.getElementById("chart_left2"));
         // 指定图表的配置项和数据
         var data1 = data.labr['one'];
@@ -756,296 +756,224 @@
       },
       chart_right1(data) {
         var myChart = echarts.init(document.getElementById("chart_right1"));
-        var option = {
-          tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-              type: 'line'
-            },
-            formatter:function(params) {
-              var result = params[0].axisValue+"</br>";
-              var s = "<span style='display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:";
-              var s1 = ";'></span>";
-              params.forEach(function (item) {
-                var maker =s+item.color.colorStops[0].color+s1;
-                result += maker+item.seriesName + " : "+item.value +"%</br>";
-              });
-              return result;
-            },
-            textStyle: config().textStyle,
-          },
-          legend: {
-            data: data.flowOut['years'],
-            top:'2%',
-            right:'10%',
-            textStyle: config().textStyle,
-            itemWidth: config().fontSize,
-            itemHeight: config().fontSize,
-            itemGap: config().fontSize
-          },
-          grid: {
-            left: '3%',
-            right: '10%',
-            bottom: '3%',
-            top: '20%',
-            containLabel: true
-          },
-          xAxis: [{
-            type: 'category',
-            data: data.flowOut['areas'],
-            axisLine: {
-              show: false,
+        //alert(JSON.stringify(data))
+        var indicator = [];
+        var data1 = [];
+        for (var i = 0; i < data.length; i++) {
+          data1.push(data[i].ytyGrowth)
+        }
+        var max = Math.ceil(Math.max.apply(null, data1));
+        for (var j = 0; j < data.length; j++) {
+          var tmp = {};
+          tmp.text = data[j].areaName
+          tmp.max = max
+          indicator.push(tmp)
+        }
+        var dataArr = [{
+          value: data1,
+          name: '',
+          itemStyle: {
+            normal: {
               lineStyle: {
-                color: "#fff",
-                width: config().lineStyle.width,
-                type: "solid"
-              }
-            },
-            axisTick: {
-              show: false,
-            },
-            axisLabel: {
-              show: true,
-              interval:0,
-              rotate:40,
-              textStyle: config().textStyle,
-            },
-          }],
-          yAxis: [{
-            type: 'value',
-            name:'%',
-            nameTextStyle: {
-              color: '#fff',
-              fontSize: config().fontSize,
-              padding: [0, 0, -config().fontSize/2, -config().fontSize*2.5],
-            },
-            axisLabel: {
-              textStyle: config().textStyle,
-              formatter: '{value}'
-            },
-            axisTick: {
-              show: false,
-            },
-            axisLine: {
-              show: false,
-              lineStyle: {
-                color: "#fff",
-                width: config().lineStyle.width,
-                type: "solid"
+                color: '#ff5600',
+                // shadowColor: '#4A99FF',
+                // shadowBlur: 10,
               },
+              shadowColor: '#ff5600',
+              shadowBlur: 10,
             },
-            splitLine: {
-              show:false,
-              lineStyle: {
-                color: "#0F55B9",
-              }
-            }
-          }],
-          series: [{
-            name: data.flowOut['years'][0],
-            type: 'bar',
-            data: data.flowOut[data.flowOut['years'][0]],
-            barWidth: '30%', //柱子宽度
-            barGap: '10%', //柱子之间间距
-            itemStyle: {
-              normal: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+          },
+          areaStyle: {
+            normal: { // 单项区域填充样式
+              color: {
+                type: 'linear',
+                x: 0, //右
+                y: 0, //下
+                x2: 1, //左
+                y2: 1, //上
+                colorStops: [{
                   offset: 0,
-                  color: '#00C7E1'
+                  color: 'rgba(255,86,0,0.8)'
+                }, {
+                  offset: 0.5,
+                  color: 'rgba(255,86,0,0.3)'
                 }, {
                   offset: 1,
-                  color: '#005193'
-                }]),
-                opacity: 1,
-                barBorderRadius: 12,
-              }
-            }
-          }, {
-            name: data.flowOut['years'][1],
-            type: 'bar',
-            data: data.flowOut[data.flowOut['years'][1]],
-            barWidth: '30%', //柱子宽度
-            barGap: '10%', //柱子之间间距
-            itemStyle: {
-              normal: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                  offset: 0,
-                  color: '#00da9c'
-                }, {
-                  offset: 1,
-                  color: '#007a55'
-                }]),
-                opacity: 1,
-                barBorderRadius: 12,
-              }
+                  color: 'rgba(255,86,0,0.8)'
+                }],
+                globalCoord: false
+              },
+              opacity: 1 // 区域透明度
             }
           }
-          ]
+        }
+        ];
+        var colorArr = ['rgba(255,86,0,1)']; //颜色
+        var option = {
+          color: colorArr,
+          tooltip : {
+            textStyle: config().textStyle,
+            formatter: function(params) {
+              //alert(JSON.stringify(params))
+              var result = ''
+              var stl = ''
+              var w = config().fontSize*20
+              if(params.value.length>4){
+                result = '<div style="width: '+w+'px">流出贡献占比<br/>'
+                stl = 'width: 47%;float: left;text-align: left;margin-left: 2%'
+              }else{
+                result = '<div>流出贡献占比<br/>'
+                stl = 'width:97%;text-align: left;margin-left: 2%'
+              }
+              for (var k = 0; k < params.value.length; k++) {
+                result = result + '<p style="'+stl+'">'+indicator[k].text+': '+params.value[k]+' %<p/>'
+              }
+              result = result + '</div>';
+              return result;
+            }
+          },
+          radar: {
+            // shape: 'circle',
+            radius: '70%',
+            name: {
+              textStyle: config().textStyle
+            },
+            indicator: indicator,
+            splitArea: { // 坐标轴在 grid 区域中的分隔区域，默认不显示。
+              show: true,
+              areaStyle: { // 分隔区域的样式设置。
+                color: ['rgba(255,255,255,0)', 'rgba(255,255,255,0)'], // 分隔区域颜色。分隔区域会按数组中颜色的顺序依次循环设置颜色。默认是一个深浅的间隔色。
+              }
+            },
+            axisLine: { //指向外圈文本的分隔线样式
+              lineStyle: {
+                color: '#153269'
+              }
+            },
+            splitLine: {
+              lineStyle: {
+                color: '#113865', // 分隔线颜色
+                width: 1, // 分隔线线宽
+              }
+            },
+          },
+          series: [{
+            type: 'radar',
+            symbolSize: config().fontSize/3,
+            // symbol: 'angle',
+            data: dataArr
+          }]
         };
         myChart.setOption(option);
       },
       chart_right2(data) {
         var myChart = echarts.init(document.getElementById("chart_right2"));
-
-        var fontColor = 'rgba(255,255,255,0.5)';
-        var data=[
-          {
-            name:'2016',
-            list:data.flowIn['2016']
-
+        var indicator = [];
+        var data1 = [];
+        for (var i = 0; i < data.length; i++) {
+          data1.push(data[i].ytyGrowth)
+        }
+        var max = Math.ceil(Math.max.apply(null, data1));
+        for (var j = 0; j < data.length; j++) {
+          var tmp = {};
+          tmp.text = data[j].areaName
+          tmp.max = max
+          indicator.push(tmp)
+        }
+        var dataArr = [{
+          value: data1,
+          name: '',
+          itemStyle: {
+            normal: {
+              lineStyle: {
+                color: 'rgba(21,210,13,1)',
+                // shadowColor: '#4A99FF',
+                // shadowBlur: 10,
+              },
+              shadowColor: 'rgba(21,210,13,1)',
+              shadowBlur: 10,
+            },
           },
-          {name:'2017',
-            list:data.flowIn['2017']},
+          areaStyle: {
+            normal: { // 单项区域填充样式
+              color: {
+                type: 'linear',
+                x: 0, //右
+                y: 0, //下
+                x2: 1, //左
+                y2: 1, //上
+                colorStops: [{
+                  offset: 0,
+                  color: 'rgba(21,210,13,0.8)'
+                }, {
+                  offset: 0.5,
+                  color: 'rgba(21,210,13,0.2)'
+                }, {
+                  offset: 1,
+                  color: 'rgba(21,210,13,0.8)'
+                }],
+                globalCoord: false
+              },
+              opacity: 1 // 区域透明度
+            }
+          }
+        }
         ];
-        let datelist = [];
-        let safeList = [];
-        let danger = [];
-        data[0].list.forEach(function(value,index){
-          datelist.push(data[0].list[index].enName);
-          safeList.push(data[0].list[index].value);
-          danger.push(data[1].list[index].value);
-        });
-        var option ={
-
-          grid: {
-            left: '2%',
-            right: '10%',
-            top: '20%',
-            bottom: '5%',
-            containLabel: true
-          },
+        var colorArr = ['rgba(21,210,13,1)', '#4BFFFC']; //颜色
+        var option = {
+          color: colorArr,
           tooltip : {
-            trigger: 'axis',
-            padding: [0, 0, 0, 0],
             textStyle: config().textStyle,
-            formatter:function(params) {
-              var result = params[0].axisValue+"</br>";
-              params.forEach(function (item) {
-                result += item.marker+item.seriesName + " : "+item.value +"%</br>";
-              });
-              return result;
-            },
-          },
-          legend: {
-            right:'10%',
-            top:'2%',
-            itemWidth:config().fontSize,
-            itemHeight:config().fontSize,
-            textStyle: config().textStyle,
-            nameTextStyle :{
-              color:'rgba(255,255,255,1)'
-            },
-            data:[data[0].name,data[1].name]
-          },
-          xAxis : [
-            {
-              type : 'category',
-              boundaryGap : false,
-              axisLabel:{
-                textStyle: config().textStyle,
-              },
-              axisLine:{
-                show:false,
-                lineStyle:{
-                  color:'#0B6472',
-                }
-              },
-              axisTick:{
-                show:false,
-              },
-              splitLine :{    //网格线
-                lineStyle:{
-                  type:'solid' ,   //设置网格线类型 dotted：虚线   solid:实线
-                  color:'#0B6472'
-                },
-                show:false //隐藏或显示
-              },
-              data :datelist
-            }
-          ],
-          yAxis : [
-            {
-              type : 'value',
-              name : '%',
-              nameTextStyle: {
-                color: '#fff',
-                fontSize: config().fontSize,
-                padding: [0, 0, -config().fontSize/2, -config().fontSize*2.5],
-              },
-              show:true,
-              axisLabel : {
-                formatter: '{value}',
-                textStyle: config().textStyle,
-              },
-              axisLine:{
-                show:false,
-                lineStyle:{
-                  color:'rgba(255,255,255,0.1)',
-                }
-              },
-              axisTick:{
-                show:false,
-              },
-              splitLine:{
-                show:false,
-                lineStyle:{
-                  color:'rgba(255,255,255,0.05)',
-                }
+            formatter: function(params) {
+              //alert(JSON.stringify(params))
+              var result = ''
+              var stl = ''
+              var w = config().fontSize*20
+              if(params.value.length>4){
+                result = '<div style="width: '+w+'px">流入贡献占比<br/>'
+                stl = 'width: 47%;float: left;text-align: left;margin-left: 2%'
+              }else{
+                result = '<div>流入贡献占比<br/>'
+                stl = 'width:97%;text-align: left;margin-left: 2%'
               }
+              for (var k = 0; k < params.value.length; k++) {
+                result = result + '<p style="'+stl+'">'+indicator[k].text+': '+params.value[k]+' %<p/>'
+              }
+              result = result + '</div>';
+              return result;
             }
-          ],
-          series : [
-            {
-              name:data[0].name,
-              type:'line',
-              smooth: true , //true 为平滑曲线，false为直线
-              // smooth:true,  //这个是把线变成曲线
-              itemStyle: {
-                normal: {
-                  color:'#0092f6',
-                  lineStyle: {
-                    color: "#0092f6",
-                    width:config().lineStyle.width
-                  },
-                  areaStyle: {
-                    color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [{
-                      offset: 0,
-                      color: 'rgba(0,255,255,0)'
-                    }, {
-                      offset: 1,
-                      color: 'rgba(0,255,255,1)'
-                    }]),
-                  }
-                }
-              },
-              data:safeList
+          },
+          radar: {
+            // shape: 'circle',
+            radius: '70%',
+            name: {
+              textStyle: config().textStyle
             },
-            {
-              name:data[1].name,
-              type:'line',
-              smooth: true , //true 为平滑曲线，false为直线
-              itemStyle: {
-                normal: {
-                  color:'rgba(251,14,68,0.7)',
-                  lineStyle: {
-                    color: "rgba(251,14,68,0.8)",
-                    width:config().lineStyle.width
-                  },
-                  areaStyle: {
-                    //color: '#94C9EC'
-                    color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [{
-                      offset: 0,
-                      color: 'rgba(251,14,68,0)'
-                    }, {
-                      offset: 1,
-                      color: 'rgba(251,14,68,0.9)'
-                    }]),
-                  }
-                }
-              },
-              data:danger
-            }
-          ]
+            indicator: indicator,
+            splitArea: { // 坐标轴在 grid 区域中的分隔区域，默认不显示。
+              show: true,
+              areaStyle: { // 分隔区域的样式设置。
+                color: ['rgba(255,255,255,0)', 'rgba(255,255,255,0)'], // 分隔区域颜色。分隔区域会按数组中颜色的顺序依次循环设置颜色。默认是一个深浅的间隔色。
+              }
+            },
+            axisLine: { //指向外圈文本的分隔线样式
+              lineStyle: {
+                color: '#153269'
+              }
+            },
+            splitLine: {
+              lineStyle: {
+                color: '#113865', // 分隔线颜色
+                width: 1, // 分隔线线宽
+              }
+            },
+          },
+          series: [{
+            type: 'radar',
+            symbolSize: config().fontSize/3,
+            // symbol: 'angle',
+            data: dataArr
+          }]
         };
         myChart.setOption(option);
       },

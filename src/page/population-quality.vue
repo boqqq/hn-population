@@ -129,7 +129,7 @@
                 dataX.push(x.dateStat);
                 dataY1.push(x.businessNum);
                 dataY2.push(x.childDieNum);
-                _this.chart_line('chart_line_1',dataX,dataY1, dataY2,'5岁以下儿童中、重度营养不良患病率','5岁以下儿童死亡率','#4478fc','#00d4c7');
+                _this.chart_line('chart_line_1',dataX,dataY1, dataY2,'5岁以下儿童中、重度营养不良患病率','5岁以下儿童死亡率','#4478fc','#00d4c7','%');
               })
             }
           })
@@ -153,13 +153,13 @@
                 dataX.push(x.dateStat);
                 dataY1.push(x.capInvstRadio);
                 dataY2.push(x.ytyGrowth);
-                _this.chart_line('chart_line_2',dataX,dataY1, dataY2,'文教卫科支出占地方一般公共预算支出的比重','增长率','#4478fc','#f0396b');
+                _this.chart_line('chart_line_2',dataX,dataY1, dataY2,'文教卫科支出占地方一般公共预算支出的比重','增长率','#4478fc','#f0396b','%');
               })
             }
           })
 
         },
-        chart_line(id,dataX,dataY1, dataY2,name1,name2,color1,color2){
+        chart_line(id,dataX,dataY1, dataY2,name1,name2,color1,color2,unit){
           var chart_line=echarts.init(document.getElementById(id));
           var option ={
             grid: {
@@ -174,11 +174,17 @@
               textStyle: config().textStyle,
               axisPointer : {            // 坐标轴指示器，坐标轴触发有效
                 type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+              },
+             formatter: function(params) {
+                var result = params[0].name
+                result += '<br/>'+params[0].seriesName + '：' + params[0].data+
+                  " %</br>" + params[1].seriesName + '：' + params[1].data+' %';
+                return result
               }
             },
             legend: {
               show:true,
-              right:'5%',
+              right:'10%',
               top:'3%',
               icon: 'stack',
               itemWidth: config().fontSize,
@@ -213,6 +219,12 @@
             ],
             yAxis : [
               {
+                name:'%',
+                nameTextStyle: {
+                  color: '#fff',
+                  fontSize: config().fontSize,
+                  padding: [0, 0, 0, -config().fontSize],
+                },
                 type : 'value',
                 axisLabel : {
                   formatter: '{value}',
@@ -239,7 +251,7 @@
                 name:name1,
                 smooth:true,
                 type:'line',
-                stack: '总量',
+                //stack: '总量',
                 symbol:'circle',
                 symbolSize: 8,
                 itemStyle: {
@@ -274,7 +286,7 @@
                 name:name2,
                 smooth:true,
                 type:'line',
-                stack: '总量',
+                //stack: '总量',
                 symbol:'circle',
                 symbolSize: 8,
 
@@ -384,11 +396,18 @@
               textStyle: config().textStyle,
               axisPointer : {            // 坐标轴指示器，坐标轴触发有效
                 type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+              },
+              formatter: function(params) {
+                //alert(JSON.stringify(params))
+                var result = params[0].name
+                result += '<br/>'+params[0].seriesName + '：' + params[0].data+unit1+
+                  "</br>" + params[1].seriesName + '：' + params[1].data+unit2;
+                return result
               }
             },
             legend: {
               textStyle: config().textStyle,
-              right:'5%',
+              right:'10%',
               top:'2%',
               icon: 'circle',
               itemWidth: config().fontSize,
@@ -416,7 +435,7 @@
                 nameTextStyle: {
                   color: '#fff',
                   fontSize: config().fontSize,
-                  padding: [0, 0, -config().fontSize/2, -config().fontSize*2.5],
+                  padding: [0, 0, 0, -config().fontSize*2.5],
                 },
               axisTick:{
                 show:false
@@ -442,7 +461,7 @@
                 nameTextStyle: {
                   color: '#fff',
                   fontSize: config().fontSize,
-                  padding: [0, 0, -config().fontSize/2, config().fontSize*2],
+                  padding: [0, 0, 0, config().fontSize*2],
                 },
                 axisTick:{
                   show:false
@@ -529,13 +548,13 @@
                 dataX.push(x.dateStat);
                 dataY1.push(x.bedNum);
                 dataY2.push(x.ytyGrowth);
-                _this.chart_pictorialBar('chart_bar_4',dataX,dataY1,dataY2,'每万人口拥有床位数','增长率','#20e19f','#20e19f','#03baff');
+                _this.chart_pictorialBar('chart_bar_4',dataX,dataY1,dataY2,'每万人口拥有床位数','增长率','#20e19f','#20e19f','#03baff','个','%');
               })
             }
           })
 
         },
-        chart_pictorialBar(id,dataX,dataY1,dataY2,name1,name2,color1,color2,color3){
+        chart_pictorialBar(id,dataX,dataY1,dataY2,name1,name2,color1,color2,color3,unit1,unit2){
           var chart_bar=echarts.init(document.getElementById(id));
           var option = {
             tooltip : {
@@ -543,12 +562,18 @@
               textStyle: config().textStyle,
               axisPointer : {            // 坐标轴指示器，坐标轴触发有效
                 type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+              },
+              formatter: function(params) {
+                var result = params[0].name
+                result += '<br/>'+params[0].seriesName + '：' + params[0].data+unit1+
+                  "</br>" + params[1].seriesName + '：' + params[1].data+unit2;
+                return result
               }
             },
             legend: {
               textStyle: config().textStyle,
-              right:'5%',
-              top:'3%',
+              right:'10%',
+              top:'2%',
               icon: 'circle',
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
@@ -570,6 +595,12 @@
               data: dataX
             },
             yAxis: [{
+              name:unit1,
+              nameTextStyle: {
+                color: '#fff',
+                fontSize: config().fontSize,
+                padding: [0, 0, 0, -config().fontSize*2.5],
+              },
               axisTick:{
                 show:false
               },
@@ -590,6 +621,12 @@
               },
             },
               {
+                name:unit2,
+                nameTextStyle: {
+                  color: '#fff',
+                  fontSize: config().fontSize,
+                  padding: [0, 0, 0, config().fontSize*2.5],
+                },
                 axisTick:{
                   show:false
                 },
@@ -609,7 +646,7 @@
                 position: "right",
                 axisLabel: {
                   show: true,
-                  formatter: "{value} %", //右侧Y轴文字显示
+                  formatter: "{value}", //右侧Y轴文字显示
                   textStyle: config().textStyle,
                 }
               },
@@ -673,7 +710,7 @@
               data.list.forEach(x=>{
                 dataX.push(x.dateStat);
                 dataY.push(x.pubCultNum);
-                _this.chart_lgLine('chart_lgLine_1',dataX,dataY,'人均拥有公共图书馆藏量','#1986ff','#dd0042');
+                _this.chart_lgLine('chart_lgLine_1',dataX,dataY,'人均拥有公共图书馆藏量','#1986ff','#dd0042','本');
               })
             }
           })
@@ -694,17 +731,17 @@
               data.list.forEach(x=>{
                 dataX.push(x.dateStat);
                 dataY.push(x.ytyGrowth);
-                _this.chart_lgLine('chart_lgLine_2',dataX,dataY,'每万人专利数量','#0e55b7', '#0fd9c7');
+                _this.chart_lgLine('chart_lgLine_2',dataX,dataY,'每万人专利数量','#0e55b7', '#0fd9c7','个');
               })
             }
           })
         },
-        chart_lgLine(id,dataX,dataY,name1,color1,color2){
+        chart_lgLine(id,dataX,dataY,name1,color1,color2,unit){
           var chart_lgLine=echarts.init(document.getElementById(id));
           var option = {
             legend:{
               show:true,
-              right:'5%',
+              right:'10%',
               top:'3%',
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
@@ -715,7 +752,8 @@
               textStyle: config().textStyle,
               axisPointer : {            // 坐标轴指示器，坐标轴触发有效
                 type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-              }
+              },
+              formatter:'{b}<br/>{a}: {c} '+unit
             },
             grid:{
               top:'20%',
@@ -739,8 +777,13 @@
               data:dataX
             }],
             yAxis: [{
+              name:unit,
+              nameTextStyle: {
+                color: '#fff',
+                fontSize: config().fontSize,
+                padding: [0, 0, 0, -config().fontSize*2.5],
+              },
               type: 'value',
-              name: '',
               axisTick: {
                 show: false
               },
@@ -847,12 +890,13 @@
             legend: {
               show: true,
               icon: "circle",
-              right:'5%',
+              orient: 'vertical',
+              right:'10%',
               top:'3%',
               itemWidth: config().fontSize,
               itemHeight: config().fontSize,
               itemGap: 21,
-              orient: "horizontal",
+              //orient: "horizontal",
               data: [name1, name2],
               textStyle: config().textStyle,
             },

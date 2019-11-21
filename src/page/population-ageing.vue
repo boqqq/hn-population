@@ -47,10 +47,10 @@
                   </el-col>
                   <el-col :span="7">
                     <div class = "top_chart" style="margin-top: 4vh">
-                      <div class="tltleBox" style="z-index: 9999;margin-top: 1vh;"><span>排名</span><span>地区</span><span>老年人口数</span></div>
+                      <div class="tltleBox" style="z-index: 9999;margin-top: 1vh;"><span>排名</span><span>地区</span><span>老年人口占比</span></div>
                       <div  style="height: 51vh;overflow: hidden; position:relative">
                         <div>
-                          <div class="textBox act_tb" v-for="(item,index) in tableData1" :class="{'center_active':index%2 != 1}"  :key="index" ><span>{{item.rankNo}}</span><span>{{item.areaName}}</span><span>{{item.unitCnt}}</span></div>
+                          <div class="textBox act_tb" v-for="(item,index) in tableData1" :class="{'center_active':index%2 != 1}"  :key="index" ><span>{{item.pm}}</span><span>{{item.area_name}}</span><span>{{item.unit_cnt}} %</span></div>
                         </div>
                       </div>
                     </div>
@@ -118,7 +118,7 @@
             {region:'保亭黎族自治县',coor:[109.706931,18.647458],code:469029000000},
             {region:'琼中黎族自治县',coor:[109.846811,19.038617],code:469030000000}
           ],
-          tableData1:[{areaName:"海口",unit:"",unitCnt:215667,rankNo:1}],
+          tableData1:[{"area_name":"海口","unit":"%","area_code":"460100000000","unit_cnt":"20.6","pm":"1"}],
           t_ind:0,
         }
       },
@@ -171,13 +171,21 @@
               textStyle: config().textStyle,
               axisPointer : {            // 坐标轴指示器，坐标轴触发有效
                 type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+              },
+              formatter: function(params) {
+                var result = params[0].name
+                result += '<br/>'+params[0].seriesName + '：' + params[0].data+
+                  " 万人</br>" + params[1].seriesName + '：' + params[1].data+' 万人<br/>'+
+                  params[2].seriesName + '：' + params[2].data+' %<br/>'+
+                  params[3].seriesName + '：' + params[3].data+' %';
+                return result
               }
             },
             legend: { //图例的设置
               show: true, //是否显示图例
               //icon: 'circle',//图例形状，示例为原型
-              top: '3%',//图例离底部的距离
-              right:"5%",
+              top: '2%',//图例离底部的距离
+              right:"10%",
               itemWidth: config().fontSize, // 图例标记的图形宽度。
               itemHeight: config().fontSize, // 图例标记的图形高度。
               itemGap: config().fontSize, // 图例每项之间的间隔。
@@ -188,7 +196,7 @@
               left: '3%',
               right: '4%',
               bottom: '5%',
-              top:'18%',
+              top:'20%',
               containLabel: true
             },
             xAxis : [
@@ -203,6 +211,12 @@
             ],
             yAxis : [
               {
+                name:'万人',
+                nameTextStyle: {
+                  color: '#fff',
+                  fontSize: config().fontSize,
+                  padding: [0, 0, 0, -config().fontSize*2.5],
+                },
                 type : 'value',
                 minInterval:100,//设置左侧Y轴最小刻度
                 splitLine: {
@@ -213,6 +227,12 @@
                 },
               },
               {
+                name:'%',
+                nameTextStyle: {
+                  color: '#fff',
+                  fontSize: config().fontSize,
+                  padding: [0, 0, 0, config().fontSize*2],
+                },
                 type: "value",
                 splitLine: {
                   show: false
@@ -224,7 +244,7 @@
                   show: false
                 },
                 axisLabel: {
-                  formatter: "{value} %",
+                  formatter: "{value}",
                   textStyle: config().textStyle
                 },
               }
@@ -321,13 +341,19 @@
               textStyle: config().textStyle,
               axisPointer : {            // 坐标轴指示器，坐标轴触发有效
                 type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+              },
+              formatter: function(params) {
+                var result = params[0].name
+                result += '<br/>'+params[0].seriesName + '：' + params[0].data+
+                  " %</br>" + params[1].seriesName + '：' + params[1].data+' %';
+                return result
               }
             },
             legend: { //图例的设置
               show: true, //是否显示图例
               //icon: 'circle',//图例形状，示例为原型
-              top: '3%',//图例离底部的距离
-              right:"5%",
+              top: '2%',//图例离底部的距离
+              right:"10%",
               itemWidth: config().fontSize, // 图例标记的图形宽度。
               itemHeight: config().fontSize, // 图例标记的图形高度。
               itemGap: config().fontSize, // 图例每项之间的间隔。
@@ -353,13 +379,19 @@
             ],
             yAxis : [
               {
+                name:'%',
+                nameTextStyle: {
+                  color: '#fff',
+                  fontSize: config().fontSize,
+                  padding: [0, 0, 0, -config().fontSize*2.5],
+                },
                 type : 'value',
                 //minInterval:100,//设置左侧Y轴最小刻度
                 splitLine: {
                   show: false
                 },//设置横线样式
                 axisLabel: {
-                  formatter: "{value} %",
+                  formatter: "{value}",
                   textStyle: config().textStyle
                 },
               }
@@ -661,6 +693,7 @@
             params: this.$http.adornParams({
             })
           }).then(({data}) => {
+            //alert(JSON.stringify(data))
             this.top_chart(data.page)
             this.tableData1 = data.page
           })
@@ -673,13 +706,13 @@
           for (var i = 0; i < data.length; i++) {
             var tmp = {}
             var d = []
-            tmp.name = data[i].areaName
+            tmp.name = data[i].area_name
             for (var j = 0; j < this.tableData.length; j++) {
-              if(data[i].areaCode == this.tableData[j].code){
+              if(data[i].area_code == this.tableData[j].code){
                 d.push(this.tableData[j].coor[0],this.tableData[j].coor[1]);
               }
             }
-            d.push(data[i].areaName,data[i].unitCnt,data[i].rankNo)
+            d.push(data[i].area_name,data[i].unit_cnt,data[i].pm)
             tmp.value = d
             pd.push(tmp)
           }
@@ -689,7 +722,7 @@
               trigger: 'item',
               textStyle: config().textStyle,
               formatter: function (params) {
-               var st = params.value[2]+'</br>老年人口数：'+params.value[3]+' 人</br>排名：'+params.value[4]
+               var st = params.value[2]+'</br>老年人口占比：'+params.value[3]+' 人</br>排名：'+params.value[4]
               return st
               }
             },
@@ -828,7 +861,7 @@
             dat1,
             dat2
           ]
-          var Line = ["常住人口","户籍人口"];
+          var Line = ["常住人口年龄中位数","户籍人口年龄中位数"];
           var img = [
             'image://data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABRCAYAAABFTSEIAAAACXBIWXMAAAsSAAALEgHS3X78AAAEp0lEQVR42u3cz4sjRRTA8W9Vd3Vn8mMmjj9WQWSRZQ+CsH+B7MnDIgiCd0E8CYJ/gOAIelo8ehUP/gF6WLw5/gMueFP2sIcF0dHd2Z1kknR11fOQZJJJMtlZd03H7HtQpNOTnpn+8Lrm1etmjIig8e/DKoECKqACKqCGAiqgAiqghgIqoAIqoIYCKqACKqCGAiqgAiqghgIqoAJudKTr+osZMNPvBUQBHwHsPF9fB9R0DeHMOQ6T6WOrhEzXBM4swDOL0M6CrArRVoq3t2dGUIb9fTvatg8ZZup1PDBgzPmy98mey6qfzjLz2WaWjEUZKEvGyi9nWyneMOvGIyFQo2Sbg4MUSChpU9IeTTUpJdsEajPZOJeJG5uBZj7rLLduWS5dGm6XNLEELOFUFj54ACJCaychkpDSASK3bwsXL0YgVpWJKwM0iy9Zy8HdGru7jvt3Pbu7w0wES7drTwAbjTHMGCsQcIAnYTC1/wRx0wEnl27JNgZI8HQ6Kc1mQq83RNzaMjPzXqDbjTQaJRFLxIyyMSxAXEkWrhrQzAAmo5HOjCQf7jflILxOkohL+aUPgV4vEGNJo+E5PAy02+UIMEwBxo0CPDP7Dg5SnEtpt1PA0e87XO25FOoh8IYIH2Y5b45RzGAQBiIltZoHxqMcjbksXAVgdc2EQMYzzzdotyeZWKuleULXJtwT4SODfC2QCWR+IF9KnjuX1Xbo99Op7LVE8iXlz0YBTk5SyLEEjo5OLuccEoFUvHfO+reuUPx4zftXAIcx1hdcF+/TvFab4A0Bs0VwqyhpVnkJT89/Q4DDQ0e77YCMwIUsFMeFZD856699URRvX4nxE4A/jbnxXp7v4Zw3ReGNSDHI8wFQjIafuoyn58L/fB6sth/Ybg9fez2TRC6QZcZYvgHsazF+MP7YCyLXcM7gvSXLDGBqYDg+NhwdmSpPoTrAkub0W+f4FSB1fDucIunMHSLpO8WAH0rSy8u+19MBCHB4OHzd2pI+CEUhpigEiN+l6WcdY252jLn5s7Wf472ImPcN8pUl/tEHoV4XWq1Ke4KrLmPsTA3oODpytFoOyJKSyzHyMSIxteWngMW5cSEdDJQUhTdZVgxOz3/+jFJm4+bA2e5JpNU6WZ4Fw99JwnWMKccwpeddP+B7GZTNUPKqybJy0O+Hs1YfMz9swwvpB8fbGDG0GuGkkK7V0hxSmZQpABI8l2z0v3sJf50qpAMJCd2qCulql3LD1lRGQjm7lEsDz0rkxTQOfiPPxUBcuJTbbhss/Y1eyi3NwsmKInmkZsKk5gtPUzNhvp11507CSy/X6XYStpvFudpZw1ZWIOF4Cq6SdtbKbioJyAhRTu3u9yMJXerN+ugvaQQsjcZ8Q3VnZwxlSDhe1lB9GjrSw5b+1avT8+Jw+979nNaOI6U3KpTrWAosxVQmygK4ld8X0ZtK/7eViExD7O1NQPb3T7fsl4/4sBpwYzPwjFbTo95Yl9l9Vd1YN1X/147HebSjary1AHyc5qc+XLQEQx9ve8Kg6xr6hKoCKqACKqCGAiqgAiqghgIqoAIqoIYCKqACKqCGAiqgAiqghgIq4JrHP8fEWV8FMTmOAAAAAElFTkSuQmCC',
             'image://data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAE8AAABPCAYAAACqNJiGAAAACXBIWXMAAAsSAAALEgHS3X78AAAGS0lEQVR42u2cz4skSRXHPy8iMrOrq7qnp3dqloEeD0PvHrbxB/TJkwt6EGVBwRHUf0BPXj146JPgosJe/PEX6NoHYUUE8bCC11ZQtw+DLMq2DtPlbM9MVXVVZkbE85DVXdU97e6yi1U9TXwhyaIq4lXmh29ERrxXlKgqSR9OJiFI8BK8BC/BS0rwErwEL8FLSvASvAQvwUvwkhK8BC/BS/CSErwEL8FL8JISvI8udxkvShA5/55y+QrMchmK3hfBej9dBpgLhXcBNIGd9+ix03C7JBAXBm8GnEzBvDV53bvAid3JhW7pDGBdJMC5wzvnNoG7U2B7fWF7G/aPhJdmWu0DL11X9vZge0WnIHd11onzhrgoeDJ1Wk/gRYEjgYHA88LBUNiY6XQAbLQVHih0FK4r3JtAPHWizhueWYzrZsDtdw28Y6BtKJfbVHWbDSzvxg5la413Y4cNLFXdZtxepV4q4B3T9OtJE2fnQz94ngnnzYCTqeO6DbT7Dw1uyZBlHTreM3QBqacgNFPa3jJwjhg85fExt56LMIzQizMOnOscOO9F8tPgyv4ymVi6WExdMbJgbYZ1GSU51mVYmzGyYOqK9ViTiaXsL0PbNHFOHIhcuWF7drhCM8cNhLK/zBCLW7fQcqegqphjNMfRnKuYnwKl5XDrliETgIPJnDmNP6/hO+cdxonrEOgYCipGtcOWjqF3mJal9A6Lxahg7QZB1nB6RKX/pMg8w5FgnUCoKTIPHQNHOnHfU+vAKzJsd+SM6x48NpAb1jKDwVLmjljfJONFRL5CaX8A5tcQ7yHmAS2TIVVGmTsMlrWs6f/gsTnnPrmC8IA3e8L+UbMcydfbPBoaBlhELctqCTJAwwHoZ4BPA6/hydH4I8rwDSqzRaE3ELUMsDwaGvL1NjzfxH2zd7XmvDPzz8vQLH6HgpYekxnEGcZYZAJRnCPG7+L44nf4wgG5dcBfQL4M+hDlVtPeGUxm0NLDsFlUv/zR9suXP6vy94HQdkKx6pHjDBCWW4IPn0D5JF7/+Cn5WPx++OrPWpK/8Pnw8cFr/O7rv4p/fh1nKjL5D84JYSSIF1iuuf9EGHph86rm83bfusAJKyCFgBeCCvBNNB5/y3z2lRb5C80FSudLsv0KRIEolLFpL4XAygf8nmcd3t0tPTeeLQDHwBiAv2H0c2RmNJbqyWzTUuo+mVGi/B5YYzzpd6K8aP/P77lCi2TY7ExvTkeKlorWCkbBRdD4bfP6G//i0S8GjP/Uo/+bn8gf3gCNID8FbqL1pN+oiRVCdSbunLSYTHJYUkLfYzqOlo1UMYJuEilBfgjht1+LP34VcYJ6JWjEmYDYnxO1RiXSMpEQlNhXqqJexG383513dp/ZbTIivq3cuBaJdUR9JEog+vsQIvBLkC2c1kStMeZ7GPsqUe6g9S3iOBAlNP3qyI1rEd+eZFq6c01PzSUxME1D3RX23jZs3zQ8bK+y0oZR7bGFYzzKsLnDeIcYg9QGMoFaUXsLWCaaf+N9j6VWTSg9rczRH8JzwyfsHUa278STHN884M1zzmsyH9sryn5HWW2N6fvINQnEQSBkniLW5FKhsUU0N1G/SZCKyD/I5K/kHBIyTxwErkmg7yOrrTH7nSYuWzrP7dk8ncdZ990RDrAUWLq5AbX01WKwjKxh2U+XHMdOaYVIJLAiASTQqyIlgQ0Ce2/rrOvmNWzNfCx3eiMT992JcF0ZDxoANQ6fC6HwBF9TmIog06MwFcHXhMLjc6GkoCQwHjRxtu/EWddd1XxekzbaBbinbN6OjAeRLDsm9KEeelZXalZCjffTYyXUrK7U1ENP6IMxY8aDyObtCPe0ibdz9Z62F7rv7q6y21U4ijy+3WSEi+Mh3banHkI5dmheUC15qiXPuCyoh0K37SmOh2Tjsul3FNntNvEWUElbZPXs6SLQadVscMEWq6OnVbQLij/zBreQYXt2/ttRmHHhYW9SkxgF9g4jHMbmPArQm3w+cRu7JzWLhdVuL0PRm7NOPMk4n9fJnnXnqWzxwn41oKoLPVDkwmMHg2Im5wvbLPra5TL9u8UHSWBepl9LSfprkGdqnZfgJSV4CV6Cl+AleEkJXoKX4CV4SQlegpfgJXgJXlKCl+AleAleUoKX4CV4V0//BfBm5Ekg9qBkAAAAAElFTkSuQmCC',
@@ -864,25 +897,37 @@
               trigger: "axis",
               textStyle: config().textStyle,
               formatter: function(params) {
-                var str = params[0].name+'<br/>常住人口年龄中位数：'+params[0].value+'<br/>户籍人口年龄中位数：'+
-                  params[1].value+'';
+                var str = params[0].name+'<br/>常住人口年龄中位数：'+params[0].value+' 岁<br/>户籍人口年龄中位数：'+
+                  params[1].value+' 岁';
                 return str;
               }
             },
+            legend: { // 图例
+              top: '2%', // 图例距离顶部距离
+              right: '10%', // 图例距离左侧距离(此处水平居中)
+              itemWidth: config().fontSize,
+              itemHeight: config().fontSize,
+              itemGap: config().fontSize,
+              textStyle: config().textStyle,
+              data: ['常住人口年龄中位数','户籍人口年龄中位数'] // 图例的数据数组,一般对应系列名称,即 series.name
+            },
             grid: {
               left: '5%',
-              top: '10%',
+              top: '20%',
               bottom: '5%',
               right: '5%',
               containLabel: true
             },
             yAxis: [
               {
+                name:'岁',
+                nameTextStyle: {
+                  color: '#fff',
+                  fontSize: config().fontSize,
+                  padding: [0, 0, 0, -config().fontSize*2.5],
+                },
                 type: 'value',
                 position: 'left',
-                nameTextStyle: {
-                  color: '#00FFFF'
-                },
                 splitLine: {
                   lineStyle: {
                     type: 'dashed',
@@ -965,8 +1010,8 @@
             legend: { //图例的设置
               show: true, //是否显示图例
               //icon: 'circle',//图例形状，示例为原型
-              top: '3%',//图例离底部的距离
-              right:"5%",
+              top: '2%',//图例离底部的距离
+              right:"10%",
               itemWidth: config().fontSize, // 图例标记的图形宽度。
               itemHeight: config().fontSize, // 图例标记的图形高度。
               itemGap: config().fontSize, // 图例每项之间的间隔。
@@ -992,6 +1037,12 @@
             ],
             yAxis : [
               {
+                name:'%',
+                nameTextStyle: {
+                  color: '#fff',
+                  fontSize: config().fontSize,
+                  padding: [0, 0, 0, -config().fontSize*2.5],
+                },
                 type : 'value',
                 //minInterval:100,//设置左侧Y轴最小刻度
                 splitLine: {
@@ -1001,11 +1052,17 @@
                   }
                 },//设置横线样式
                 axisLabel: {
-                  formatter: "{value} %",
+                  formatter: "{value}",
                   textStyle: config().textStyle
                 },
               },
               {
+                name:'%',
+                nameTextStyle: {
+                  color: '#fff',
+                  fontSize: config().fontSize,
+                  padding: [0, 0, 0, config().fontSize*2],
+                },
                 type: "value",
                 splitLine: {
                   show: false
@@ -1017,7 +1074,7 @@
                   show: false
                 },
                 axisLabel: {
-                  formatter: "{value} %",
+                  formatter: "{value}",
                   textStyle: config().textStyle
                 },
               }

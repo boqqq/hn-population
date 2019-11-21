@@ -14,7 +14,7 @@
                     <p class="pop_type_val">{{leftIndex.popu_total1}}<span class="pop_type_unit">万人</span></p>
                   </el-col>
                   <el-col :span="14">
-                    <span class="pop_type_last">同比上周</span>
+                    <span class="pop_type_last">环比</span>
                     <span class="pop_type_prop" :class = "leftIndex.popu_rate1 >= 0 ?'up':'dn'">
                       <i class="arr_icon" :class = "leftIndex.popu_rate1 >= 0 ?'icon-upArr':'icon-dnArr'"></i>
                       {{leftIndex.popu_rate1}}%
@@ -35,7 +35,7 @@
                     <p class="pop_type_val">{{leftIndex.popu_total2}}<span class="pop_type_unit">万人</span></p>
                   </el-col>
                   <el-col :span="14">
-                    <span class="pop_type_last">同比上周</span>
+                    <span class="pop_type_last">环比</span>
                     <span class="pop_type_prop" :class = "leftIndex.popu_rate2 >= 0 ?'up':'dn'">
                       <i class="arr_icon" :class = "leftIndex.popu_rate2 >= 0 ?'icon-upArr':'icon-dnArr'"></i>
                       {{leftIndex.popu_rate2}}%
@@ -56,7 +56,7 @@
                     <p class="pop_type_val">{{leftIndex.popu_total3}}<span class="pop_type_unit">万人</span></p>
                   </el-col>
                   <el-col :span="14">
-                    <span class="pop_type_last">同比上周</span>
+                    <span class="pop_type_last">环比</span>
                     <span class="pop_type_prop" :class = "leftIndex.popu_rate3 >= 0 ?'up':'dn'">
                       <i class="arr_icon" :class = "leftIndex.popu_rate3 >= 0 ?'icon-upArr':'icon-dnArr'"></i>
                       {{leftIndex.popu_rate3}}%
@@ -77,7 +77,7 @@
                     <p class="pop_type_val">{{leftIndex.proportion}}<span class="pop_type_unit">%</span></p>
                   </el-col>
                   <el-col :span="14">
-                    <span class="pop_type_last">同比上周</span>
+                    <span class="pop_type_last">同比</span>
                     <span class="pop_type_prop" :class = "leftIndex.yty_growth4 >= 0 ?'up':'dn'">
                       <i class="arr_icon" :class = "leftIndex.yty_growth4 >= 0 ?'icon-upArr':'icon-dnArr'"></i>
                       {{leftIndex.yty_growth4}}%
@@ -98,7 +98,7 @@
                     <p class="pop_type_val">{{leftIndex.yty_growth}}<span class="pop_type_unit">%</span></p>
                   </el-col>
                   <el-col :span="14">
-                    <span class="pop_type_last">同比上周</span>
+                    <span class="pop_type_last">同比</span>
                     <span class="pop_type_prop" :class = "leftIndex.pct_rate >= 0 ?'up':'dn'">
                       <i class="arr_icon" :class = "leftIndex.pct_rate >= 0 ?'icon-upArr':'icon-dnArr'"></i>
                       {{leftIndex.pct_rate}}%
@@ -116,7 +116,7 @@
                 <h3 class="pop_type_title">常住人口年龄中位数</h3>
                 <el-row>
                   <el-col :span="10">
-                    <p class="pop_type_val">{{leftIndex.middle_cnt}}<span class="pop_type_unit">%</span></p>
+                    <p class="pop_type_val">{{leftIndex.middle_cnt}}<span class="pop_type_unit">岁</span></p>
                   </el-col>
                 </el-row>
                 <div class="pop_type_frIcon icon-dec-line"></div>
@@ -269,7 +269,7 @@
             formatter: function(params) {
               var result = params[2].name
               result += '<br/>'+params[2].seriesName + '：' + params[2].data+
-                "万人</br>" + params[3].seriesName + '：' + params[3].data+' %';
+                " 万人</br>" + params[3].seriesName + '：' + params[3].data+' %';
               return result
             }
               },
@@ -277,7 +277,7 @@
             show: true, //是否显示图例
             //icon: 'circle',//图例形状，示例为原型
             top: '2%',//图例离底部的距离
-            right:"5%",
+            right:"10%",
             itemWidth: config().fontSize, // 图例标记的图形宽度。
             itemHeight: config().fontSize, // 图例标记的图形高度。
             itemGap: config().fontSize, // 图例每项之间的间隔。
@@ -305,6 +305,12 @@
             }
           },
           yAxis: [{
+            name:'万人',
+            nameTextStyle: {
+              color: '#fff',
+              fontSize: config().fontSize,
+              padding: [0, 0, 0, -config().fontSize*2.5],
+            },
             splitLine: {
               lineStyle: {
                 type: 'solid',
@@ -322,6 +328,12 @@
               textStyle:config().textStyle
             }
           },{
+            name:'%',
+            nameTextStyle: {
+              color: '#fff',
+              fontSize: config().fontSize,
+              padding: [0, 0, 0, config().fontSize*2],
+            },
             splitLine: {
               show: false
             },
@@ -332,7 +344,7 @@
               show: false
             },
             axisLabel: {
-              formatter: "{value} %",
+              formatter: "{value}",
               textStyle:config().textStyle
             }
           }],
@@ -431,7 +443,7 @@
             show: true, //是否显示图例
             //icon: 'circle',//图例形状，示例为原型
             top: '2%',//图例离底部的距离
-            right:"5%",
+            right:"10%",
             itemWidth: config().fontSize, // 图例标记的图形宽度。
             itemHeight: config().fontSize, // 图例标记的图形高度。
             itemGap: config().fontSize, // 图例每项之间的间隔。
@@ -459,6 +471,12 @@
             }
           },
           yAxis: [{
+            name:'万人',
+            nameTextStyle: {
+              color: '#fff',
+              fontSize: config().fontSize,
+              padding: [0, 0, 0, -config().fontSize*2.5],
+            },
             splitLine: {
               lineStyle: {
                 type: 'solid',
@@ -476,6 +494,12 @@
               textStyle:config().textStyle
             }
           },{
+            name:'%',
+            nameTextStyle: {
+              color: '#fff',
+              fontSize: config().fontSize,
+              padding: [0, 0, 0, config().fontSize*2],
+            },
             splitLine: {
               show: false
             },
@@ -486,7 +510,7 @@
               show: false
             },
             axisLabel: {
-              formatter: "{value} %",
+              formatter: "{value}",
               textStyle:config().textStyle
             }
           }],
@@ -568,7 +592,7 @@
             show: true, //是否显示图例
             //icon: 'circle',//图例形状，示例为原型
             top: '2%',//图例离底部的距离
-            right:"5%",
+            right:"10%",
             itemWidth: config().fontSize, // 图例标记的图形宽度。
             itemHeight: config().fontSize, // 图例标记的图形高度。
             itemGap: config().fontSize, // 图例每项之间的间隔。
@@ -596,6 +620,12 @@
             }
           },
           yAxis: [{
+            name:'万人',
+            nameTextStyle: {
+              color: '#fff',
+              fontSize: config().fontSize,
+              padding: [0, 0, 0, -config().fontSize*2.5],
+            },
             splitLine: {
               lineStyle: {
                 type: 'solid',
@@ -613,6 +643,12 @@
               textStyle:config().textStyle
             }
           },{
+            name:'%',
+            nameTextStyle: {
+              color: '#fff',
+              fontSize: config().fontSize,
+              padding: [0, 0, 0, config().fontSize*2],
+            },
             splitLine: {
               show: false
             },
@@ -623,7 +659,7 @@
               show: false
             },
             axisLabel: {
-              formatter: "{value} %",
+              formatter: "{value}",
               textStyle:config().textStyle
             }
           }],
@@ -720,7 +756,7 @@
             show: true,
             textStyle: config().textStyle,
             formatter: function(params) {
-              var str = params.name+'<br/>常住人口：'+params.data.value+' 3人<br/>本月增量：'+
+              var str = params.name+'<br/>常住人口：'+params.data.value+' 万人<br/>本月增量：'+
                 params.data.increment+' 万人';
               return str;
             }

@@ -394,15 +394,15 @@
               color:new echarts.graphic.LinearGradient(
                 0, 0, 0, 1, [{
                   offset: 0,
-                  color: '#00feff'
+                  color: '#e0ff00'
                 },
                   {
                     offset: 0.5,
-                    color: '#027eff'
+                    color: '#ffba00'
                   },
                   {
                     offset: 1,
-                    color: '#00feff'
+                    color: '#e0ff00'
                   }
                 ]
               ),

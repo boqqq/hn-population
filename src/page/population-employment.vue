@@ -146,15 +146,21 @@
             itemHeight: config().fontSize, // 图例标记的图形高度。
             itemGap: config().fontSize, // 图例每项之间的间隔。
             textStyle: config().textStyle,
-            top: '3%',//图例离底部的距离
-            right:"8%"
+            top: '2%',//图例离底部的距离
+            right:"10%"
           },
           tooltip : {
             trigger: 'axis',
             textStyle: config().textStyle,
             axisPointer : {            // 坐标轴指示器，坐标轴触发有效
               type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-            }
+            },
+           formatter: function(params) {
+             var result = params[0].name
+             result += '<br/>'+params[0].seriesName + '：' + params[0].data+
+               " 万人</br>" + params[1].seriesName + '：' + params[1].data+' %';
+             return result
+           }
           },
           xAxis: [{
             type: 'category',
@@ -173,11 +179,11 @@
           yAxis: [
             {
               type: 'value',
-              name:'万',
+              name:'万人',
               nameTextStyle:{
                 color:config().textStyle.color,
                 fontSize:config().textStyle.fontSize,
-                padding:[0,40,0,0]
+                padding:[0,0,0, -config().fontSize*2.5]
               },
               splitLine: {
                 show:false
@@ -198,7 +204,7 @@
               nameTextStyle:{
                 color:config().textStyle.color,
                 fontSize:config().textStyle.fontSize,
-                padding:[0,-32,0,0]
+                padding:[0,0,0, config().fontSize*2.5]
               },
               splitLine: {
                 show: false
@@ -226,7 +232,7 @@
               data: dataY1,
               type: 'bar',
               name: '从业人员',
-              barWidth : '15%',
+              barWidth : '25%',
               itemStyle: {
                 emphasis: {
                   barBorderRadius: 15
@@ -302,14 +308,20 @@
             itemHeight: config().fontSize, // 图例标记的图形高度。
             itemGap: config().fontSize, // 图例每项之间的间隔。
             textStyle: config().textStyle,
-            top: '3%',//图例离底部的距离
-            right:"5%"
+            top: '2%',//图例离底部的距离
+            right:"10%"
           },
           tooltip : {
             trigger: 'axis',
             textStyle: config().textStyle,
             axisPointer : {            // 坐标轴指示器，坐标轴触发有效
               type : 'line'        // 默认为直线，可选为：'line' | 'shadow'
+            },
+            formatter: function(params) {
+              var result = params[0].name
+              result += '<br/>'+params[0].seriesName + '：' + params[0].data+
+                " %</br>" + params[1].seriesName + '：' + params[1].data+' %';
+              return result
             }
           },
           xAxis: {
@@ -329,10 +341,10 @@
           yAxis: {
             show:true,
             name:'%',
-            nameTextStyle:{
-              color:config().textStyle.color,
-              fontSize:config().textStyle.fontSize,
-              padding:[0,30,0,0]
+            nameTextStyle: {
+              color: '#fff',
+              fontSize: config().fontSize,
+              padding: [0, 0, 0, -config().fontSize*2.5],
             },
             splitLine: {
               show:true,
@@ -367,7 +379,7 @@
               name: '劳动力人口',
               showAllSymbol: true, //显示所有图形。
               symbol: "circle", //标记的图形为实心圆
-              symbolSize: 8, //标记的大小
+              symbolSize: config().fontSize/2, //标记的大小
               itemStyle: {
                 //折线拐点标志的样式
                 color: "#4478fc"
@@ -382,7 +394,7 @@
               name: '从业人口',
               showAllSymbol: true, //显示所有图形。
               symbol: "circle", //标记的图形为实心圆
-              symbolSize: 8, //标记的大小
+              symbolSize: config().fontSize/2, //标记的大小
               itemStyle: {
                 //折线拐点标志的样式
                 color: "#02faa9"
@@ -432,6 +444,13 @@
             textStyle:config().textStyle,
             axisPointer : {            // 坐标轴指示器，坐标轴触发有效
               type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            },
+            formatter: function(params) {
+              var result = params[0].name
+              result += '<br/>'+params[0].seriesName + '：' + params[0].data+
+                " 万人</br>" + params[1].seriesName + '：' + params[1].data+' 万人<br/>'+
+                params[2].seriesName + '：' + params[2].data+' 万人';
+              return result
             }
           },
           color:['#4478fc','#62b8fd','#7cedfe'],
@@ -441,8 +460,8 @@
             itemHeight: config().fontSize, // 图例标记的图形高度。
             itemGap: config().fontSize, // 图例每项之间的间隔。
             textStyle: config().textStyle,
-            top: '3%',//图例离底部的距离
-            right:"5%"
+            top: '2%',//图例离底部的距离
+            right:"10%"
           },
           grid: {
             left: '3%',
@@ -471,12 +490,11 @@
           yAxis : [
             {
               show:true,
-              type : 'value',
               name:'万人',
-              nameTextStyle:{
-                color:config().textStyle.color,
-                fontSize:config().textStyle.fontSize,
-                padding:[0,40,0,0]
+              nameTextStyle: {
+                color: '#fff',
+                fontSize: config().fontSize,
+                padding: [0, 0, 0, -config().fontSize*2.5],
               },
               axisLabel: {
                 // rotate:45,//斜体字可不用
@@ -497,21 +515,21 @@
             {
               name:'第一产业从业人员',
               type:'bar',
-              barWidth : '15%',
+              barWidth : '30%',
               stack: '产业结构',
               data:dataY1
             },
             {
               name:'第二产业从业人员',
               type:'bar',
-              barWidth : '15%',
+              barWidth : '30%',
               stack: '产业结构',
               data:dataY2
             },
             {
               name:'第三产业从业人员',
               type:'bar',
-              barWidth : '15%',
+              barWidth : '30%',
               stack: '产业结构',
               data:dataY3
             },
@@ -548,82 +566,12 @@
         var hours = dataX;
         var days = dataY;
         var data = dataS;
-        // var data =[
-        //   //[0, 0, 10],
-        //   //第一位表示纵轴-Y从1开始录入
-        //   //[1, 0, 5],
-        //   [1, 1, 11],
-        //   [1, 2, 9],
-        //   [1, 3, 36],
-        //   [1, 4,15],
-        //   [1, 5, 41],
-        //   [1, 6, 30],
-        //   [1, 7, 12],
-        //   [1, 8, 9],
-        //   [1, 9, 12],
-        //   [1, 10,9],
-        //   //[2, 0, 0.0],
-        //   [2, 1, 7],
-        //   [2, 2, 20],
-        //   [2, 3, 7],
-        //   [2, 4, 10],
-        //   [2, 5, 11],
-        //   [2, 6, 2],
-        //   [2, 7,23],
-        //   [2, 8,3],
-        //   [2, 9, 31],
-        //   [2, 10,15],
-        //   //[3, 0, 0.0],
-        //   [3, 1, 65],
-        //   [3, 2,29],
-        //   [3, 3, 78],
-        //   [3, 4, 18],
-        //   [3, 5, 16],
-        //   [3, 6, 8],
-        //   [3, 7, 17],
-        //   [3, 8, 40],
-        //   [3, 9, 9],
-        //   [3, 10,18],
-        //
-        //   [4, 1, 83],
-        //   [4, 2,55],
-        //   [4, 3, 84],
-        //   [4, 4,9],
-        //   [4, 5, 41],
-        //   [4, 6, 55],
-        //   [4, 7,8],
-        //   [4, 8, 6],
-        //   [4, 9, 5],
-        //   [4, 10,2],
-        //
-        //   [5, 1,4],
-        //   [5, 2,3],
-        //   [5, 3,14],
-        //   [5, 4, 98],
-        //   [5, 5, 21],
-        //   [5, 6,12],
-        //   [5, 7, 8],
-        //   [5, 8, 20],
-        //   [5, 9, 21],
-        //   [5, 10, 2],
-        //
-        //   [6, 1,20],
-        //   [6, 2,7],
-        //   [6, 3,15],
-        //   [6, 4, 13],
-        //   [6, 5, 2],
-        //   [6, 6,11],
-        //   [6, 7, 12],
-        //   [6, 8, 86],
-        //   [6, 9, 15],
-        //   [6, 10, 32],
-        // ];
         data = data.map(function (item) {
           return [item[1], item[0], item[2]];
         });
 
         var option = {
-          draggable:true,
+          //draggable:true,
           tooltip: {
             position: 'top',
             textStyle: config().textStyle,
@@ -643,6 +591,8 @@
             data: hours,
             boundaryGap: false,
             axisLabel: {
+              margin:config().fontSize*2,
+              z:100,
               textStyle:config().textStyle
             },
             axisLine: {
@@ -677,8 +627,8 @@
               show: true,
               type: 'slider',
               yAxisIndex: 0,
-              start: 0,
-              end: 30,
+              start: 70,
+              end: 100,
               right: '1%',
               width: config().fontSize*1.5,
               backgroundColor: '#041257',
@@ -752,12 +702,17 @@
           }, false)
         }).then(({data}) => {
           if (data.code == 0) {
+            //alert(JSON.stringify(data.list))
             data.list.forEach(x=>{
               dataX.push(x.dateStat);
               dataY1.push(x.stateNumGrowth);
               dataY2.push(x.privateNumGrowth);
               dataY3.push(x.statOwenNumGrowth);
-              dataY4.push(x.cityCollNum);
+              if(x.cityCollNum == null){
+                dataY4.push('-');
+              }else{
+                dataY4.push(x.cityCollNum);
+              }
               dataY5.push(x.cityCollNumGrowth);
               dataY6.push(x.otherNumGrowth);
               _this.registration_type (dataX, dataY1,dataY2,dataY3,dataY4,dataY5,dataY6);
@@ -774,6 +729,16 @@
             textStyle: config().textStyle,
             axisPointer : {            // 坐标轴指示器，坐标轴触发有效
               type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            },
+            formatter: function(params) {
+              var result = params[0].name
+              result += '<br/>'+params[0].seriesName + '：' + params[0].data+
+                " %</br>" + params[1].seriesName + '：' + params[1].data+' %<br/>'
+                + params[2].seriesName + '：' + params[2].data+' %<br/>'
+                + params[3].seriesName + '：' + params[3].data+' %<br/>'
+                + params[4].seriesName + '：' + params[4].data+' %<br/>'
+                + params[5].seriesName + '：' + params[5].data+' %';
+              return result
             }
           },
           legend: {
@@ -782,8 +747,8 @@
             itemHeight: config().fontSize, // 图例标记的图形高度。
             itemGap: config().fontSize, // 图例每项之间的间隔。
             textStyle: config().textStyle,
-            top: '3%',//图例离底部的距离
-            right:"5%"
+            top: '2%',//图例离底部的距离
+            right:"10%"
           },
           grid: {
             left: '4%',
@@ -930,6 +895,14 @@
             textStyle: config().textStyle,
             axisPointer : {            // 坐标轴指示器，坐标轴触发有效
               type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            },
+            formatter: function(params) {
+              var result = params[0].name
+              result += '<br/>'+params[0].seriesName + '：' + params[0].data+
+                " %</br>" + params[1].seriesName + '：' + params[1].data+' %<br/>'
+                + params[2].seriesName + '：' + params[2].data+' %<br/>'
+                + params[3].seriesName + '：' + params[3].data+' %';
+              return result
             }
           },
           grid: {
@@ -965,32 +938,14 @@
               show:false
             }
           },
-          // dataZoom: [// 这个dataZoom组件，若未设置xAxisIndex或yAxisIndex，则默认控制x轴。
-          //   {
-          //     show: true,
-          //     type: 'slider',
-          //     xAxisIndex: 0,
-          //     start: 0,
-          //     end: 60,
-          //     bottom: '5%',
-          //     height: config().fontSize*1.5,
-          //     backgroundColor: '#041257',
-          //     borderColor: 'transparent',
-          //     fillerColor: '#059DFA',
-          //     handleStyle: {
-          //       fontSize:config().fontSize,
-          //       color: 'transparent'
-          //     },
-          //     textStyle: config().textStyle
-          //   }
-          // ],
+
           yAxis: {
             type: 'value',
             name:'%',
-            nameTextStyle:{
-              color:config().textStyle.color,
-              fontSize:config().textStyle.fontSize,
-              padding:[0,30,0,0]
+            nameTextStyle: {
+              color: '#fff',
+              fontSize: config().fontSize,
+              padding: [0, 0, 0, -config().fontSize*2.5],
             },
             axisLine: {
               show: false,

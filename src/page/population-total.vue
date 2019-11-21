@@ -139,11 +139,17 @@
                           textStyle: config().textStyle,
                           axisPointer: {            // 坐标轴指示器，坐标轴触发有效
                             type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                          },
+                          formatter: function(params) {
+                            var result = params[0].name
+                            result += '<br/>'+params[0].seriesName + '：' + params[0].data+
+                              " 万人</br>" + params[1].seriesName + '：' + params[1].data+' 万人';
+                            return result
                           }
                         },
                         legend: {
                             top: '3%',
-                            right: '4%',
+                            right: '10%',
                           textStyle: config().textStyle,
                           itemWidth: config().fontSize,
                           itemHeight: config().fontSize,
@@ -169,6 +175,12 @@
                         ],
                         yAxis: [
                             {
+                              name:'万人',
+                              nameTextStyle: {
+                                color: '#fff',
+                                fontSize: config().fontSize,
+                                padding: [0, 0, 0, -config().fontSize*2.5],
+                              },
                                 type: 'value',
                                 splitLine: false,
                                 axisLabel: {
@@ -220,12 +232,21 @@
                 let option = {
 
                     tooltip: {
-                        trigger: 'axis',
+                      trigger: 'axis',
                       textStyle: config().textStyle,
+                      axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                      },
+                      formatter: function(params) {
+                        var result = params[0].name
+                        result += '<br/>'+params[0].seriesName + '：' + params[0].data+
+                          " %</br>" + params[1].seriesName + '：' + params[1].data+' %';
+                        return result
+                      }
                     },
                     legend: {
                         top: '3%',
-                        right: '4%',
+                        right: '10%',
                       itemWidth: config().fontSize,
                       itemHeight: config().fontSize,
                       textStyle: config().textStyle,
@@ -241,7 +262,7 @@
                         type: 'category',
                         boundaryGap: false,
                         splitLine:{
-                            show:true,
+                            show:false,
                             lineStyle:{
                                 width:10,
                                 type:'solid',
@@ -256,6 +277,12 @@
                         data: xData//['2010年','2011年','2012年','2013年','2014年','2015年','2016年','2017年','2018年','2019年']
                     },
                     yAxis: {
+                          name:'%',
+                            nameTextStyle: {
+                            color: '#fff',
+                            fontSize: config().fontSize,
+                            padding: [0, 0, 0, -config().fontSize*2.5],
+                        },
                         type: 'value',
                         axisLabel: {
                           margin:config().fontSize,
@@ -270,14 +297,14 @@
                             name:'常住人口增长率',
                             type:'line',
                             symbol:'circle',
-                            stack: '常住人口增长率',
+                            //stack: '常住人口增长率',
                             color:'#03baff',
                             data:czGrowth//[10, 20, 30, 20, 30,30,20,30,20,30]
                         },
                         {
                             name:'常住外来人口增长率',
                             type:'line',
-                            stack: '常住外来人口增长率',
+                            //stack: '常住外来人口增长率',
 
                             color:'#01fea8',
                             data:wlGrowth//[-20, -30, -20, -10, 50,40,50,60,50,90]
@@ -310,12 +337,22 @@
                 let option = {
 
                     tooltip: {
-                        trigger: 'axis',
+                      trigger: 'axis',
                       textStyle: config().textStyle,
+                      axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                      },
+                      formatter: function(params) {
+                        var result = params[0].name
+                        result += '<br/>'+params[0].seriesName + '：' + params[0].data+
+                          " %</br>" + params[1].seriesName + '：' + params[1].data+' %<br/>'+
+                          params[2].seriesName + '：' + params[2].data+' %';
+                        return result
+                      }
                     },
                     legend: {
                         top: '3%',
-                        right: '4%',
+                        right: '10%',
                       textStyle: config().textStyle,
                       itemWidth: config().fontSize,
                       itemHeight: config().fontSize,
@@ -345,6 +382,12 @@
                         data:xData //['2010年','2011年','2012年','2013年','2014年','2015年','2016年','2017年','2018年','2019年']
                     },
                     yAxis: {
+                      name:'%',
+                      nameTextStyle: {
+                        color: '#fff',
+                        fontSize: config().fontSize,
+                        padding: [0, 0, 0, -config().fontSize*2.5],
+                      },
                         type: 'value',
                         show:true,
                         axisLabel: {
@@ -364,14 +407,14 @@
                             name:'0-14岁增长率',
                             type:'line',
                             symbol:'circle',
-                            stack: '0-14岁增长',
+                            //stack: '0-14岁增长',
                             color:'#4478fc',
                             data:ytyGrowth01//[0.09, 0.06, 0.03, 0.04, 0.03,0.025,0.02,0.015,0.01,0.012]
                         },
                         {
                             name:'15-64岁增长率',
                             type:'line',
-                            stack: '15-64岁增长率',
+                            //stack: '15-64岁增长率',
 
                             color:'#01fea8',
                             data:ytyGrowth02//[0.04, 0.03, 0.031, 0.025, 0.020,0.018,0.011,0.01,-0.01,-0.001]
@@ -379,7 +422,7 @@
                         {
                             name:'65岁增长率',
                             type:'line',
-                            stack: '65岁增长率',
+                            //stack: '65岁增长率',
 
                             color:'#f0396b',
                             data:ytyGrowth03//[0.07, 0.05, 0.02, 0.09, 0.07,0.06,0.05,0.04,0.02,0.03]
@@ -408,8 +451,12 @@
                     let chart4 = echarts.init(jq('#chart4')[0], 'macarons');
                     let option = {
                         tooltip: {
-                            trigger: 'axis',
-                            textStyle: config().textStyle,
+                          trigger: 'axis',
+                          textStyle: config().textStyle,
+                          axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                          },
+                          formatter: '{b}<br/>户籍人口增量: {c} 万人'
                         },
                         xAxis: {
                             type: 'category',
@@ -427,8 +474,12 @@
 
                         },
                         yAxis: {
-                            name: '万人',
-                          nameTextStyle: config().textStyle,
+                          name:'万人',
+                          nameTextStyle: {
+                            color: '#fff',
+                            fontSize: config().fontSize,
+                            padding: [0, 0, 0, -config().fontSize*2.5],
+                          },
                             type: 'value',
                             show: true,
                             axisLabel: {
@@ -447,21 +498,21 @@
                         grid: {
                             left: '3%',
                             right: '4%',
-                          bottom: '3%',
-                           top:'18%',
+                            bottom: '3%',
+                             top:'18%',
                             containLabel: true
                         },
                         series: [{
                             data: popuTotal,//[10, 9, 8, 7, 6, 5, 4, 3, 2, 1, -9, -8, -7, -6, -5, -4, -3, -2, -1],
                             type: 'bar',
-                            barWidth: '15%',
+                            barWidth: '50%',
                             itemStyle: {
                                 normal: {
                                     color: function (params) {
                                         if (params.data < 0) {
-                                            return '#7cedfe'
+                                            return '#ff2800'
                                         } else {
-                                            return '#4478fc'
+                                            return '#15d20d'
                                         }
                                     }
                                 },
@@ -492,8 +543,12 @@
                     let chart5 = echarts.init(jq('#chart5')[0], 'macarons');
                     let option = {
                         tooltip: {
-                            trigger: 'axis',
+                          trigger: 'axis',
                           textStyle: config().textStyle,
+                          axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                          },
+                          formatter: '{b}<br/>外来人口增量: {c} 万人'
                         },
                         xAxis: {
                             type: 'category',
@@ -511,8 +566,12 @@
 
                         },
                         yAxis: {
-                            name: '万人',
-                          nameTextStyle: config().textStyle,
+                          name:'万人',
+                          nameTextStyle: {
+                            color: '#fff',
+                            fontSize: config().fontSize,
+                            padding: [0, 0, 0, -config().fontSize*2.5],
+                          },
                             type: 'value',
                             show: true,
                             axisLabel: {
@@ -538,14 +597,14 @@
                         series: [{
                             data:popuTotal, //[10, 9, 8, 7, 6, 5, 4, 3, 2, 1, -9, -8, -7, -6, -5, -4, -3, -2, -1],
                             type: 'bar',
-                            barWidth: '15%',
+                            barWidth: '50%',
                             itemStyle: {
                                 normal: {
                                     color: function (params) {
                                         if (params.data < 0) {
-                                            return '#7cedfe'
+                                            return '#f3e50a'
                                         } else {
-                                            return '#4478fc'
+                                            return '#00ddff'
                                         }
                                     }
                                 },
@@ -578,11 +637,13 @@
                     '昌江黎族自治县': [109.063039, 19.30236],
                     '乐东黎族自治县': [109.179933, 18.756966],
                     '陵水黎族自治县': [110.042739, 18.512332],
-                    '保亭黎族苗族自治县': [109.706931, 18.647458],
-                    '琼中黎族苗族自治县': [109.846811, 19.038617]
+                    '保亭黎族自治县': [109.706931, 18.647458],
+                    '琼中黎族自治县': [109.846811, 19.038617]
                 }
                 let data=[]
+              var tip = '外来人口增量'
                 if(this.radio=='1'){
+                  tip = '户籍人口增量'
                     data = [
                         {name: '海口市', value: 1 },
                         {name: '三亚市', value: 2 },
@@ -659,7 +720,7 @@
                         },
                         tooltip: {
                             trigger: 'item',
-                            formatter: '{b}: 增量{c}人',
+                            formatter: '{b}<br/> '+tip+': {c} 万人',
                           textStyle: config().textStyle,
                         },
                     },
@@ -678,83 +739,45 @@
                             itemWidth: 20,
                             itemHeight: 150,
                         },
-                        geo: {
+                      geo: {
+                        show: true,
+                        map: 'hainan',
+                        layoutSize: "300%",
+                        zoom:9,
+                        //top:'-3%',
+                        center: [109.68983,19.13139],
+                        label: {
+                          normal: {
                             show: true,
-                            map: 'hainan',
-                            layoutSize: "400%",
-                            zoom: 9,
-                            center: [109.76112, 19.2472],
-                            label: {
-                                normal: {
-                                    show: true,
-                                    textStyle: config().textStyle,
-                                },
-                                emphasis: {
-                                    show: true,
-                                    textStyle: config().textStyle,
-                                }
-                            },
-                            itemStyle: {
-                                normal: {
-                                    areaColor: 'transparent',
-                                    borderColor: '#3fdaff',
-                                    borderWidth: 2,
-                                    shadowColor: 'rgba(63, 218, 255, 0.5)',
-                                    shadowBlur: 30
-                                },
-                                emphasis: {
-                                    areaColor: '#2B91B7',
-                                }
-                            }
+                            textStyle: config().textStyle
+                          },
+                          emphasis: {
+                            show: true,
+                            textStyle: config().textStyle,
+                          }
                         },
+                        roam: true,
+                        itemStyle: {
+                          normal: {
+                            areaColor: 'transparent',
+                            borderColor: '#02308d',
+                            borderWidth: 1,
+                            shadowColor: 'rgba(63, 218, 255, 0.5)',
+                            shadowBlur: 30
+                          },
+                          emphasis: {
+                            areaColor: '#e2d445',
+                          }
+                        }
+                      },
                         "series": [
-                            {
-                                name: 'light',
-                                type: 'scatter',
-                                coordinateSystem: 'geo',
-                                data: handleData(data),
-                                symbolSize: 1,
-                                label: {
-                                    normal: {
-                                        formatter: '{b}',
-                                      textStyle: config().textStyle,
-                                        show: true
-                                    },
-                                    emphasis: {
-                                        show: true
-                                    }
-                                },
-                                itemStyle: {
-                                    normal: {
-                                        color: '#ccc',
-                                        areaColor: 'transparent',
-                                        borderColor: 'transparent',
-                                        label: {
-                                            show: true,
-                                            textStyle: {
-                                                color: "rgb(249, 249, 249)",
-                                                fontSize: 16
-                                            }
-                                        }
-                                    },
-                                }
-                            },
-                            {
-                                center: [109.76112, 19.2472],
-                                data: data,
-                                zoom:9,
-                                label: {
-                                    "emphasis": {
-                                        "show": false
-                                    },
-                                    "normal": {
-                                        "show": false
-                                    }
-                                },
-                                mapType: "hainan",
-                                roam: false,
-                                type: "map"
-                            }
+                          {
+                            name: "mapSer",
+                            type: "map",
+                            roam: false,
+                            geoIndex: 0,
+                            data: data
+                          }
                         ]
                     }]
                 }
